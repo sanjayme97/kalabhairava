@@ -25,7 +25,7 @@ npm run build    # outputs to dist/
 
 ## Deploy (GitHub Pages)
 
-`.github/workflows/deploy.yml` builds and publishes the site on every push to `main`.
+`.github/workflows/deploy.yml` builds and publishes the site on every push to `main` (and, for now, to the `claude/kalabhairava-temple-website-tfr0za` branch, which is the repository's only branch). It can also be run by hand from the **Actions** tab.
 One-time setup: in the repository, go to **Settings → Pages → Build and deployment** and set **Source** to **GitHub Actions**.
 The site will be at `https://sanjayme97.github.io/kalabhairava/`.
 
