@@ -3,11 +3,12 @@ import Base from '../layouts/Base.astro';
 import Print from '../components/Print.astro';
 import Kolam from '../components/Kolam.astro';
 import { href, asset, type Lang } from '../i18n';
-import { temple, timings, festivals } from '../data/site';
+import { temple, timings, festivals, photoCategories } from '../data/site';
 
 const { lang } = Astro.props as { lang: Lang };
 const jatre = festivals[0];
 const knownTimings = timings.filter((t) => t.time);
+const photoCategoriesLabel = lang === 'kn' ? 'ದೀಪೋತ್ಸವದ ಚಿತ್ರಗಳು' : 'Deepotsava photographs';
 
 const c = {
   kn: {
@@ -29,11 +30,25 @@ const c = {
     ch2: 'ಜಾತ್ರೆ',
     inviteTop: 'ಭಕ್ತಾದಿಗಳಿಗೆ ಆದರದ ಆಹ್ವಾನ',
     h2: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಜಾತ್ರಾ ಮಹೋತ್ಸವ',
-    p2: 'ಹಗಲು ರಥೋತ್ಸವ. ರಾತ್ರಿ ತಲೆಯ ಮೇಲೆ ಉರಿಯುವ ಆರತಿ ಹೊತ್ತು ದೇವಸ್ಥಾನದವರೆಗೆ ಮೆರವಣಿಗೆ. ಊರಿನವರು, ನೆಂಟರಿಷ್ಟರು ಎಲ್ಲರೂ ಸೇರುವ ವರ್ಷದ ದೊಡ್ಡ ಹಬ್ಬ.',
+    p2: 'ಬಣ್ಣದ ಬಟ್ಟೆ, ಹೂವು, ತೆಂಗಿನಕಾಯಿಗಳಿಂದ ಶೃಂಗರಿಸಿದ ರಥವನ್ನು ಭಕ್ತರು ಎಳೆಯುತ್ತಾರೆ. ಊರಿನವರು, ನೆಂಟರಿಷ್ಟರು ಎಲ್ಲರೂ ಸೇರುವ ವರ್ಷದ ದೊಡ್ಡ ಹಬ್ಬ.',
+    chD: 'ಕಾರ್ತೀಕ ದೀಪೋತ್ಸವ',
+    hD: 'ದೀಪಗಳ ಮೆರವಣಿಗೆ',
+    pD: [
+      'ಕಾರ್ತೀಕ ಮಾಸದ ರಾತ್ರಿ ದೇವಸ್ಥಾನ ಸಾವಿರಾರು ದೀಪಗಳಿಂದ ಬೆಳಗುತ್ತದೆ.',
+      'ಭಕ್ತರು ಉರಿಯುವ ಆರತಿಯನ್ನು ತಲೆಯ ಮೇಲೆ ಹೊತ್ತು ದೇವಸ್ಥಾನಕ್ಕೆ ಬರುತ್ತಾರೆ. ಊರಿನ ಬೀದಿಯುದ್ದಕ್ಕೂ ದೀಪಗಳ ಸಾಲು.',
+    ],
+    heroTag: 'ಕಾರ್ತೀಕ ದೀಪೋತ್ಸವದ ರಾತ್ರಿ',
     dateLabel: 'ಈ ವರ್ಷ',
     more2: 'ಪೂಜೆ ಮತ್ತು ಉತ್ಸವಗಳು',
     ch3: 'ಶಾಸನ',
     h3: 'ಕಲ್ಲು ಹೇಳುವ ಕಥೆ',
+    facts: [
+      ['ದಿನಾಂಕ', 'ಶಕ ೧೦೨೨ · ಕ್ರಿ.ಶ. ೧೧೦೧'],
+      ['ಕಾಲ', 'ಹೊಯ್ಸಳ ವಿಷ್ಣುವರ್ಧನ'],
+      ['ಊರು ಕಟ್ಟಿದವರು', 'ಚಾಮ-ಗಾವುಂಡ, ಸಂಕ-ಗಾವುಂಡ, ಚಟ್ಟ-ಗಾವುಂಡ'],
+      ['ದೇವಾಲಯಗಳು', 'ಮೂಲಸ್ಥಾನ, ಚಾವೇಶ್ವರ, ಚಿಕ್ಕೇಶ್ವರ'],
+      ['ಬರೆದವರು', 'ಸೇನಬೋವ ಕಾಳಿಮಯ್ಯ · ಕೆತ್ತಿದವರು ಮಾರೋಜ'],
+    ],
     p3: [
       'ದೇವಸ್ಥಾನದ ಆವರಣದಲ್ಲಿ ನಿಂತಿರುವ ಈ ಕಲ್ಲಿನ ಮೇಲೆ ಕ್ರಿ.ಶ. ೧೧೦೧ರ ಬರಹವಿದೆ. ಆಗ ಹೊಯ್ಸಳರ ಕಾಲ.',
       'ಇದು ಈ ದೇವಾಲಯದ ಕುರಿತದ್ದಲ್ಲ. ಆದರೆ “ಮನಗತ್ತೂರು” ಊರನ್ನು ಕಟ್ಟಿದ ಗಾವುಂಡರ ಹೆಸರುಗಳು ಇದರಲ್ಲಿವೆ.',
@@ -63,11 +78,25 @@ const c = {
     ch2: 'Jatra',
     inviteTop: 'All devotees are warmly invited',
     h2: 'Sri Kalabhairaveshwara Jatra Mahotsava',
-    p2: 'The chariot by day. By night, a procession to the temple with blazing aarati carried on the head. The biggest festival of the year, when the whole village and relatives from far away come together.',
+    p2: 'Devotees pull the chariot, dressed in coloured cloth, flowers and coconuts. The biggest festival of the year, when the whole village and relatives from far away come together.',
+    chD: 'Karthika Deepotsava',
+    hD: 'The procession of lamps',
+    pD: [
+      'On Karthika nights the temple is lit with thousands of lamps.',
+      'Devotees carry blazing aarati on their heads to the temple, and a line of lamps fills the village street.',
+    ],
+    heroTag: 'A Karthika Deepotsava night',
     dateLabel: 'This year',
     more2: 'Poojas & festivals',
     ch3: 'Inscription',
     h3: 'What the stone says',
+    facts: [
+      ['Date', 'Śaka 1022 · 1101 CE'],
+      ['Period', 'Hoysala, King Vishnuvardhana'],
+      ['Village founded by', 'Chama-gavunda, Sanka-gavunda, Chatta-gavunda'],
+      ['Temples named', 'Moolasthana, Chaveshvara, Chikkeshvara'],
+      ['Written by', 'Senabova Kalimayya · carved by Maroja'],
+    ],
     p3: [
       'The stone standing in the temple courtyard carries writing from 1101 CE, in the time of the Hoysalas.',
       'It is not about this temple. But it names the gavundas who founded the village, then called “Managatur”.',
@@ -84,8 +113,8 @@ const c = {
 <Base lang={lang} page="" description={c.description} overlay>
   <section class="hero night" data-hero>
     <picture class="hero-bg">
-      <source media="(max-width: 700px)" srcset={asset('images/jatre-night-gopura-sm.jpg')} />
-      <img src={asset('images/jatre-night-procession.jpg')} alt="" width="1600" height="1200" fetchpriority="high" />
+      <source media="(max-width: 700px)" srcset={asset('images/deepotsava-gopura-sm.jpg')} />
+      <img src={asset('images/deepotsava-procession.jpg')} alt="" width="1600" height="1200" fetchpriority="high" />
     </picture>
     <div class="hero-veil" aria-hidden="true"></div>
     <canvas class="hero-canvas" data-lamps aria-hidden="true"></canvas>
@@ -99,6 +128,7 @@ const c = {
       </h1>
       <p class="place">{c.place}</p>
     </div>
+    <p class="hero-tag">{c.heroTag}</p>
     <p class="hero-hint" data-hint data-one={c.litOne} data-many={c.litMany} hidden aria-live="polite">{c.hint}</p>
     <span class="scroll-cue" aria-hidden="true">{c.scroll}</span>
   </section>
@@ -135,22 +165,38 @@ const c = {
           <a class="go" href={href(lang, 'poojas')}>{c.more2}</a>
         </div>
         <div class="jatre-prints">
-          <Print lang={lang} id="rathaCrowd" tilt={-3} class="jp-1" ratio="4 / 3" caption={false} sizes="(min-width: 900px) 22rem, 60vw" />
-          <Print lang={lang} id="nightGopura" tilt={2} class="jp-2" ratio="3 / 4" caption={false} sizes="(min-width: 900px) 16rem, 45vw" />
-          <Print lang={lang} id="rathaBanana" tilt={4} class="jp-3" ratio="3 / 4" focus="50% 30%" caption={false} sizes="(min-width: 900px) 13rem, 38vw" />
-          <Print lang={lang} id="nightAarati" tilt={-2} class="jp-4" ratio="1 / 1" focus="50% 70%" caption={false} sizes="(min-width: 900px) 15rem, 45vw" />
+          <Print lang={lang} id="rathaCrowd" tilt={-3} class="jp-1" ratio="4 / 3" caption={false} sizes="(min-width: 900px) 24rem, 70vw" />
+          <Print lang={lang} id="rathaBanana" tilt={3} class="jp-2" ratio="3 / 4" focus="50% 30%" caption={false} sizes="(min-width: 900px) 16rem, 45vw" />
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section night stone-band">
+  <section class="section night deepa">
+    <div class="wrap deepa-grid">
+      <div class="prose">
+        <p class="chapter"><b>೩</b><span>{c.chD}</span></p>
+        <h2>{c.hD}</h2>
+        {c.pD.map((p) => <p>{p}</p>)}
+        <a class="go" href={href(lang, 'gallery') + '#deepotsava'}>{photoCategoriesLabel}</a>
+      </div>
+      <div class="deepa-prints">
+        <Print lang={lang} id="nightGopura" tilt={-2} class="dp-1" ratio="3 / 4" caption={false} sizes="(min-width: 900px) 18rem, 55vw" />
+        <Print lang={lang} id="nightAarati" tilt={2.5} class="dp-2" ratio="1 / 1" focus="50% 70%" caption={false} sizes="(min-width: 900px) 16rem, 50vw" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section stone-band">
     <div class="wrap stone-grid">
       <Print lang={lang} id="stoneRelief" tilt={-1.5} caption={false} sizes="(min-width: 900px) 34rem, 92vw" />
       <div class="prose">
-        <p class="chapter"><b>೩</b><span>{c.ch3}</span></p>
+        <p class="chapter"><b>೪</b><span>{c.ch3}</span></p>
         <h2>{c.h3}</h2>
         {c.p3.map((p) => <p>{p}</p>)}
+        <dl class="list-rule stone-facts">
+          {c.facts.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+        </dl>
         <a class="go" href={href(lang, 'inscription')}>{c.more3}</a>
       </div>
     </div>
@@ -395,24 +441,14 @@ const c = {
     grid-auto-rows: 3.5rem;
   }
   .jatre-prints :global(.jp-1) {
-    grid-column: 1 / 5;
+    grid-column: 1 / 6;
     grid-row: 1 / 5;
     z-index: 1;
   }
   .jatre-prints :global(.jp-2) {
     grid-column: 4 / 7;
-    grid-row: 2 / 7;
+    grid-row: 3 / 9;
     z-index: 2;
-  }
-  .jatre-prints :global(.jp-3) {
-    grid-column: 1 / 3;
-    grid-row: 5 / 9;
-    z-index: 3;
-  }
-  .jatre-prints :global(.jp-4) {
-    grid-column: 3 / 6;
-    grid-row: 6 / 10;
-    z-index: 4;
   }
   @media (min-width: 900px) {
     .jatre-grid {
@@ -424,11 +460,79 @@ const c = {
     }
   }
 
+  /* ── deepotsava ── */
+  .deepa {
+    background:
+      radial-gradient(50rem 30rem at 80% 50%, rgb(255 154 60 / 0.16), transparent 70%),
+      var(--night);
+  }
+  .deepa h2 {
+    color: #fbefd9;
+  }
+  .deepa-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+  .deepa-prints {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 3.5rem;
+  }
+  .deepa-prints :global(.dp-1) {
+    grid-column: 1 / 5;
+    grid-row: 1 / 8;
+  }
+  .deepa-prints :global(.dp-2) {
+    grid-column: 4 / 7;
+    grid-row: 4 / 9;
+    z-index: 2;
+  }
+  @media (min-width: 900px) {
+    .deepa-grid {
+      grid-template-columns: 1fr 1.1fr;
+      gap: 4.5rem;
+    }
+    .deepa-prints {
+      grid-auto-rows: 4.2rem;
+    }
+  }
+
   /* ── stone ── */
   .stone-band {
-    background:
-      radial-gradient(50rem 30rem at 20% 50%, rgb(255 154 60 / 0.14), transparent 70%),
-      var(--night);
+    background: var(--paper-2);
+  }
+  .stone-facts {
+    margin: 1.5rem 0 1.75rem;
+  }
+  .stone-facts div {
+    display: grid;
+    grid-template-columns: 9.5rem 1fr;
+    gap: 1rem;
+    padding: 0.6rem 0;
+  }
+  .stone-facts dt {
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+    font-weight: 400;
+  }
+  .stone-facts dd {
+    margin: 0;
+    font-weight: 600;
+  }
+  .hero-tag {
+    position: absolute;
+    left: 1.25rem;
+    bottom: 1.25rem;
+    margin: 0;
+    font-size: 0.8125rem;
+    color: #cdb89a !important;
+    letter-spacing: 0.04em;
+  }
+  @media (max-width: 640px) {
+    .hero-tag {
+      bottom: 3.9rem;
+    }
   }
   .stone-grid {
     display: grid;

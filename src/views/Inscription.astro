@@ -305,6 +305,24 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
       <p class="sub">{c.sub}</p>
     </div>
 
+    <div class="wrap intro">
+      <dl class="facts">
+        {
+          c.facts.map(([k, v]) => (
+            <div>
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p class="notice" role="note">{c.notice}</p>
+      <p class="intro-summary">{c.overview[1]}</p>
+      <nav class="intro-jump" aria-label={c.toc}>
+        {c.tocItems.filter(([id]) => id !== 'stone').map(([id, label]) => <a href={`#${id}`}>{label}</a>)}
+      </nav>
+    </div>
+
     <div class="stage">
       <img class="stage-fallback" src={asset('images/shasana-stone-sm.jpg')} width="720" height="1600" alt={c.stoneIntro} />
       <canvas class="stage-canvas" data-stone data-color={asset('3d/stone-color.jpg')} data-normal={asset('3d/stone-normal.jpg')} aria-label={c.viewerHint}></canvas>
@@ -345,20 +363,6 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
     </div>
   </section>
 
-  <div class="wrap">
-    <p class="notice" role="note">{c.notice}</p>
-
-    <dl class="facts">
-      {
-        c.facts.map(([k, v]) => (
-          <div>
-            <dt>{k}</dt>
-            <dd>{v}</dd>
-          </div>
-        ))
-      }
-    </dl>
-  </div>
 
   <article class="wrap chapters">
     <section id="overview" class="chap">
@@ -705,16 +709,21 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
   }
   .stage {
     position: relative;
-    height: min(78svh, 46rem);
-    min-height: 26rem;
-    margin-top: 1rem;
+    height: min(62svh, 46rem);
+    min-height: 24rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 900px) {
+    .stage {
+      height: min(78svh, 46rem);
+    }
   }
   .stage-canvas {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    touch-action: none;
+    touch-action: pan-y;
     cursor: crosshair;
     opacity: 0;
     transition: opacity 1.2s ease;
@@ -854,21 +863,38 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
     opacity: 0.7;
   }
 
-  /* ── notice + facts ── */
+  /* ── intro: the facts first ── */
+  .intro {
+    max-width: 62rem;
+    margin-top: 2rem;
+  }
   .notice {
-    margin: 3rem 0 2rem;
-    padding: 0.2rem 0 0.2rem 1.25rem;
-    border-left: 4px solid var(--kumkum);
+    margin: 1.75rem 0 1rem;
+    padding: 0.2rem 0 0.2rem 1.1rem;
+    border-left: 4px solid var(--flame);
     font-family: var(--serif);
-    font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+    font-size: clamp(1.05rem, 2.2vw, 1.25rem);
     line-height: 1.6;
-    max-width: 50rem;
+    color: #f4e6cc !important;
+  }
+  .intro-summary {
+    max-width: 46rem;
+  }
+  .intro-jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    font-size: 0.9375rem;
+  }
+  .intro-jump a {
+    text-decoration: none;
+    border-bottom: 1px dashed currentColor;
   }
   .facts {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     margin: 0;
-    border-top: 2px solid var(--ink);
+    border-top: 2px solid rgb(255 154 60 / 0.6);
   }
   @media (min-width: 800px) {
     .facts {
@@ -876,17 +902,19 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
     }
   }
   .facts div {
-    padding: 0.9rem 1rem 0.9rem 0;
-    border-bottom: 1px solid var(--rule);
+    padding: 0.8rem 1rem 0.8rem 0;
+    border-bottom: 1px solid rgb(255 255 255 / 0.12);
   }
   .facts dt {
     font-size: 0.8125rem;
-    color: var(--ink-soft);
+    color: var(--night-soft);
+    font-weight: 400;
   }
   .facts dd {
     margin: 0;
     font-weight: 600;
     line-height: 1.5;
+    color: #fbefd9;
   }
 
   /* ── chapters ── */
@@ -961,6 +989,7 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
   }
   .people h3 {
     margin-bottom: 0.2em;
+    font-family: var(--serif);
   }
   .people p {
     margin: 0;

@@ -333,6 +333,8 @@ export function startStone(
       mode = m;
       controls.enabled = m === 'turn';
       canvas.style.cursor = m === 'turn' ? 'grab' : 'crosshair';
+      // in lamp mode a vertical swipe still scrolls the page on phones
+      canvas.style.touchAction = m === 'turn' ? 'none' : 'pan-y';
     },
     destroy() {
       cancelAnimationFrame(raf);

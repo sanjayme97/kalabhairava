@@ -1,6 +1,6 @@
 /**
- * The aarati procession — thousands of small flames walking up the village street
- * towards the temple, drawn over the real night photograph.
+ * The Karthika Deepotsava procession: thousands of small flames walking up the
+ * village street towards the temple, drawn over the real Deepotsava night photograph.
  * Tap anywhere on the scene to light a lamp of your own; it joins the procession.
  */
 import {

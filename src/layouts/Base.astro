@@ -14,7 +14,7 @@ interface Props {
   overlay?: boolean;
 }
 
-const { lang, page, title, description, image = 'images/jatre-night-gopura.jpg', overlay = false } = Astro.props;
+const { lang, page, title, description, image = 'images/deepotsava-gopura.jpg', overlay = false } = Astro.props;
 const other: Lang = lang === 'kn' ? 'en' : 'kn';
 const fullTitle = title ? `${title} · ${temple.shortName[lang]}, ${temple.place[lang]}` : `${temple.name[lang]} · ${temple.place[lang]}`;
 const canonical = new URL(href(lang, page), Astro.site);
@@ -27,12 +27,14 @@ const f = {
     blessing: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಪ್ರಸನ್ನ',
     photos: 'ಇಲ್ಲಿನ ಎಲ್ಲ ಚಿತ್ರಗಳು ಮನಕತ್ತೂರಿನವರೇ ತೆಗೆದವು. ಅನುಮತಿಯಿಲ್ಲದೆ ಬೇರೆಡೆ ಬಳಸಬೇಡಿ.',
     classic: 'ಹಳೆಯ ವಿನ್ಯಾಸ',
+    font: 'ಅಕ್ಷರ ವಿನ್ಯಾಸ: ಕರ್ಣಾಟ ಎಫ್ ಕಿಟೆಲ್ (ಸಂಚಯ)',
     follow: 'ಫೇಸ್‌ಬುಕ್',
   },
   en: {
     blessing: 'Sri Kalabhairaveshwara Prasanna',
     photos: 'Every photograph here was taken in Manakathuru. Please do not reuse them without permission.',
     classic: 'Classic version',
+    font: 'Kannada type: Karnata F Kittel (Sanchaya)',
     follow: 'Facebook',
   },
 }[lang];
@@ -123,7 +125,7 @@ const f = {
           <a href={temple.contact.facebook} rel="noopener">{f.follow} ↗</a>
         </nav>
         <p class="footer-note">
-          {f.photos} · <a href={asset('classic/') + (lang === 'en' ? 'en/' : '')}>{f.classic}</a>
+          {f.photos} · <a href={asset('licenses/karnata-f-kittel-OFL.txt')}>{f.font}</a> · <a href={asset('classic/') + (lang === 'en' ? 'en/' : '')}>{f.classic}</a>
         </p>
       </div>
     </footer>

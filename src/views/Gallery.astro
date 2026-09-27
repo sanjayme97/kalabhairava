@@ -25,7 +25,7 @@ const c = {
   },
 }[lang];
 
-const order: PhotoCategory[] = ['deity', 'jatre', 'temple', 'inscription'];
+const order: PhotoCategory[] = ['deity', 'jatre', 'deepotsava', 'temple', 'inscription'];
 const groups = order
   .map((cat) => ({ cat, ids: galleryOrder.filter((id) => photos[id].category === cat) }))
   .filter((g) => g.ids.length);
@@ -33,7 +33,7 @@ const groups = order
 const tilts = [-2.2, 1.6, -0.8, 2.4, -1.6, 0.9, -2.6, 1.2, -0.5, 2];
 ---
 
-<Base lang={lang} page="gallery" title={c.title} description={c.description} image="images/jatre-night-gopura.jpg">
+<Base lang={lang} page="gallery" title={c.title} description={c.description} image="images/deepotsava-gopura.jpg">
   <header class="section head">
     <div class="wrap">
       <h1>{c.title}</h1>
@@ -46,7 +46,7 @@ const tilts = [-2.2, 1.6, -0.8, 2.4, -1.6, 0.9, -2.6, 1.2, -0.5, 2];
 
   {
     groups.map((g, gi) => (
-      <section id={g.cat} class:list={['section', 'group', { night: g.cat === 'jatre' }]}>
+      <section id={g.cat} class:list={['section', 'group', { night: g.cat === 'deepotsava' }]}>
         <div class="wrap">
           <h2>{photoCategories[g.cat][lang]}</h2>
           <div class="wall">

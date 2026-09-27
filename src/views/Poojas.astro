@@ -6,7 +6,9 @@ import { href, type Lang } from '../i18n';
 import { timings, festivals } from '../data/site';
 
 const { lang } = Astro.props as { lang: Lang };
-const [jatre, ...rest] = festivals;
+const jatre = festivals[0];
+const deepa = festivals.find((f) => f.name.en === 'Karthika Deepotsava')!;
+const rest = festivals.slice(1).filter((f) => f !== deepa);
 const knownTimings = timings.filter((t) => t.time);
 
 const c = {
@@ -15,10 +17,16 @@ const c = {
     description: 'ಮನಕತ್ತೂರು ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನದ ಜಾತ್ರೆ, ಪೂಜೆ ಮತ್ತು ವರ್ಷದ ವಿಶೇಷ ದಿನಗಳು.',
     bless: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಪ್ರಸನ್ನ',
     inviteTop: 'ಭಕ್ತಾದಿಗಳಿಗೆ ಆದರದ ಆಹ್ವಾನ',
-    day: 'ಹಗಲು',
-    dayText: 'ಬಣ್ಣದ ಬಟ್ಟೆ, ಹೂವು, ಹಸಿರು ಎಲೆ, ತೆಂಗಿನಕಾಯಿಗಳಿಂದ ಶೃಂಗರಿಸಿದ ರಥ. ಭಕ್ತರು ರಥ ಎಳೆಯುತ್ತಾರೆ, ರಥಕ್ಕೆ ಬಾಳೆಹಣ್ಣು ಎಸೆಯುತ್ತಾರೆ.',
-    night: 'ರಾತ್ರಿ',
-    nightText: 'ದೀಪಾಲಂಕೃತ ದೇವಸ್ಥಾನ. ಉರಿಯುವ ಆರತಿಯನ್ನು ತಲೆಯ ಮೇಲೆ ಹೊತ್ತು ದೇವಸ್ಥಾನದವರೆಗೆ ಮೆರವಣಿಗೆ.',
+    day: 'ರಥೋತ್ಸವ',
+    dayText: 'ಬಣ್ಣದ ಬಟ್ಟೆ, ಹೂವು, ಹಸಿರು ಎಲೆ, ತೆಂಗಿನಕಾಯಿಗಳಿಂದ ಶೃಂಗರಿಸಿದ ರಥ. ಭಕ್ತರು ರಥ ಎಳೆಯುತ್ತಾರೆ.',
+    night: 'ಬಾಳೆಹಣ್ಣಿನ ಅರ್ಪಣೆ',
+    nightText: 'ರಥ ಸಾಗುವಾಗ ಭಕ್ತರು ರಥದತ್ತ ಬಾಳೆಹಣ್ಣು ಎಸೆಯುತ್ತಾರೆ.',
+    deepaKicker: 'ಕಾರ್ತೀಕ ಮಾಸ',
+    deepaText: [
+      'ಕಾರ್ತೀಕ ಮಾಸದ ರಾತ್ರಿ ದೇವಸ್ಥಾನದ ಗೋಪುರದಿಂದ ಮೆಟ್ಟಿಲವರೆಗೆ ದೀಪಗಳು.',
+      'ಭಕ್ತರು ಉರಿಯುವ ಆರತಿಯನ್ನು ತಲೆಯ ಮೇಲೆ ಹೊತ್ತು ದೇವಸ್ಥಾನಕ್ಕೆ ಬರುತ್ತಾರೆ. ಬೀದಿಯುದ್ದಕ್ಕೂ ದೀಪಗಳ ಮೆರವಣಿಗೆ.',
+    ],
+    deepaDate: 'ಈ ವರ್ಷ',
     thisYear: 'ಈ ವರ್ಷದ ಜಾತ್ರೆ',
     dateSoon: 'ದಿನಾಂಕವನ್ನು ದೇವಸ್ಥಾನ ಸಮಿತಿ ಪ್ರಕಟಿಸುತ್ತದೆ.',
     yearTitle: 'ವರ್ಷದ ವಿಶೇಷ ದಿನಗಳು',
@@ -32,10 +40,16 @@ const c = {
     description: 'The jatra, poojas and special days of the year at Sri Kalabhairaveshwara Swamy Temple, Manakathuru.',
     bless: 'Sri Kalabhairaveshwara Prasanna',
     inviteTop: 'All devotees are warmly invited',
-    day: 'By day',
-    dayText: 'The chariot, dressed in coloured cloth, flowers, green leaves and coconuts. Devotees pull it through the village and toss bananas up to it.',
-    night: 'By night',
-    nightText: 'The temple lit from top to bottom, and a procession to its door with blazing aarati carried on the head.',
+    day: 'Rathotsava',
+    dayText: 'The chariot, dressed in coloured cloth, flowers, green leaves and coconuts. Devotees pull it through the village.',
+    night: 'Bananas for the chariot',
+    nightText: 'As the chariot moves, devotees toss bananas up to it.',
+    deepaKicker: 'Karthika month',
+    deepaText: [
+      'On Karthika nights the temple is lit with lamps from its tower down to its steps.',
+      'Devotees carry blazing aarati on their heads to the temple, and a procession of lamps fills the street.',
+    ],
+    deepaDate: 'This year',
     thisYear: 'This year’s jatra',
     dateSoon: 'The temple committee announces the dates.',
     yearTitle: 'Special days of the year',
@@ -68,11 +82,26 @@ const c = {
             <p>{c.dayText}</p>
           </div>
           <div>
-            <Print lang={lang} id="nightProcession" tilt={2} ratio="4 / 3" caption={false} sizes="(min-width: 900px) 26rem, 85vw" />
+            <Print lang={lang} id="rathaBanana" tilt={2} ratio="4 / 3" focus="50% 35%" caption={false} sizes="(min-width: 900px) 26rem, 85vw" />
             <h2>{c.night}</h2>
             <p>{c.nightText}</p>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section night deepa">
+    <div class="wrap deepa-grid">
+      <div>
+        <p class="deepa-kicker">{c.deepaKicker}</p>
+        <h2>{deepa.name[lang]}</h2>
+        {c.deepaText.map((p) => <p>{p}</p>)}
+        {deepa.date && <p class="deepa-date">{c.deepaDate}: <strong>{deepa.date[lang]}</strong></p>}
+      </div>
+      <div class="deepa-prints">
+        <Print lang={lang} id="nightProcession" tilt={-1.5} ratio="4 / 3" caption={false} sizes="(min-width: 900px) 28rem, 90vw" />
+        <Print lang={lang} id="nightGopura2" tilt={2} ratio="3 / 4" caption={false} class="deepa-small" sizes="(min-width: 900px) 14rem, 45vw" />
       </div>
     </div>
   </section>
@@ -162,6 +191,39 @@ const c = {
     .daynight {
       grid-template-columns: 1fr 1fr;
       gap: 3.5rem;
+    }
+  }
+  .deepa {
+    background:
+      radial-gradient(50rem 30rem at 80% 40%, rgb(255 154 60 / 0.15), transparent 70%),
+      var(--night);
+  }
+  .deepa h2 {
+    color: #fbefd9;
+  }
+  .deepa-kicker {
+    font-family: var(--display);
+    color: var(--flame) !important;
+    margin: 0;
+  }
+  .deepa-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+  .deepa-prints {
+    position: relative;
+  }
+  .deepa-prints :global(.deepa-small) {
+    position: absolute;
+    right: -0.5rem;
+    bottom: -2.5rem;
+    width: 38%;
+  }
+  @media (min-width: 900px) {
+    .deepa-grid {
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4.5rem;
     }
   }
   .almanac {

@@ -54,8 +54,8 @@ export const festivals: { name: T; when: T; about: T; date: T | null; highlight?
     name: { kn: 'ವಾರ್ಷಿಕ ಜಾತ್ರಾ ಮಹೋತ್ಸವ', en: 'Annual Jatra Mahotsava' },
     when: { kn: 'ದಿನಾಂಕವನ್ನು ದೇವಸ್ಥಾನ ಸಮಿತಿ ಪ್ರಕಟಿಸುತ್ತದೆ', en: 'Dates announced by the temple committee' },
     about: {
-      kn: 'ಊರಿನ ಅತಿ ದೊಡ್ಡ ಹಬ್ಬ. ಹಗಲಿನಲ್ಲಿ ಶೃಂಗರಿಸಿದ ರಥವನ್ನು ಎಳೆಯುವ ರಥೋತ್ಸವ, ರಾತ್ರಿ ದೀಪಾಲಂಕೃತ ದೇವಸ್ಥಾನದ ಮುಂದೆ ಉರಿಯುವ ಆರತಿಗಳನ್ನು ತಲೆಯ ಮೇಲೆ ಹೊತ್ತ ಭಕ್ತರ ಮೆರವಣಿಗೆ.',
-      en: 'The biggest celebration of the village: the rathotsava by day, when the decorated chariot is pulled through the village, and by night a procession of devotees carrying blazing aarati on their heads before the illuminated temple.',
+      kn: 'ಊರಿನ ಅತಿ ದೊಡ್ಡ ಹಬ್ಬ. ಶೃಂಗರಿಸಿದ ರಥವನ್ನು ಭಕ್ತರು ಎಳೆಯುವ ರಥೋತ್ಸವ.',
+      en: 'The biggest celebration of the village: the rathotsava, when devotees pull the decorated chariot.',
     },
     date: null,
     highlight: true,
@@ -79,10 +79,14 @@ export const festivals: { name: T; when: T; about: T; date: T | null; highlight?
     date: null,
   },
   {
-    name: { kn: 'ಕಾರ್ತೀಕ ಸೋಮವಾರಗಳು', en: 'Karthika Mondays' },
-    when: { kn: 'ಕಾರ್ತೀಕ ಮಾಸದ ಸೋಮವಾರಗಳು (ಅಕ್ಟೋಬರ್–ನವೆಂಬರ್)', en: 'Mondays of Karthika month (October–November)' },
-    about: { kn: 'ದೀಪೋತ್ಸವ ಮತ್ತು ವಿಶೇಷ ಪೂಜೆ.', en: 'Lamps and special poojas.' },
+    name: { kn: 'ಕಾರ್ತೀಕ ದೀಪೋತ್ಸವ', en: 'Karthika Deepotsava' },
+    when: { kn: 'ಕಾರ್ತೀಕ ಮಾಸ (ಅಕ್ಟೋಬರ್–ನವೆಂಬರ್)', en: 'Karthika month (October–November)' },
+    about: {
+      kn: 'ದೀಪಾಲಂಕೃತ ದೇವಸ್ಥಾನ. ಉರಿಯುವ ಆರತಿಯನ್ನು ತಲೆಯ ಮೇಲೆ ಹೊತ್ತ ಭಕ್ತರ ದೀಪಗಳ ಮೆರವಣಿಗೆ.',
+      en: 'The temple lit from top to bottom, and a procession of devotees carrying blazing aarati lamps on their heads.',
+    },
     date: null,
+    highlight: true,
   },
   {
     name: { kn: 'ಮಹಾಶಿವರಾತ್ರಿ', en: 'Maha Shivaratri' },
@@ -103,11 +107,12 @@ export const festivals: { name: T; when: T; about: T; date: T | null; highlight?
  * `src` is the full-size file; if a smaller `-sm.jpg` version exists, set `small: true`.
  * `category` groups photos on the gallery page.
  */
-export type PhotoCategory = 'deity' | 'jatre' | 'temple' | 'inscription';
+export type PhotoCategory = 'deity' | 'jatre' | 'deepotsava' | 'temple' | 'inscription';
 
 export const photoCategories: Record<PhotoCategory, T> = {
   deity: { kn: 'ಸ್ವಾಮಿಯ ದರ್ಶನ', en: 'Darshan' },
   jatre: { kn: 'ಜಾತ್ರಾ ಮಹೋತ್ಸವ', en: 'Jatra Mahotsava' },
+  deepotsava: { kn: 'ಕಾರ್ತೀಕ ದೀಪೋತ್ಸವ', en: 'Karthika Deepotsava' },
   temple: { kn: 'ದೇವಸ್ಥಾನ', en: 'The temple' },
   inscription: { kn: 'ಶಾಸನ ಕಲ್ಲು', en: 'The inscription stone' },
 };
@@ -170,19 +175,19 @@ export const photos = {
     caption: { kn: 'ರಥಕ್ಕೆ ಬಾಳೆಹಣ್ಣು ಅರ್ಪಿಸುತ್ತಿರುವ ಭಕ್ತರು', en: 'Devotees offering bananas to the chariot' },
   },
   nightGopura: {
-    src: 'images/jatre-night-gopura.jpg',
+    src: 'images/deepotsava-gopura.jpg',
     small: true,
     w: 1200,
     h: 1600,
-    category: 'jatre',
+    category: 'deepotsava',
     alt: {
       kn: 'ದೀಪಾಲಂಕೃತ ದೇವಸ್ಥಾನದ ಮುಂಭಾಗ; ತಲೆಯ ಮೇಲೆ ಉರಿಯುವ ಆರತಿ ಹೊತ್ತ ಭಕ್ತರು',
       en: 'The illuminated temple front at night, with devotees carrying blazing aarati lamps on their heads',
     },
-    caption: { kn: 'ಜಾತ್ರೆಯ ರಾತ್ರಿ — ಆರತಿ ಹೊತ್ತ ಭಕ್ತರು', en: 'Jatra night — devotees carrying aarati' },
+    caption: { kn: 'ಕಾರ್ತೀಕ ದೀಪೋತ್ಸವ: ಆರತಿ ಹೊತ್ತ ಭಕ್ತರು', en: 'Karthika Deepotsava: devotees carrying aarati' },
   },
   nightGopura2: {
-    src: 'images/jatre-night-gopura-2.jpg',
+    src: 'images/deepotsava-gopura-2.jpg',
     small: true,
     w: 1200,
     h: 1600,
@@ -191,26 +196,26 @@ export const photos = {
       kn: 'ಬಣ್ಣದ ದೀಪಗಳಿಂದ ಬೆಳಗುವ ದೇವಸ್ಥಾನದ ಗೋಪುರ ಮತ್ತು ಕೇಸರಿ ಧ್ವಜ; ಕೆಳಗೆ ಆರತಿ ಮೆರವಣಿಗೆ',
       en: 'The temple tower glowing with coloured lights under a saffron flag, with the aarati procession below',
     },
-    caption: { kn: 'ದೀಪಾಲಂಕೃತ ದೇವಸ್ಥಾನ', en: 'The temple lit up for the jatra' },
+    caption: { kn: 'ದೀಪೋತ್ಸವಕ್ಕೆ ದೀಪಾಲಂಕೃತ ದೇವಸ್ಥಾನ', en: 'The temple lit up for the Deepotsava' },
   },
   nightAarati: {
-    src: 'images/jatre-night-aarati.jpg',
+    src: 'images/deepotsava-aarati.jpg',
     small: true,
     w: 1200,
     h: 1600,
-    category: 'jatre',
+    category: 'deepotsava',
     alt: {
       kn: 'ದೇವಸ್ಥಾನದ ಬಾಗಿಲಿನ ಮುಂದೆ ಉರಿಯುವ ಆರತಿಗಳನ್ನು ಹೊತ್ತು ಸಾಗುತ್ತಿರುವ ಭಕ್ತರು',
       en: 'Devotees carrying flaming aarati past the temple entrance',
     },
-    caption: { kn: 'ಆರತಿ ಮೆರವಣಿಗೆ', en: 'The aarati procession' },
+    caption: { kn: 'ದೀಪಗಳ ಮೆರವಣಿಗೆ', en: 'The procession of lamps' },
   },
   nightProcession: {
-    src: 'images/jatre-night-procession.jpg',
+    src: 'images/deepotsava-procession.jpg',
     small: true,
     w: 1600,
     h: 1200,
-    category: 'jatre',
+    category: 'deepotsava',
     alt: {
       kn: 'ದೀಪಗಳಿಂದ ಅಲಂಕೃತ ದೇವಸ್ಥಾನದ ಮೆಟ್ಟಿಲುಗಳಿಂದ ಕಾಣುವ, ಬೀದಿಯುದ್ದಕ್ಕೂ ಸಾಗುವ ಆರತಿಗಳ ಸಾಲು',
       en: 'A long line of lit aarati moving down the street, seen from the steps of the illuminated temple',
@@ -218,11 +223,11 @@ export const photos = {
     caption: { kn: 'ಬೀದಿಯುದ್ದಕ್ಕೂ ಆರತಿಗಳ ಸಾಲು', en: 'A river of lamps down the village street' },
   },
   nightLights: {
-    src: 'images/jatre-night-lights.jpg',
+    src: 'images/deepotsava-lights.jpg',
     small: true,
     w: 1200,
     h: 1600,
-    category: 'jatre',
+    category: 'deepotsava',
     alt: {
       kn: 'ಸಾವಿರಾರು ದೀಪಗಳಿಂದ ಅಲಂಕರಿಸಿದ ದೇವಸ್ಥಾನದ ಗೋಪುರದ ಪಕ್ಕದಲ್ಲಿ ಆರತಿ ಮೆರವಣಿಗೆ',
       en: 'The aarati procession beside the temple tower strung with thousands of lights',
