@@ -26,7 +26,8 @@ const c = {
     ],
     templeTitle: 'ಮನಕತ್ತೂರಿನ ದೇವಸ್ಥಾನ',
     templeBody: [
-      'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನವು ಮನಕತ್ತೂರು ಗ್ರಾಮದ ಧಾರ್ಮಿಕ ಮತ್ತು ಸಾಮಾಜಿಕ ಬದುಕಿನ ಕೇಂದ್ರ. ಹಬ್ಬ ಹರಿದಿನಗಳಲ್ಲಿ ಸ್ವಾಮಿಗೆ ಬೆಳ್ಳಿಯ ಪ್ರಭಾವಳಿ ಮತ್ತು ಹೂವಿನ ವಿಶೇಷ ಅಲಂಕಾರ ಮಾಡಲಾಗುತ್ತದೆ.',
+      'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನವು ಮನಕತ್ತೂರು ಗ್ರಾಮದ ಧಾರ್ಮಿಕ ಮತ್ತು ಸಾಮಾಜಿಕ ಬದುಕಿನ ಕೇಂದ್ರ. ದೇವಸ್ಥಾನದ ಮುಂಭಾಗದ ಗೋಪುರವನ್ನು ದೇವತೆಗಳ ಬಣ್ಣಬಣ್ಣದ ಶಿಲ್ಪಗಳಿಂದ ಅಲಂಕರಿಸಲಾಗಿದೆ.',
+      'ಹಬ್ಬ ಹರಿದಿನಗಳಲ್ಲಿ ಸ್ವಾಮಿಗೆ ಬೆಳ್ಳಿಯ ಪ್ರಭಾವಳಿ ಮತ್ತು ಹೂವಿನ ವಿಶೇಷ ಅಲಂಕಾರ ಮಾಡಲಾಗುತ್ತದೆ. ಜಾತ್ರೆಯ ರಾತ್ರಿಗಳಲ್ಲಿ ಇಡೀ ದೇವಸ್ಥಾನ ಸಾವಿರಾರು ದೀಪಗಳಿಂದ ಬೆಳಗುತ್ತದೆ.',
     ],
     historyTitle: 'ದೇವಸ್ಥಾನದ ಇತಿಹಾಸ',
     history:
@@ -56,7 +57,8 @@ const c = {
     ],
     templeTitle: 'The temple at Manakathuru',
     templeBody: [
-      'Sri Kalabhairaveshwara Swamy Temple is the centre of Manakathuru’s religious and social life. On festival days the deity is adorned with a silver prabhavali (arch) and elaborate floral alankara.',
+      'Sri Kalabhairaveshwara Swamy Temple is the centre of Manakathuru’s religious and social life. Its entrance tower (gopura) is adorned with colourful sculptures of deities.',
+      'On festival days the deity is adorned with a silver prabhavali (arch) and elaborate floral alankara, and on jatra nights the whole temple glows with thousands of lights.',
     ],
     historyTitle: 'History of the temple',
     history:
@@ -85,7 +87,7 @@ const c = {
         <h2>{c.deityTitle}</h2>
         {c.deity.map((p) => <p>{p}</p>)}
       </div>
-      <div class="split-photo"><Photo lang={lang} index={0} arch /></div>
+      <div class="split-photo"><Photo lang={lang} id="pushpaAlankara" arch /></div>
     </div>
   </section>
 
@@ -107,7 +109,7 @@ const c = {
 
   <section class="section">
     <div class="wrap split split--rev">
-      <div class="split-photo"><Photo lang={lang} index={1} /></div>
+      <div class="split-photo"><Photo lang={lang} id="nightGopura2" sizes="(min-width: 860px) 35vw, 100vw" /></div>
       <div class="prose">
         <h2>{c.templeTitle}</h2>
         {c.templeBody.map((p) => <p>{p}</p>)}

@@ -2,47 +2,64 @@
 import Base from '../layouts/Base.astro';
 import Photo from '../components/Photo.astro';
 import { href, type Lang } from '../i18n';
-import { photos } from '../data/site';
+import { photos, photoCategories, galleryOrder, type PhotoCategory } from '../data/site';
 
 const { lang } = Astro.props as { lang: Lang };
 
 const c = {
   kn: {
     title: 'ಚಿತ್ರಸಂಪುಟ',
-    description: 'ಮನಕತ್ತೂರು ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನದ ಚಿತ್ರಗಳು.',
-    lede: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿಯ ದರ್ಶನ.',
-    more: 'ಹೆಚ್ಚಿನ ಚಿತ್ರಗಳು ಬರಲಿವೆ',
+    description: 'ಮನಕತ್ತೂರು ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನ, ಜಾತ್ರಾ ಮಹೋತ್ಸವ ಮತ್ತು ಶಾಸನ ಕಲ್ಲಿನ ಚಿತ್ರಗಳು.',
+    lede: 'ಸ್ವಾಮಿಯ ದರ್ಶನ, ಜಾತ್ರೆಯ ಸಂಭ್ರಮ ಮತ್ತು ಊರಿನ ಪರಂಪರೆ. ದೊಡ್ಡದಾಗಿ ನೋಡಲು ಚಿತ್ರದ ಮೇಲೆ ಒತ್ತಿ.',
+    more: 'ನಿಮ್ಮ ಬಳಿ ಚಿತ್ರಗಳಿವೆಯೇ?',
     moreBody:
-      'ಜಾತ್ರೆ, ಉತ್ಸವ, ದೇವಸ್ಥಾನದ ಕಟ್ಟಡ ಮತ್ತು ಊರಿನ ಚಿತ್ರಗಳನ್ನು ಶೀಘ್ರದಲ್ಲಿ ಸೇರಿಸಲಾಗುವುದು. ನಿಮ್ಮ ಬಳಿ ಉತ್ತಮ ಚಿತ್ರಗಳಿದ್ದರೆ ದೇವಸ್ಥಾನ ಸಮಿತಿಯೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ.',
+      'ಹಳೆಯ ಜಾತ್ರೆಗಳ, ದೇವಸ್ಥಾನದ ಜೀರ್ಣೋದ್ಧಾರದ ಅಥವಾ ಊರಿನ ಹಳೆಯ ಚಿತ್ರಗಳಿದ್ದರೆ ದೇವಸ್ಥಾನ ಸಮಿತಿಯೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ. ಅವುಗಳನ್ನು ಇಲ್ಲಿ ಸೇರಿಸಲಾಗುವುದು.',
     contact: 'ಸಂಪರ್ಕಿಸಿ',
   },
   en: {
     title: 'Gallery',
-    description: 'Photographs of Sri Kalabhairaveshwara Swamy Temple, Manakathuru.',
-    lede: 'Darshan of Sri Kalabhairaveshwara Swamy.',
-    more: 'More photos coming soon',
+    description: 'Photographs of Sri Kalabhairaveshwara Swamy Temple, Manakathuru — the deity, the jatra festival and the inscription stone.',
+    lede: 'Darshan of the deity, the joy of the jatra and the heritage of the village. Tap a photo to see it larger.',
+    more: 'Have photos to share?',
     moreBody:
-      'Photos of the jatra, festivals, the temple building and the village will be added soon. If you have good photographs, please share them with the temple committee.',
+      'If you have photos of past jatras, of the temple’s renovation or of the old village, please share them with the temple committee so they can be added here.',
     contact: 'Get in touch',
   },
 }[lang];
+
+const order: PhotoCategory[] = ['deity', 'jatre', 'temple', 'inscription'];
+const groups = order
+  .map((cat) => ({ cat, ids: galleryOrder.filter((id) => photos[id].category === cat) }))
+  .filter((g) => g.ids.length);
 ---
 
-<Base lang={lang} page="gallery" title={c.title} description={c.description}>
+<Base lang={lang} page="gallery" title={c.title} description={c.description} image="images/jatre-night-gopura.jpg">
   <header class="page-head">
     <div class="wrap">
       <h1>{c.title}</h1>
       <p class="lede">{c.lede}</p>
+      <nav class="chips" aria-label={c.title}>
+        {groups.map((g) => <a href={`#${g.cat}`}>{photoCategories[g.cat][lang]}</a>)}
+      </nav>
     </div>
   </header>
 
-  <section class="section">
-    <div class="wrap gallery">
-      {photos.map((_, i) => <Photo lang={lang} index={i} />)}
-    </div>
-  </section>
+  {
+    groups.map((g, i) => (
+      <section id={g.cat} class:list={['section', 'gallery-section', { 'section--tint': i % 2 === 1 }]}>
+        <div class="wrap">
+          <h2>{photoCategories[g.cat][lang]}</h2>
+          <div class="masonry">
+            {g.ids.map((id) => (
+              <Photo lang={lang} id={id} zoom sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" />
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
 
-  <section class="section section--tint">
+  <section class="section">
     <div class="wrap prose">
       <h2>{c.more}</h2>
       <p>{c.moreBody}</p>
@@ -52,11 +69,45 @@ const c = {
 </Base>
 
 <style>
-  .gallery {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
-    align-items: start;
-    max-width: 52rem;
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+  .chips a {
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.9375rem;
+  }
+  .chips a:hover {
+    border-color: var(--kumkum);
+    color: var(--kumkum);
+  }
+  .gallery-section {
+    scroll-margin-top: 4rem;
+  }
+  .masonry {
+    columns: 1;
+    column-gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+  .masonry :global(.photo) {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .masonry {
+      columns: 2;
+    }
+  }
+  @media (min-width: 1000px) {
+    .masonry {
+      columns: 3;
+    }
   }
 </style>

@@ -1,13 +1,44 @@
 ---
 import { asset, type Lang } from '../i18n';
-import { photos } from '../data/site';
-interface Props { lang: Lang; index: number; arch?: boolean; eager?: boolean; caption?: boolean }
-const { lang, index, arch = false, eager = false, caption = true } = Astro.props;
-const p = photos[index];
+import { photos, type PhotoId } from '../data/site';
+
+interface Props {
+  lang: Lang;
+  id: PhotoId;
+  /** Arched top, like a temple niche. */
+  arch?: boolean;
+  eager?: boolean;
+  caption?: boolean;
+  /** Crop to this aspect ratio, e.g. '4 / 3'. */
+  ratio?: string;
+  /** Focal point when cropping, e.g. '50% 30%'. */
+  focus?: string;
+  /** Link the image to its full-size file. */
+  zoom?: boolean;
+  /** The `sizes` attribute — how wide the image is shown. */
+  sizes?: string;
+  class?: string;
+}
+
+const { lang, id, arch = false, eager = false, caption = true, ratio, focus, zoom = false, sizes = '(min-width: 900px) 50vw, 100vw', class: cls } = Astro.props;
+const p = photos[id];
+const full = asset(p.src);
+const small = 'small' in p && p.small ? asset(p.src.replace(/\.jpg$/, '-sm.jpg')) : null;
+const srcset = small ? `${small} 800w, ${full} ${p.w}w` : undefined;
+const style = [ratio && `aspect-ratio:${ratio}`, focus && `object-position:${focus}`].filter(Boolean).join(';') || undefined;
 ---
-<figure class:list={['photo', { 'photo--arch': arch }]}>
+
+<figure class:list={['photo', { 'photo--arch': arch, 'photo--crop': ratio }, cls]}>
   <div class="photo-frame">
-    <img src={asset(p.src)} width={p.w} height={p.h} alt={p.alt[lang]} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+    {
+      zoom ? (
+        <a href={full} class="photo-zoom">
+          <img src={small ?? full} srcset={srcset} sizes={srcset ? sizes : undefined} width={p.w} height={p.h} alt={p.alt[lang]} loading={eager ? 'eager' : 'lazy'} decoding="async" style={style} />
+        </a>
+      ) : (
+        <img src={small ?? full} srcset={srcset} sizes={srcset ? sizes : undefined} width={p.w} height={p.h} alt={p.alt[lang]} loading={eager ? 'eager' : 'lazy'} decoding="async" style={style} />
+      )
+    }
   </div>
   {caption && <figcaption>{p.caption[lang]}</figcaption>}
 </figure>
@@ -17,18 +48,33 @@ const p = photos[index];
     margin: 0;
   }
   .photo-frame {
-    padding: 8px;
+    padding: 6px;
     background: linear-gradient(145deg, var(--turmeric), color-mix(in srgb, var(--turmeric) 55%, var(--kumkum)));
     border-radius: var(--radius);
     box-shadow: var(--shadow);
   }
   .photo-frame img {
     width: 100%;
-    border-radius: calc(var(--radius) - 6px);
+    border-radius: calc(var(--radius) - 5px);
     background: var(--stone);
   }
+  .photo--crop img {
+    object-fit: cover;
+  }
+  .photo-zoom {
+    display: block;
+    border-radius: calc(var(--radius) - 5px);
+    overflow: hidden;
+  }
+  .photo-zoom img {
+    transition: transform 0.4s ease;
+  }
+  .photo-zoom:hover img {
+    transform: scale(1.03);
+  }
   .photo--arch .photo-frame,
-  .photo--arch .photo-frame img {
+  .photo--arch .photo-frame img,
+  .photo--arch .photo-zoom {
     border-radius: 50% 50% var(--radius) var(--radius) / 26% 26% var(--radius) var(--radius);
   }
   .photo--arch .photo-frame img {
@@ -37,9 +83,14 @@ const p = photos[index];
     object-position: 50% 30%;
   }
   figcaption {
-    margin-top: 0.75rem;
+    margin-top: 0.7rem;
     font-size: 0.875rem;
     color: var(--ink-soft);
     text-align: center;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .photo-zoom img {
+      transition: none;
+    }
   }
 </style>

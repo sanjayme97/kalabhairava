@@ -2,8 +2,8 @@
 import Base from '../layouts/Base.astro';
 import Photo from '../components/Photo.astro';
 import Tbd from '../components/Tbd.astro';
-import { href, type Lang } from '../i18n';
-import { temple, timings, festivals } from '../data/site';
+import { href, asset, type Lang } from '../i18n';
+import { temple, timings, festivals, photos } from '../data/site';
 
 const { lang } = Astro.props as { lang: Lang };
 
@@ -30,6 +30,14 @@ const c = {
     insBody:
       'ಕ್ರಿ.ಶ. ೧೧೦೧ರ ಹೊಯ್ಸಳ ಕಾಲದ ಶಾಸನವೊಂದು ನಮ್ಮ ದೇವಸ್ಥಾನದಲ್ಲಿ ಸಂರಕ್ಷಿತವಾಗಿದೆ. ಅದು ಈ ದೇವಾಲಯದ ಕುರಿತದ್ದಲ್ಲ — ಆದರೆ “ಮನಗತ್ತೂರು” ಊರನ್ನು ಕಟ್ಟಿದವರ, ಅಂದಿನ ದೇವಾಲಯಗಳ ಮತ್ತು ದತ್ತಿಗಳ ಕಥೆಯನ್ನು ಹೇಳುತ್ತದೆ.',
     insLink: 'ಶಾಸನದ ಕಥೆ ಓದಿ',
+    jatreEyebrow: 'ವರ್ಷದ ಹಬ್ಬ',
+    jatreTitle: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಜಾತ್ರಾ ಮಹೋತ್ಸವ',
+    jatreBody: [
+      'ಜಾತ್ರೆಯ ದಿನ ಊರಿಗೆ ಊರೇ ಸೇರುತ್ತದೆ. ಹಗಲಿನಲ್ಲಿ ಬಣ್ಣದ ಬಟ್ಟೆ, ಹೂವು, ತೆಂಗಿನಕಾಯಿಗಳಿಂದ ಶೃಂಗರಿಸಿದ ರಥವನ್ನು ಭಕ್ತರು ಎಳೆಯುತ್ತಾರೆ; ರಥಕ್ಕೆ ಬಾಳೆಹಣ್ಣು ಎಸೆದು ಭಕ್ತಿ ಸಲ್ಲಿಸುತ್ತಾರೆ.',
+      'ರಾತ್ರಿ ದೀಪಾಲಂಕೃತ ದೇವಸ್ಥಾನದ ಮುಂದೆ ನೂರಾರು ಭಕ್ತರು ಉರಿಯುವ ಆರತಿಗಳನ್ನು ತಲೆಯ ಮೇಲೆ ಹೊತ್ತು ಸಾಗುತ್ತಾರೆ — ಊರಿನ ಬೀದಿಯುದ್ದಕ್ಕೂ ದೀಪಗಳ ನದಿ ಹರಿದಂತೆ ಕಾಣುತ್ತದೆ.',
+    ],
+    jatreDate: 'ಈ ವರ್ಷದ ಜಾತ್ರೆಯ ದಿನಾಂಕ',
+    jatreLink: 'ಚಿತ್ರಸಂಪುಟ ನೋಡಿ',
     visitTitle: 'ಮನಕತ್ತೂರಿಗೆ ಬನ್ನಿ',
     visitBody: 'ಹಾಸನ ಜಿಲ್ಲೆಯ ಅರಸೀಕೆರೆ ತಾಲ್ಲೂಕಿನಲ್ಲಿದೆ. ದಾರಿ, ನಕ್ಷೆ ಮತ್ತು ಸಂಪರ್ಕ ಮಾಹಿತಿ ಇಲ್ಲಿದೆ.',
     visitLink: 'ಭೇಟಿ ಮತ್ತು ಸಂಪರ್ಕ',
@@ -56,6 +64,14 @@ const c = {
     insBody:
       'A Hoysala-period inscription dated 1101 CE is preserved at our temple. It is not about this temple — it tells of the founders of “Managatur”, the temples of that time and the gifts made to them.',
     insLink: 'Read the inscription’s story',
+    jatreEyebrow: 'The festival of the year',
+    jatreTitle: 'Sri Kalabhairaveshwara Jatra Mahotsava',
+    jatreBody: [
+      'On jatra day the whole village gathers. By day, devotees pull the chariot decked with coloured cloth, flowers and coconuts, and toss bananas towards it as an offering.',
+      'By night, in front of the illuminated temple, hundreds of devotees carry blazing aarati lamps on their heads — a river of light flowing down the village street.',
+    ],
+    jatreDate: 'This year’s jatra date',
+    jatreLink: 'See the gallery',
     visitTitle: 'Come to Manakathuru',
     visitBody: 'In Arsikere Taluk, Hassan District. Directions, map and contact details are here.',
     visitLink: 'Visit & Contact',
@@ -79,7 +95,7 @@ const highlights = festivals.slice(0, 3);
         </div>
       </div>
       <div class="hero-photo">
-        <Photo lang={lang} index={0} arch eager />
+        <Photo lang={lang} id="pushpaAlankara" arch eager />
       </div>
     </div>
   </section>
@@ -88,12 +104,31 @@ const highlights = festivals.slice(0, 3);
 
   <section class="section">
     <div class="wrap about-grid">
-      <div class="about-photo"><Photo lang={lang} index={1} /></div>
+      <div class="about-photo"><Photo lang={lang} id="belliPrabhavali" /></div>
       <div>
         <p class="eyebrow">{c.aboutEyebrow}</p>
         <h2>{c.aboutTitle}</h2>
         {c.about.map((p) => <p>{p}</p>)}
         <a href={href(lang, 'temple')}>{c.aboutLink} →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="jatre" aria-labelledby="jatre-title">
+    <div class="wrap jatre-grid">
+      <div class="jatre-text">
+        <p class="eyebrow">{c.jatreEyebrow}</p>
+        <h2 id="jatre-title">{c.jatreTitle}</h2>
+        {c.jatreBody.map((p) => <p>{p}</p>)}
+        <p class="jatre-date">
+          {c.jatreDate}: {festivals[0].date ? <strong>{festivals[0].date[lang]}</strong> : <Tbd lang={lang} />}
+        </p>
+        <a class="btn" href={href(lang, 'gallery')}>{c.jatreLink}</a>
+      </div>
+      <div class="jatre-mosaic">
+        <Photo lang={lang} id="nightGopura" caption={false} class="m-tall" ratio="3 / 4" sizes="(min-width: 900px) 30vw, 60vw" />
+        <Photo lang={lang} id="rathaCrowd" caption={false} class="m-a" ratio="4 / 3" focus="30% 50%" sizes="(min-width: 900px) 25vw, 50vw" />
+        <Photo lang={lang} id="nightProcession" caption={false} class="m-b" ratio="4 / 3" sizes="(min-width: 900px) 25vw, 50vw" />
       </div>
     </div>
   </section>
@@ -136,12 +171,7 @@ const highlights = festivals.slice(0, 3);
   <section class="section">
     <div class="wrap">
       <a class="stone-card" href={href(lang, 'inscription')}>
-        <div class="stone-lines" aria-hidden="true">
-          <span>ಸ್ವಸ್ತಿ ಸಮಧಿಗತ ಪಂಚಮಹಾಶಬ್ದ</span>
-          <span>ಮಹಾಮಂಡಳೇಶ್ವರಂ ದ್ವಾರವತೀಪುರ</span>
-          <span>ವರಾಧೀಶ್ವರಂ ಯದುಕುಳ ಕುವಳಯ</span>
-          <span>ಸುದಾಕರಂ ಸತ್ಯ ರತ್ನಾಕರಂ…</span>
-        </div>
+        <img class="stone-photo" src={asset('images/shasana-relief-sm.jpg')} width="800" height="533" alt={photos.stoneRelief.alt[lang]} loading="lazy" decoding="async" />
         <div>
           <p class="eyebrow">{c.insEyebrow}</p>
           <h2>{c.insTitle}</h2>
@@ -258,22 +288,64 @@ const highlights = festivals.slice(0, 3);
     text-decoration: underline;
     text-underline-offset: 0.2em;
   }
-  .stone-lines {
-    display: grid;
-    gap: 0.4rem;
-    font-family: var(--display);
-    font-size: clamp(1rem, 2.4vw, 1.25rem);
-    color: rgb(236 230 214 / 0.55);
-    text-shadow: 0 -1px 0 rgb(0 0 0 / 0.5);
-    padding: 1.25rem;
-    border-radius: 999px 999px 12px 12px / 60px 60px 12px 12px;
-    background: rgb(0 0 0 / 0.14);
-    text-align: center;
+  .stone-photo {
+    width: 100%;
+    border-radius: 999px 999px 12px 12px / 38% 38% 12px 12px;
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.35);
   }
   @media (min-width: 860px) {
     .stone-card {
       grid-template-columns: 1fr 1.4fr;
       gap: 3rem;
+    }
+  }
+  .jatre {
+    padding-block: clamp(3rem, 8vw, 5.5rem);
+    background:
+      radial-gradient(40rem 24rem at 15% 0%, rgb(226 182 78 / 0.18), transparent 70%),
+      radial-gradient(40rem 30rem at 100% 100%, rgb(158 42 30 / 0.35), transparent 70%),
+      #1a120e;
+    color: #f3e9d8;
+  }
+  .jatre .eyebrow {
+    color: #e2b64e;
+  }
+  .jatre p {
+    color: rgb(243 233 216 / 0.85);
+  }
+  .jatre-date {
+    margin: 1.25rem 0 1.5rem;
+  }
+  .jatre-date strong {
+    color: #fff;
+  }
+  .jatre-grid {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  .jatre-mosaic {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 0.9rem;
+  }
+  .jatre-mosaic :global(.m-tall) {
+    grid-row: span 2;
+  }
+  .jatre-mosaic :global(.m-tall img) {
+    height: 100%;
+  }
+  .jatre-mosaic :global(.m-tall .photo-frame) {
+    height: 100%;
+  }
+  .jatre-mosaic :global(figcaption) {
+    color: rgb(243 233 216 / 0.7);
+    font-size: 0.8125rem;
+  }
+  @media (min-width: 900px) {
+    .jatre-grid {
+      grid-template-columns: 1fr 1.25fr;
+      gap: 4rem;
     }
   }
   .visit {

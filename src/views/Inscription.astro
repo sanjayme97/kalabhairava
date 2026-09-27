@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
 import { href, num, type Lang } from '../i18n';
 import { lines, sections, people, glossary, timeline } from '../data/inscription';
 
@@ -26,6 +27,7 @@ const c = {
     toc: 'ಈ ಪುಟದಲ್ಲಿ',
     tocItems: [
       ['overview', 'ಪರಿಚಯ'],
+      ['stone', 'ಕಲ್ಲಿನ ಸ್ವರೂಪ'],
       ['king', 'ರಾಜನ ಬಿರುದುಗಳು'],
       ['people', 'ಶಾಸನದ ವ್ಯಕ್ತಿಗಳು'],
       ['date', 'ದಿನಾಂಕ'],
@@ -39,6 +41,17 @@ const c = {
       'ಹೊಯ್ಸಳ ವಿಷ್ಣುವರ್ಧನನ ಆಳ್ವಿಕೆಯ ಕಾಲದ ಶಕ ವರ್ಷ ೧೦೨೨ (ಕ್ರಿ.ಶ. ೧೧೦೧) ರ ಈ ಕಲ್ಬರಹವು, ಮೊದಲಿಗೆ ರಾಜನಿಗೆ ಸಲ್ಲಿಸಲಾದ ವಿಸ್ತೃತವಾದ ಬಿರುದಾವಳಿಗಳ ಪ್ರಶಂಸೆಯನ್ನು ಒಳಗೊಂಡಿದ್ದು, ನಂತರ ಆ ಕಾಲದ ನಂಬಿಕೆಯ ಕಟ್ಟುಪಾಡು ಮತ್ತು ಕೂಡಣದ (ಧಾರ್ಮಿಕ ಮತ್ತು ಸಾಮಾಜಿಕ) ಬದುಕಿನ ಬೆಲೆಕಟ್ಟಲಾಗದ ಒಳನೋಟಗಳನ್ನು ನೀಡುತ್ತದೆ.',
       'ಇದು ಮುಂದಾಳುಗಳು ಮಾಡಿದ ಹಿರಿಯ ಗುಡಿ ಕಟ್ಟೋಣಗಳು (ಪ್ರಮುಖ ದೇವಾಲಯ ನಿರ್ಮಾಣಗಳು), ದೇವರುಗಳ ನೆಲೆಗೊಳಿಸುವಿಕೆಗಳು ಮತ್ತು ನೆಲದ ಕೊಡುಗೆಗಳನ್ನು (ದೇವತಾ ಪ್ರತಿಷ್ಠಾಪನೆಗಳು ಮತ್ತು ಭೂದಾನಗಳನ್ನು) ಹೆಚ್ಚಾಗಿ ತಿಳಿಸುತ್ತದೆ. ಎಲ್ಲಕ್ಕಿಂತ ಮುಖ್ಯವಾಗಿ, ಮನಕತ್ತೂರು — ಅಂದಿನ “ಮನಗತ್ತೂರು” — ಊರನ್ನು ಕಟ್ಟಿದವರ ಹೆಸರುಗಳು ಇದರಲ್ಲಿವೆ.',
     ],
+    stoneTitle: 'ಕಲ್ಲಿನ ಸ್ವರೂಪ',
+    stoneIntro:
+      'ಇದು ಮೇಲ್ಭಾಗ ಕಮಾನಿನಾಕಾರದಲ್ಲಿರುವ ಎತ್ತರದ ಕಲ್ಲು. ಮೇಲೆ ಶಿಲ್ಪಫಲಕ, ಕೆಳಗೆ ಕಲ್ಲಿನ ಮೈಯ ತುಂಬ ಸಾಲು ಸಾಲಾಗಿ ಹಳಗನ್ನಡ ಅಕ್ಷರಗಳು. ಇಂದು ಇದನ್ನು ದೇವಸ್ಥಾನದ ಆವರಣದಲ್ಲಿ ಕಪ್ಪು ಕಲ್ಲಿನ ಪೀಠದ ಮೇಲೆ ನಿಲ್ಲಿಸಲಾಗಿದೆ.',
+    stoneParts: [
+      ['ಶಿವಲಿಂಗ', 'ಫಲಕದ ನಡುವೆ — ದತ್ತಿಗಳು ಶಿವನ ದೇವಾಲಯಗಳಿಗೆ ಸಂಬಂಧಿಸಿದವು.'],
+      ['ಕುಳಿತ ಭಕ್ತ', 'ಎಡಭಾಗದಲ್ಲಿ ಕೈಮುಗಿದು ಕುಳಿತ ವ್ಯಕ್ತಿ — ಬಹುಶಃ ದಾನಿ ಅಥವಾ ಪೂಜಾರಿ.'],
+      ['ಹಸು ಮತ್ತು ಕರು', 'ಬಲಭಾಗದಲ್ಲಿ — ದಾನಶಾಸನಗಳಲ್ಲಿ ಆಗಾಗ ಕಾಣುವ ಚಿಹ್ನೆ.'],
+      ['ಸೂರ್ಯ ಮತ್ತು ಚಂದ್ರ', 'ಮೇಲ್ಭಾಗದಲ್ಲಿ — “ಸೂರ್ಯ ಚಂದ್ರರಿರುವವರೆಗೂ” ದತ್ತಿ ಉಳಿಯಲಿ ಎಂಬುದರ ಸಾಂಪ್ರದಾಯಿಕ ಸಂಕೇತ.'],
+      ['ಕಮಾನಿನ ಸಾಲು', 'ಕಮಾನಿನ ಅಂಚಿನುದ್ದಕ್ಕೂ ಕೆತ್ತಿದ ಶಾಸನದ ಮೊದಲ ಸಾಲು — ಮೂಲ ದಾಖಲೆಯ ಟಿಪ್ಪಣಿಯಲ್ಲಿ ಹೇಳಿರುವಂತೆಯೇ.'],
+    ],
+    stoneCare: 'ಕಲ್ಲಿನ ಕೆಳಭಾಗದ ಅಕ್ಷರಗಳು ಕಾಲಾಂತರದಲ್ಲಿ ಸವೆದಿವೆ. ಈ ಪರಂಪರೆಯನ್ನು ಉಳಿಸಲು ಸಹಕರಿಸಿ — ಕಲ್ಲನ್ನು ಮುಟ್ಟುವುದನ್ನು, ಅರಿಶಿನ, ಕುಂಕುಮ ಅಥವಾ ಎಣ್ಣೆ ಹಚ್ಚುವುದನ್ನು ತಪ್ಪಿಸಿ; ಇವು ಕಾಲಕ್ರಮೇಣ ಅಕ್ಷರಗಳನ್ನು ಸವೆಸುತ್ತವೆ.',
     kingTitle: 'ರಾಜನ ಬಿರುದುಗಳು',
     kingIntro:
       'ಶಾಸನದ ಮೊದಲ ಭಾಗ (ಸಾಲು ೩–೧೮) ಹೊಯ್ಸಳ ಅರಸ ವಿಷ್ಣುವರ್ಧನನನ್ನು ಬಿರುದುಗಳ ಸರಮಾಲೆಯಿಂದ ಕೊಂಡಾಡುತ್ತದೆ. ಅವುಗಳಲ್ಲಿ ಕೆಲವು:',
@@ -121,6 +134,7 @@ const c = {
     toc: 'On this page',
     tocItems: [
       ['overview', 'Overview'],
+      ['stone', 'The stone'],
       ['king', 'The king’s titles'],
       ['people', 'People in the record'],
       ['date', 'The date'],
@@ -134,6 +148,17 @@ const c = {
       'Dated Śaka 1022 (1101 CE), in the time of the Hoysala king Vishnuvardhana, this inscription opens with a long eulogy of the king’s titles, and then offers priceless insights into the beliefs and the religious and social life of the community at the time.',
       'It records major temple constructions by local leaders, the installation of deities and gifts of land. Above all, it names the people who founded Manakathuru — then called “Managatur”.',
     ],
+    stoneTitle: 'The stone',
+    stoneIntro:
+      'A tall slab with an arched top: a sculpted panel above, and below it rows of Old Kannada letters across the face of the stone. Today it stands on a black stone base within the temple premises.',
+    stoneParts: [
+      ['Shiva linga', 'At the centre of the panel — the gifts recorded are to Shiva temples.'],
+      ['Seated worshipper', 'On the left, a figure seated in worship — perhaps a donor or priest.'],
+      ['Cow and calf', 'On the right — a motif often carved on stones recording gifts.'],
+      ['Sun and moon', 'Above — the customary sign that the gift should last “as long as the sun and moon”.'],
+      ['The arched line', 'The first line of the inscription runs along the rim of the arch, just as the source document notes.'],
+    ],
+    stoneCare: 'The letters on the lower part of the stone have worn with time. Please help preserve it — avoid touching the stone or applying turmeric, kumkum or oil, which slowly wear the letters away.',
     kingTitle: 'The king’s titles',
     kingIntro:
       'The first part of the record (lines 3–18) praises the Hoysala king Vishnuvardhana with a garland of titles. Some of them:',
@@ -203,9 +228,10 @@ const sectionStarts = new Map<number, (typeof sections)[number]>();
 for (const s of sections) if (!sectionStarts.has(s.from)) sectionStarts.set(s.from, s);
 ---
 
-<Base lang={lang} page="inscription" title={c.title} description={c.description}>
+<Base lang={lang} page="inscription" title={c.title} description={c.description} image="images/shasana-relief.jpg">
   <header class="ins-head">
-    <div class="wrap">
+    <div class="wrap head-grid">
+      <div>
       <p class="eyebrow">{c.eyebrow}</p>
       <h1>{c.h1}</h1>
       <p class="sub">{c.sub}</p>
@@ -219,6 +245,10 @@ for (const s of sections) if (!sectionStarts.has(s.from)) sectionStarts.set(s.fr
           ))
         }
       </dl>
+      </div>
+      <div class="head-stone">
+        <Photo lang={lang} id="stone" eager caption={false} ratio="9 / 16" focus="50% 25%" sizes="(min-width: 900px) 22vw, 50vw" />
+      </div>
     </div>
   </header>
 
@@ -241,6 +271,23 @@ for (const s of sections) if (!sectionStarts.has(s.from)) sectionStarts.set(s.fr
       <section id="overview" class="block">
         <h2>{c.overviewTitle}</h2>
         {c.overview.map((p) => <p>{p}</p>)}
+      </section>
+
+      <section id="stone" class="block">
+        <h2>{c.stoneTitle}</h2>
+        <p>{c.stoneIntro}</p>
+        <Photo lang={lang} id="stoneRelief" zoom sizes="(min-width: 1000px) 50rem, 100vw" />
+        <dl class="stone-parts">
+          {
+            c.stoneParts.map(([k, v]) => (
+              <div>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="note">{c.stoneCare}</p>
       </section>
 
       <section id="king" class="block">
@@ -418,6 +465,42 @@ for (const s of sections) if (!sectionStarts.has(s.from)) sectionStarts.set(s.fr
       linear-gradient(165deg, var(--stone), var(--stone-2));
     color: var(--stone-ink);
     padding-block: clamp(2.5rem, 7vw, 4.5rem) clamp(4rem, 9vw, 5.5rem);
+  }
+  .head-grid {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+  .head-stone {
+    max-width: 13rem;
+    width: 100%;
+    justify-self: center;
+    order: -1;
+  }
+  @media (min-width: 900px) {
+    .head-grid {
+      grid-template-columns: minmax(0, 1fr) 16rem;
+      gap: 3.5rem;
+    }
+    .head-stone {
+      max-width: none;
+      order: 0;
+    }
+  }
+  .stone-parts {
+    margin: 1.5rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .stone-parts div {
+    display: grid;
+    gap: 0.1rem 1.5rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  @media (min-width: 640px) {
+    .stone-parts div {
+      grid-template-columns: 11rem 1fr;
+    }
   }
   .ins-head .eyebrow {
     color: var(--stone-accent);

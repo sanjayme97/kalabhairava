@@ -54,8 +54,8 @@ export const festivals: { name: T; when: T; about: T; date: T | null; highlight?
     name: { kn: 'ವಾರ್ಷಿಕ ಜಾತ್ರಾ ಮಹೋತ್ಸವ', en: 'Annual Jatra Mahotsava' },
     when: { kn: 'ದಿನಾಂಕವನ್ನು ದೇವಸ್ಥಾನ ಸಮಿತಿ ಪ್ರಕಟಿಸುತ್ತದೆ', en: 'Dates announced by the temple committee' },
     about: {
-      kn: 'ಊರಿನ ಅತಿ ದೊಡ್ಡ ಹಬ್ಬ — ವಿಶೇಷ ಅಲಂಕಾರ, ಉತ್ಸವ ಮತ್ತು ಊರಿನವರೆಲ್ಲ ಸೇರುವ ಸಂಭ್ರಮ.',
-      en: 'The biggest celebration of the village — special alankara, the utsava procession and the whole village coming together.',
+      kn: 'ಊರಿನ ಅತಿ ದೊಡ್ಡ ಹಬ್ಬ. ಹಗಲಿನಲ್ಲಿ ಶೃಂಗರಿಸಿದ ರಥವನ್ನು ಎಳೆಯುವ ರಥೋತ್ಸವ, ರಾತ್ರಿ ದೀಪಾಲಂಕೃತ ದೇವಸ್ಥಾನದ ಮುಂದೆ ಉರಿಯುವ ಆರತಿಗಳನ್ನು ತಲೆಯ ಮೇಲೆ ಹೊತ್ತ ಭಕ್ತರ ಮೆರವಣಿಗೆ.',
+      en: 'The biggest celebration of the village: the rathotsava by day, when the decorated chariot is pulled through the village, and by night a procession of devotees carrying blazing aarati on their heads before the illuminated temple.',
     },
     date: null,
     highlight: true,
@@ -98,28 +98,204 @@ export const festivals: { name: T; when: T; about: T; date: T | null; highlight?
   },
 ];
 
-/** Gallery photos. Add new photos to /public/images and list them here. */
-export const photos: { src: string; w: number; h: number; alt: T; caption: T }[] = [
-  {
+/**
+ * Photos. Put the image in /public/images and add an entry here.
+ * `src` is the full-size file; if a smaller `-sm.jpg` version exists, set `small: true`.
+ * `category` groups photos on the gallery page.
+ */
+export type PhotoCategory = 'deity' | 'jatre' | 'temple' | 'inscription';
+
+export const photoCategories: Record<PhotoCategory, T> = {
+  deity: { kn: 'ಸ್ವಾಮಿಯ ದರ್ಶನ', en: 'Darshan' },
+  jatre: { kn: 'ಜಾತ್ರಾ ಮಹೋತ್ಸವ', en: 'Jatra Mahotsava' },
+  temple: { kn: 'ದೇವಸ್ಥಾನ', en: 'The temple' },
+  inscription: { kn: 'ಶಾಸನ ಕಲ್ಲು', en: 'The inscription stone' },
+};
+
+export type Photo = {
+  src: string;
+  small?: boolean;
+  w: number;
+  h: number;
+  category: PhotoCategory;
+  alt: T;
+  caption: T;
+};
+
+export const photos = {
+  pushpaAlankara: {
     src: 'images/kalabhairaveshwara-pushpa-alankara.jpg',
     w: 372,
     h: 824,
+    category: 'deity',
     alt: {
       kn: 'ಹೂವಿನ ಹಾರಗಳು ಮತ್ತು ದೀಪಗಳೊಂದಿಗೆ ಅಲಂಕೃತರಾದ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ, ಪಕ್ಕದಲ್ಲಿ ತ್ರಿಶೂಲ',
       en: 'Sri Kalabhairaveshwara Swamy decorated with flower garlands and lamps, with a trishula beside',
     },
     caption: { kn: 'ಪುಷ್ಪಾಲಂಕಾರದಲ್ಲಿ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ', en: 'Sri Kalabhairaveshwara in floral alankara' },
   },
-  {
+  belliPrabhavali: {
     src: 'images/kalabhairaveshwara-belli-prabhavali.jpg',
     w: 553,
     h: 555,
+    category: 'deity',
     alt: {
       kn: 'ಬೆಳ್ಳಿಯ ಪ್ರಭಾವಳಿ ಮತ್ತು ಮಲ್ಲಿಗೆ ಹಾರಗಳೊಂದಿಗೆ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ',
       en: 'Sri Kalabhairaveshwara Swamy with a silver prabhavali and jasmine garlands',
     },
     caption: { kn: 'ಬೆಳ್ಳಿ ಪ್ರಭಾವಳಿಯೊಂದಿಗೆ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ', en: 'Sri Kalabhairaveshwara with the silver prabhavali' },
   },
+  rathaCrowd: {
+    src: 'images/rathotsava-crowd.jpg',
+    small: true,
+    w: 1600,
+    h: 1200,
+    category: 'jatre',
+    alt: {
+      kn: 'ಬಣ್ಣದ ಬಟ್ಟೆ, ಹೂವಿನ ಹಾರ ಮತ್ತು ತೆಂಗಿನಕಾಯಿಗಳಿಂದ ಅಲಂಕರಿಸಿದ ರಥ, ಸುತ್ತಲೂ ಭಕ್ತರ ದೊಡ್ಡ ಜನಸಂದಣಿ',
+      en: 'The chariot decked with coloured cloth, flower garlands and coconuts, surrounded by a large crowd of devotees',
+    },
+    caption: { kn: 'ಜಾತ್ರೆಯ ರಥೋತ್ಸವ', en: 'The rathotsava (chariot festival) at the jatra' },
+  },
+  rathaBanana: {
+    src: 'images/rathotsava-banana.jpg',
+    small: true,
+    w: 1200,
+    h: 1600,
+    category: 'jatre',
+    alt: {
+      kn: 'ಕೇಸರಿ ಧ್ವಜಗಳಿರುವ ಎತ್ತರದ ರಥದತ್ತ ಭಕ್ತರು ಬಾಳೆಹಣ್ಣು ಎಸೆಯುತ್ತಿರುವುದು',
+      en: 'Devotees tossing bananas towards the tall chariot with saffron flags',
+    },
+    caption: { kn: 'ರಥಕ್ಕೆ ಬಾಳೆಹಣ್ಣು ಅರ್ಪಿಸುತ್ತಿರುವ ಭಕ್ತರು', en: 'Devotees offering bananas to the chariot' },
+  },
+  nightGopura: {
+    src: 'images/jatre-night-gopura.jpg',
+    small: true,
+    w: 1200,
+    h: 1600,
+    category: 'jatre',
+    alt: {
+      kn: 'ದೀಪಾಲಂಕೃತ ದೇವಸ್ಥಾನದ ಮುಂಭಾಗ; ತಲೆಯ ಮೇಲೆ ಉರಿಯುವ ಆರತಿ ಹೊತ್ತ ಭಕ್ತರು',
+      en: 'The illuminated temple front at night, with devotees carrying blazing aarati lamps on their heads',
+    },
+    caption: { kn: 'ಜಾತ್ರೆಯ ರಾತ್ರಿ — ಆರತಿ ಹೊತ್ತ ಭಕ್ತರು', en: 'Jatra night — devotees carrying aarati' },
+  },
+  nightGopura2: {
+    src: 'images/jatre-night-gopura-2.jpg',
+    small: true,
+    w: 1200,
+    h: 1600,
+    category: 'temple',
+    alt: {
+      kn: 'ಬಣ್ಣದ ದೀಪಗಳಿಂದ ಬೆಳಗುವ ದೇವಸ್ಥಾನದ ಗೋಪುರ ಮತ್ತು ಕೇಸರಿ ಧ್ವಜ; ಕೆಳಗೆ ಆರತಿ ಮೆರವಣಿಗೆ',
+      en: 'The temple tower glowing with coloured lights under a saffron flag, with the aarati procession below',
+    },
+    caption: { kn: 'ದೀಪಾಲಂಕೃತ ದೇವಸ್ಥಾನ', en: 'The temple lit up for the jatra' },
+  },
+  nightAarati: {
+    src: 'images/jatre-night-aarati.jpg',
+    small: true,
+    w: 1200,
+    h: 1600,
+    category: 'jatre',
+    alt: {
+      kn: 'ದೇವಸ್ಥಾನದ ಬಾಗಿಲಿನ ಮುಂದೆ ಉರಿಯುವ ಆರತಿಗಳನ್ನು ಹೊತ್ತು ಸಾಗುತ್ತಿರುವ ಭಕ್ತರು',
+      en: 'Devotees carrying flaming aarati past the temple entrance',
+    },
+    caption: { kn: 'ಆರತಿ ಮೆರವಣಿಗೆ', en: 'The aarati procession' },
+  },
+  nightProcession: {
+    src: 'images/jatre-night-procession.jpg',
+    small: true,
+    w: 1600,
+    h: 1200,
+    category: 'jatre',
+    alt: {
+      kn: 'ದೀಪಗಳಿಂದ ಅಲಂಕೃತ ದೇವಸ್ಥಾನದ ಮೆಟ್ಟಿಲುಗಳಿಂದ ಕಾಣುವ, ಬೀದಿಯುದ್ದಕ್ಕೂ ಸಾಗುವ ಆರತಿಗಳ ಸಾಲು',
+      en: 'A long line of lit aarati moving down the street, seen from the steps of the illuminated temple',
+    },
+    caption: { kn: 'ಬೀದಿಯುದ್ದಕ್ಕೂ ಆರತಿಗಳ ಸಾಲು', en: 'A river of lamps down the village street' },
+  },
+  nightLights: {
+    src: 'images/jatre-night-lights.jpg',
+    small: true,
+    w: 1200,
+    h: 1600,
+    category: 'jatre',
+    alt: {
+      kn: 'ಸಾವಿರಾರು ದೀಪಗಳಿಂದ ಅಲಂಕರಿಸಿದ ದೇವಸ್ಥಾನದ ಗೋಪುರದ ಪಕ್ಕದಲ್ಲಿ ಆರತಿ ಮೆರವಣಿಗೆ',
+      en: 'The aarati procession beside the temple tower strung with thousands of lights',
+    },
+    caption: { kn: 'ದೀಪಗಳ ಬೆಳಕಿನಲ್ಲಿ ಗೋಪುರ', en: 'The tower in festival lights' },
+  },
+  templeNight: {
+    src: 'images/temple-night-view.jpg',
+    small: true,
+    w: 1600,
+    h: 1200,
+    category: 'temple',
+    alt: {
+      kn: 'ದೂರದಿಂದ ಕಾಣುವ ದೀಪಾಲಂಕೃತ ದೇವಸ್ಥಾನ, ರಾತ್ರಿಯ ಹೊತ್ತು',
+      en: 'The temple glowing with festival lights, seen from a distance at night',
+    },
+    caption: { kn: 'ರಾತ್ರಿಯಲ್ಲಿ ದೇವಸ್ಥಾನ', en: 'The temple by night' },
+  },
+  stone: {
+    src: 'images/shasana-stone.jpg',
+    small: true,
+    w: 720,
+    h: 1600,
+    category: 'inscription',
+    alt: {
+      kn: 'ದೇವಸ್ಥಾನದ ಆವರಣದಲ್ಲಿ ಕಪ್ಪು ಕಲ್ಲಿನ ಪೀಠದ ಮೇಲೆ ನಿಲ್ಲಿಸಿರುವ, ಕಮಾನಿನಾಕಾರದ ಮೇಲ್ಭಾಗವಿರುವ ಹೊಯ್ಸಳ ಕಾಲದ ಶಾಸನ ಕಲ್ಲು',
+      en: 'The Hoysala-period inscription stone with its arched top, standing on a black stone base at the temple',
+    },
+    caption: { kn: 'ಮನಕತ್ತೂರಿನ ಶಾಸನ ಕಲ್ಲು (ಕ್ರಿ.ಶ. ೧೧೦೧)', en: 'The Manakathuru inscription stone (1101 CE)' },
+  },
+  stoneRelief: {
+    src: 'images/shasana-relief.jpg',
+    small: true,
+    w: 1500,
+    h: 1000,
+    category: 'inscription',
+    alt: {
+      kn: 'ಶಾಸನ ಕಲ್ಲಿನ ಮೇಲ್ಭಾಗದ ಶಿಲ್ಪ: ನಡುವೆ ಶಿವಲಿಂಗ, ಎಡಕ್ಕೆ ಕುಳಿತ ಭಕ್ತ, ಬಲಕ್ಕೆ ಕರುವಿನೊಂದಿಗೆ ಹಸು, ಮೇಲೆ ಚಂದ್ರ ಸೂರ್ಯರು; ಕಮಾನಿನ ಅಂಚಿನಲ್ಲಿ ಅಕ್ಷರಗಳು',
+      en: 'Sculpted panel at the top of the stone: a Shiva linga in the centre, a seated worshipper to the left, a cow with her calf to the right, the moon and sun above, and letters running along the arch',
+    },
+    caption: { kn: 'ಮೇಲ್ಭಾಗದ ಶಿಲ್ಪ ಮತ್ತು ಕಮಾನಿನ ಸಾಲು', en: 'The sculpted panel and the arched first line' },
+  },
+  stoneSide: {
+    src: 'images/shasana-stone-side.jpg',
+    small: true,
+    w: 720,
+    h: 1600,
+    category: 'inscription',
+    alt: {
+      kn: 'ಶಾಸನ ಕಲ್ಲಿನ ಸಮೀಪ ನೋಟ — ಕಲ್ಲಿನ ಮೈಮೇಲೆ ಸಾಲು ಸಾಲಾಗಿ ಕೆತ್ತಿದ ಹಳಗನ್ನಡ ಅಕ್ಷರಗಳು',
+      en: 'A closer view of the stone — rows of Old Kannada letters carved across its face',
+    },
+    caption: { kn: 'ಕಲ್ಲಿನ ಮೇಲಿನ ಅಕ್ಷರಗಳು', en: 'The carved letters' },
+  },
+} satisfies Record<string, Photo>;
+
+export type PhotoId = keyof typeof photos;
+
+/** Order of photos on the gallery page. */
+export const galleryOrder: PhotoId[] = [
+  'nightGopura',
+  'rathaCrowd',
+  'pushpaAlankara',
+  'nightProcession',
+  'rathaBanana',
+  'belliPrabhavali',
+  'nightGopura2',
+  'templeNight',
+  'nightLights',
+  'nightAarati',
+  'stone',
+  'stoneRelief',
+  'stoneSide',
 ];
 
 export const tbd: T = { kn: 'ಮಾಹಿತಿ ಶೀಘ್ರದಲ್ಲಿ', en: 'To be updated' };
