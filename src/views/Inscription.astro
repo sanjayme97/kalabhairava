@@ -1,7 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
-import Photo from '../components/Photo.astro';
-import { href, num, type Lang } from '../i18n';
+import Print from '../components/Print.astro';
+import Kolam from '../components/Kolam.astro';
+import { href, num, asset, type Lang } from '../i18n';
 import { lines, sections, people, glossary, timeline } from '../data/inscription';
 
 const { lang } = Astro.props as { lang: Lang };
@@ -113,6 +114,24 @@ const c = {
     caveat:
       'ಪಾಠವನ್ನು ಊರಿನ ದಾಖಲೆಯಿಂದ ಅಕ್ಷರಶಃ ಪುನರುತ್ಪಾದಿಸಲಾಗಿದೆ; ಸಣ್ಣಪುಟ್ಟ ಮುದ್ರಣ ವ್ಯತ್ಯಾಸಗಳಿರಬಹುದು. ತಿದ್ದುಪಡಿಗಳಿದ್ದರೆ ದಯವಿಟ್ಟು ತಿಳಿಸಿ.',
     back: 'ದೇವಾಲಯದ ಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ',
+    viewerLamp: 'ದೀಪ ಸರಿಸಿ',
+    viewerTurn: 'ಕಲ್ಲು ತಿರುಗಿಸಿ',
+    viewerHint: 'ಕಲ್ಲಿನ ಮೇಲೆ ಬೆರಳು ಎಳೆಯಿರಿ. ಓರೆಯಾದ ದೀಪದ ಬೆಳಕಿನಲ್ಲಿ ಕೆತ್ತಿದ ಅಕ್ಷರಗಳು ಮೂಡುತ್ತವೆ.',
+    viewerTurnHint: 'ಎಳೆದು ಕಲ್ಲನ್ನು ತಿರುಗಿಸಿ. ಹತ್ತಿರದಿಂದ ನೋಡಲು ಎರಡು ಬೆರಳಿನಿಂದ ಹಿಗ್ಗಿಸಿ.',
+    viewerWhy: 'ಶಾಸನ ತಜ್ಞರು ಸವೆದ ಅಕ್ಷರಗಳನ್ನು ಓದುವುದು ಹೀಗೆಯೇ: ದೀಪವನ್ನು ಕಲ್ಲಿನ ಬದಿಯಿಂದ ತಗ್ಗಾಗಿ ಹಿಡಿದು.',
+    viewerNote: 'ಈ 3D ನೋಟವನ್ನು ಛಾಯಾಚಿತ್ರಗಳಿಂದ ರಚಿಸಲಾಗಿದೆ. ಇದು ಕಲ್ಲಿನ ನಿಖರ ಸ್ಕ್ಯಾನ್ ಅಲ್ಲ.',
+    viewerLoading: 'ಕಲ್ಲು ಬರುತ್ತಿದೆ…',
+    spotsTitle: 'ಕಲ್ಲಿನ ಮೇಲೆ ಏನೇನಿದೆ',
+    lettersLabel: 'ಅಕ್ಷರಗಳು',
+    lettersText: 'ನಲವತ್ತನಾಲ್ಕು ಸಾಲುಗಳ ಹಳಗನ್ನಡ ಬರಹ. ಪೂರ್ಣ ಪಾಠ ಕೆಳಗಿದೆ.',
+    wheelTitle: 'ಕಾಲಚಕ್ರ',
+    wheelIntro:
+      'ನಮ್ಮ ಪಂಚಾಂಗದಲ್ಲಿ ಪ್ರತಿ ವರ್ಷಕ್ಕೂ ಒಂದು ಹೆಸರು. ಅರವತ್ತು ಹೆಸರುಗಳು ಮುಗಿದಾಗ ಚಕ್ರ ಮತ್ತೆ ಪ್ರಭವದಿಂದ ಆರಂಭ. ಶಾಸನ ಬರೆದದ್ದು ವಿಕ್ರಮ ಸಂವತ್ಸರದಲ್ಲಿ. ಈ ವರ್ಷ ಪರಾಭವ.',
+    wheelTurns: 'ಸುತ್ತು',
+    wheelYears: 'ವರ್ಷ',
+    wheelEnd: 'ಆ ದಿನದಿಂದ ಈ ಚಕ್ರ ಹದಿನೈದು ಬಾರಿ ಪೂರ್ತಿ ತಿರುಗಿದೆ.',
+    wheelReplay: 'ಮತ್ತೆ ತಿರುಗಿಸಿ',
+    wheelNames: { prabhava: 'ಪ್ರಭವ', yuva: 'ಯುವ · ೧೦೯೫', vikrama: 'ವಿಕ್ರಮ · ೧೧೦೦–೦೧', parabhava: 'ಪರಾಭವ · ೨೦೨೬–೨೭' },
   },
   en: {
     title: 'The Manakathuru Inscription',
@@ -220,24 +239,230 @@ const c = {
     caveat:
       'The text is reproduced as given in the village document; small typographic variations are possible. Corrections are welcome.',
     back: 'Back to the temple page',
+    viewerLamp: 'Move the lamp',
+    viewerTurn: 'Turn the stone',
+    viewerHint: 'Drag across the stone. In the low, slanting lamplight the carved letters come up out of the rock.',
+    viewerTurnHint: 'Drag to turn the stone. Pinch or scroll to look closer.',
+    viewerWhy: 'This is how epigraphers read worn inscriptions: a lamp held low, to one side of the stone.',
+    viewerNote: 'This 3D view is built from photographs. It is not an exact scan of the stone.',
+    viewerLoading: 'Bringing the stone…',
+    spotsTitle: 'What is on the stone',
+    lettersLabel: 'The letters',
+    lettersText: 'Forty-four lines of Old Kannada. The full text is below.',
+    wheelTitle: 'The wheel of years',
+    wheelIntro:
+      'In our almanac every year has a name. After sixty names the wheel starts again from Prabhava. The stone was written in the year Vikrama. This year is Parabhava.',
+    wheelTurns: 'turns',
+    wheelYears: 'years',
+    wheelEnd: 'Since that day, this wheel has turned fifteen full times.',
+    wheelReplay: 'Turn it again',
+    wheelNames: { prabhava: 'Prabhava', yuva: 'Yuva · 1095', vikrama: 'Vikrama · 1100–01', parabhava: 'Parabhava · 2026–27' },
   },
 }[lang];
+
 
 // Which section each line starts, for the guide markers in the text panel.
 const sectionStarts = new Map<number, (typeof sections)[number]>();
 for (const s of sections) if (!sectionStarts.has(s.from)) sectionStarts.set(s.from, s);
+
+// Spots on the stone, in the order the lamp visits them.
+const spotList: [string, string, string][] = [
+  ['linga', ...(c.stoneParts[0] as [string, string])],
+  ['worshipper', ...(c.stoneParts[1] as [string, string])],
+  ['cow', ...(c.stoneParts[2] as [string, string])],
+  ['sun', ...(c.stoneParts[3] as [string, string])],
+  ['arch', ...(c.stoneParts[4] as [string, string])],
+  ['text', c.lettersLabel, c.lettersText],
+];
+
+// The 60-year samvatsara wheel. Year 1 (Prabhava) at the top, clockwise.
+const R = 120;
+const C = 150;
+const at = (i: number, r: number) => {
+  const a = ((i - 1) * 6 - 90) * (Math.PI / 180);
+  return [C + Math.cos(a) * r, C + Math.sin(a) * r];
+};
+const marks = [
+  { i: 1, key: 'prabhava' as const },
+  { i: 9, key: 'yuva' as const },
+  { i: 14, key: 'vikrama' as const },
+  { i: 40, key: 'parabhava' as const },
+];
+const ticks = Array.from({ length: 60 }, (_, k) => {
+  const i = k + 1;
+  const long = i % 5 === 1;
+  const [x1, y1] = at(i, R - (long ? 12 : 6));
+  const [x2, y2] = at(i, R);
+  return { x1, y1, x2, y2, long };
+});
 ---
 
-<Base lang={lang} page="inscription" title={c.title} description={c.description} image="images/shasana-relief.jpg">
-  <header class="ins-head">
-    <div class="wrap head-grid">
-      <div>
-      <p class="eyebrow">{c.eyebrow}</p>
+<Base lang={lang} page="inscription" title={c.title} description={c.description} image="images/shasana-relief.jpg" overlay>
+  <section class="viewer night" data-viewer>
+    <div class="wrap viewer-head">
+      <p class="kicker">{c.eyebrow}</p>
       <h1>{c.h1}</h1>
       <p class="sub">{c.sub}</p>
-      <dl class="facts">
+    </div>
+
+    <div class="stage">
+      <img class="stage-fallback" src={asset('images/shasana-stone-sm.jpg')} width="720" height="1600" alt={c.stoneIntro} />
+      <canvas class="stage-canvas" data-stone data-color={asset('3d/stone-color.jpg')} data-normal={asset('3d/stone-normal.jpg')} aria-label={c.viewerHint}></canvas>
+      <p class="stage-loading" data-loading hidden>{c.viewerLoading}</p>
+    </div>
+
+    <div class="wrap viewer-ui" data-ui hidden>
+      <div class="modes" role="group">
+        <button type="button" class="mode is-on" data-mode="lamp" aria-pressed="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2 3 2.5 5 0 8-2.5-3-2-5 0-8zM5 15h14l-2 3H7zM9 18v2h6v-2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+          {c.viewerLamp}
+        </button>
+        <button type="button" class="mode" data-mode="turn" aria-pressed="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.4-5.7M20 4v4h-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+          {c.viewerTurn}
+        </button>
+      </div>
+      <p class="hint" data-hint data-lamp={c.viewerHint} data-turn={c.viewerTurnHint}>{c.viewerHint}</p>
+    </div>
+
+    <div class="wrap spots-wrap">
+      <h2 class="spots-title">{c.spotsTitle}</h2>
+      <ol class="spots">
         {
-          c.facts.map(([k, v]) => (
+          spotList.map(([id, label, text], i) => (
+            <li>
+              <button type="button" data-spot={id}>
+                <span class="spot-n">{num('kn', i + 1)}</span>
+                <span class="spot-label">{label}</span>
+                <span class="spot-text">{text}</span>
+              </button>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="why">{c.viewerWhy}</p>
+      <p class="viewer-note">{c.viewerNote}</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <p class="notice" role="note">{c.notice}</p>
+
+    <dl class="facts">
+      {
+        c.facts.map(([k, v]) => (
+          <div>
+            <dt>{k}</dt>
+            <dd>{v}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+
+  <article class="wrap chapters">
+    <section id="overview" class="chap">
+      <p class="chapter"><b>೧</b><span>{c.overviewTitle}</span></p>
+      <div class="prose">{c.overview.map((p) => <p>{p}</p>)}</div>
+    </section>
+
+    <section id="king" class="chap">
+      <p class="chapter"><b>೨</b><span>{c.kingTitle}</span></p>
+      <p class="prose">{c.kingIntro}</p>
+      <dl class="titles">
+        {
+          c.titles.map(([t, m]) => (
+            <div>
+              <dt lang={lang === 'en' ? 'kn-Latn' : 'kn'}>{t}</dt>
+              <dd>{m}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p class="prose">{c.provinces}</p>
+    </section>
+
+    <section id="people" class="chap">
+      <p class="chapter"><b>೩</b><span>{c.peopleTitle}</span></p>
+      <p class="prose">{c.peopleIntro}</p>
+      <ol class="people">
+        {
+          people.map((p) => (
+            <li>
+              <h3>{p.name[lang]}</h3>
+              <p>{p.role[lang]}</p>
+              <p class="lines-ref">
+                {lang === 'en' && /[–,]/.test(p.lines) ? 'Lines' : c.lineWord} {num(lang, p.lines)}
+              </p>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section id="date" class="chap">
+      <p class="chapter"><b>೪</b><span>{c.dateTitle}</span></p>
+      <div class="date-grid">
+        <div class="prose">
+          {c.dateBody.map((p) => <p>{p}</p>)}
+          <dl class="list-rule date-parts">
+            {
+              c.dateParts.map(([k, v]) => (
+                <div>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          <p class="aside"><strong>{c.dateNoteTitle}.</strong> {c.dateNote}</p>
+        </div>
+
+        <figure class="wheel" data-wheel data-kn={lang === 'kn' ? '1' : ''}>
+          <figcaption>
+            <h3>{c.wheelTitle}</h3>
+            <p>{c.wheelIntro}</p>
+          </figcaption>
+          <svg viewBox="0 0 300 300" role="img" aria-label={c.wheelEnd}>
+            <circle cx={C} cy={C} r={R} class="w-ring"></circle>
+            <circle cx={C} cy={C} r={R - 22} class="w-ring w-inner"></circle>
+            {ticks.map((t) => <line x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2} class:list={['w-tick', { 'w-tick--long': t.long }]} />)}
+            {
+              marks.map((m, k) => {
+                const [x, y] = at(m.i, R + 12);
+                return (
+                  <g class:list={['w-mark', `w-mark--${m.key}`]}>
+                    <circle cx={x} cy={y} r="8" />
+                    <text x={x} y={y + 3.5}>{num('kn', k + 1)}</text>
+                  </g>
+                );
+              })
+            }
+            <g class="w-hand" data-hand style={`transform-origin:${C}px ${C}px`}>
+              <line x1={C} y1={C} x2={C} y2={C - R + 16} />
+              <circle cx={C} cy={C - R + 12} r="5.5" class="w-flame" />
+            </g>
+            <circle cx={C} cy={C} r="4" class="w-hub"></circle>
+          </svg>
+          <div class="w-counter" aria-hidden="true">
+            <span><b data-years>{num(lang, 0)}</b> {c.wheelYears}</span>
+            <span><b data-turns>{num(lang, 0)}</b> {c.wheelTurns}</span>
+          </div>
+          <ol class="w-legend">
+            {marks.map((m, k) => <li class={`w-l--${m.key}`}><span>{num('kn', k + 1)}</span>{c.wheelNames[m.key]}</li>)}
+          </ol>
+          <p class="w-end" data-end hidden>{c.wheelEnd}</p>
+          <button type="button" class="go w-replay" data-replay hidden>{c.wheelReplay}</button>
+        </figure>
+      </div>
+    </section>
+
+    <section id="grants" class="chap">
+      <p class="chapter"><b>೫</b><span>{c.grantsTitle}</span></p>
+      <p class="prose">{c.grantsIntro}</p>
+      <dl class="list-rule two-col">
+        {
+          c.grants.map(([k, v]) => (
             <div>
               <dt>{k}</dt>
               <dd>{v}</dd>
@@ -245,482 +470,533 @@ for (const s of sections) if (!sectionStarts.has(s.from)) sectionStarts.set(s.fr
           ))
         }
       </dl>
-      </div>
-      <div class="head-stone">
-        <Photo lang={lang} id="stone" eager caption={false} ratio="9 / 16" focus="50% 25%" sizes="(min-width: 900px) 22vw, 50vw" />
-      </div>
-    </div>
-  </header>
+      <p class="prose">{c.grantsReceiver}</p>
+      <h3 class="gloss-title">{c.glossaryTitle}</h3>
+      <dl class="list-rule two-col glossary">
+        {
+          glossary.map((g) => (
+            <div>
+              <dt>
+                {g.term[lang]}
+                {lang === 'en' && <span class="gloss-kn" lang="kn"> · {g.term.kn}</span>}
+              </dt>
+              <dd>
+                {g.meaning[lang]}
+                {g.fromDoc && <span class="gloss-src"> ({c.fromDoc})</span>}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
 
-  <div class="wrap">
-    <p class="notice" role="note">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"></circle><path d="M12 7v6M12 16.5v.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
-      <span>{c.notice}</span>
-    </p>
-  </div>
-
-  <div class="wrap ins-layout">
-    <nav class="toc" aria-label={c.toc}>
-      <p class="toc-title">{c.toc}</p>
-      <ol>
-        {c.tocItems.map(([id, label]) => <li><a href={`#${id}`}>{label}</a></li>)}
+    <section id="text" class="chap">
+      <p class="chapter"><b>೬</b><span>{c.textTitle}</span></p>
+      <p class="prose">{c.textIntro}</p>
+      <div class="slab" lang="kn">
+        <svg class="arch" viewBox="0 0 800 190" aria-hidden="true">
+          <defs><path id="arch-path" d="M 40 180 A 360 160 0 0 1 760 180"></path></defs>
+          <text class="arch-text"><textPath href="#arch-path" startOffset="50%" text-anchor="middle" textLength="850" lengthAdjust="spacingAndGlyphs">{lines[0]}</textPath></text>
+        </svg>
+        <ol class="lines">
+          {
+            lines.map((line, i) => {
+              const n = i + 1;
+              const s = sectionStarts.get(n);
+              return (
+                <>
+                  {s && <li class="line-section" aria-hidden="true"><span>{s.title[lang]}</span></li>}
+                  <li class="line" value={n}>
+                    <span class="ln">{num('kn', n)}</span>
+                    <span class="lt">
+                      {line}
+                      {n === 1 && <span class="arch-tag" lang={lang}> ({c.arched})</span>}
+                    </span>
+                  </li>
+                </>
+              );
+            })
+          }
+        </ol>
+      </div>
+      <h3>{c.guide}</h3>
+      <ol class="list-rule guide">
+        {
+          sections.map((s) => (
+            <li>
+              <span class="guide-range">
+                {lang === 'en' && s.from !== s.to ? 'Lines' : c.lineWord} {num(lang, s.from === s.to ? s.from : `${s.from}–${s.to}`)}
+              </span>
+              <strong>{s.title[lang]}</strong>
+              <span>{s.summary[lang]}</span>
+            </li>
+          ))
+        }
       </ol>
-    </nav>
+    </section>
 
-    <div class="ins-body">
-      <section id="overview" class="block">
-        <h2>{c.overviewTitle}</h2>
-        {c.overview.map((p) => <p>{p}</p>)}
-      </section>
-
-      <section id="stone" class="block">
-        <h2>{c.stoneTitle}</h2>
-        <p>{c.stoneIntro}</p>
-        <Photo lang={lang} id="stoneRelief" zoom sizes="(min-width: 1000px) 50rem, 100vw" />
-        <dl class="stone-parts">
-          {
-            c.stoneParts.map(([k, v]) => (
-              <div>
-                <dt>{k}</dt>
-                <dd>{v}</dd>
-              </div>
-            ))
-          }
-        </dl>
-        <p class="note">{c.stoneCare}</p>
-      </section>
-
-      <section id="king" class="block">
-        <h2>{c.kingTitle}</h2>
-        <p>{c.kingIntro}</p>
-        <ul class="titles">
-          {
-            c.titles.map(([t, m]) => (
-              <li>
-                <span class="title-term" lang={lang === 'en' ? 'kn-Latn' : 'kn'}>{t}</span>
-                <span class="title-mean">{m}</span>
-              </li>
-            ))
-          }
-        </ul>
-        <p>{c.provinces}</p>
-      </section>
-
-      <section id="people" class="block">
-        <h2>{c.peopleTitle}</h2>
-        <p>{c.peopleIntro}</p>
-        <div class="people">
-          {
-            people.map((p) => (
-              <article class="person">
-                <h3>{p.name[lang]}</h3>
-                <p>{p.role[lang]}</p>
-                <p class="person-lines">
-                  {lang === 'en' && /[–,]/.test(p.lines) ? 'Lines' : c.lineWord} {num(lang, p.lines)}
-                </p>
-              </article>
-            ))
-          }
-        </div>
-      </section>
-
-      <section id="date" class="block">
-        <h2>{c.dateTitle}</h2>
-        {c.dateBody.map((p) => <p>{p}</p>)}
-        <dl class="date-parts">
-          {
-            c.dateParts.map(([k, v]) => (
-              <div>
-                <dt>{k}</dt>
-                <dd>{v}</dd>
-              </div>
-            ))
-          }
-        </dl>
-        <aside class="note">
-          <strong>{c.dateNoteTitle}.</strong>
-          {c.dateNote}
-        </aside>
-      </section>
-
-      <section id="grants" class="block">
-        <h2>{c.grantsTitle}</h2>
-        <p>{c.grantsIntro}</p>
-        <dl class="grants">
-          {
-            c.grants.map(([k, v]) => (
-              <div>
-                <dt>{k}</dt>
-                <dd>{v}</dd>
-              </div>
-            ))
-          }
-        </dl>
-        <p>{c.grantsReceiver}</p>
-
-        <h3 class="gloss-title">{c.glossaryTitle}</h3>
-        <dl class="glossary">
-          {
-            glossary.map((g) => (
-              <div>
-                <dt>
-                  {g.term[lang]}
-                  {lang === 'en' && <span class="gloss-kn" lang="kn"> · {g.term.kn}</span>}
-                </dt>
-                <dd>
-                  {g.meaning[lang]}
-                  {g.fromDoc && <span class="gloss-src"> ({c.fromDoc})</span>}
-                </dd>
-              </div>
-            ))
-          }
-        </dl>
-      </section>
-
-      <section id="text" class="block">
-        <h2>{c.textTitle}</h2>
-        <p>{c.textIntro}</p>
-
-        <div class="stone" lang="kn">
-          <svg class="arch" viewBox="0 0 800 190" aria-hidden="true">
-            <defs>
-              <path id="arch-path" d="M 40 180 A 360 160 0 0 1 760 180"></path>
-            </defs>
-            <text class="arch-text">
-              <textPath href="#arch-path" startOffset="50%" text-anchor="middle" textLength="850" lengthAdjust="spacingAndGlyphs">
-                {lines[0]}
-              </textPath>
-            </text>
-          </svg>
-
-          <ol class="lines">
+    <section id="journey" class="chap">
+      <p class="chapter"><b>೭</b><span>{c.journeyTitle}</span></p>
+      <div class="journey-grid">
+        <div>
+          <p class="prose">{c.journeyBody}</p>
+          <ol class="timeline">
             {
-              lines.map((line, i) => {
-                const n = i + 1;
-                const s = sectionStarts.get(n);
-                return (
-                  <>
-                    {s && <li class="line-section" aria-hidden="true"><span>{s.title[lang]}</span></li>}
-                    <li class="line" value={n}>
-                      <span class="ln">{num('kn', n)}</span>
-                      <span class="lt">
-                        {line}
-                        {n === 1 && <span class="arch-tag" lang={lang}> ({c.arched})</span>}
-                      </span>
-                    </li>
-                  </>
-                );
-              })
+              timeline.map((t) => (
+                <li>
+                  <span class="tl-year">{t.year[lang]}</span>
+                  <span class="tl-text">{t.text[lang]}</span>
+                </li>
+              ))
             }
           </ol>
         </div>
+        <Print lang={lang} id="stone" tilt={1.5} sizes="(min-width: 900px) 18rem, 60vw" class="journey-print" />
+      </div>
+      <p class="aside care">{c.stoneCare}</p>
+    </section>
 
-        <h3 class="guide-title">{c.guide}</h3>
-        <ol class="guide">
-          {
-            sections.map((s) => (
-              <li>
-                <span class="guide-range">
-                  {lang === 'en' && s.from !== s.to ? 'Lines' : c.lineWord} {num(lang, s.from === s.to ? s.from : `${s.from}–${s.to}`)}
-                </span>
-                <strong>{s.title[lang]}</strong>
-                <span>{s.summary[lang]}</span>
-              </li>
-            ))
-          }
-        </ol>
-      </section>
+    <Kolam dots={7} />
 
-      <section id="journey" class="block">
-        <h2>{c.journeyTitle}</h2>
-        <p>{c.journeyBody}</p>
-        <ol class="timeline">
-          {
-            timeline.map((t) => (
-              <li>
-                <span class="tl-year">{t.year[lang]}</span>
-                <span class="tl-text">{t.text[lang]}</span>
-              </li>
-            ))
-          }
-        </ol>
-      </section>
-
-      <section id="sources" class="block">
-        <h2>{c.sourcesTitle}</h2>
-        <ul class="sources">
-          {c.sources.map((s) => <li>{s}</li>)}
-        </ul>
-        <p class="caveat">{c.caveat}</p>
-        <p><a href={href(lang, 'temple')}>← {c.back}</a></p>
-      </section>
-    </div>
-  </div>
+    <section id="sources" class="chap sources">
+      <h2>{c.sourcesTitle}</h2>
+      <ul>{c.sources.map((s) => <li>{s}</li>)}</ul>
+      <p class="caveat">{c.caveat}</p>
+      <a class="go" href={href(lang, 'temple')}>{c.back}</a>
+    </section>
+  </article>
 </Base>
 
+<script>
+  import type { StoneHandle, SpotId } from '../scripts/stone';
+  const kn = document.documentElement.lang === 'kn';
+  const digits = (n: number) => (kn ? String(n).replace(/\d/g, (d) => '೦೧೨೩೪೫೬೭೮೯'[+d]) : String(n));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── 3D stone ──
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-stone]');
+  const viewer = document.querySelector<HTMLElement>('[data-viewer]');
+  const ui = document.querySelector<HTMLElement>('[data-ui]');
+  const loading = document.querySelector<HTMLElement>('[data-loading]');
+  const hint = document.querySelector<HTMLElement>('[data-hint]');
+  let stone: StoneHandle | null = null;
+  const saveData = (navigator as { connection?: { saveData?: boolean } }).connection?.saveData;
+
+  const boot = async () => {
+    if (!canvas || !viewer || saveData) return;
+    if (loading) loading.hidden = false;
+    const { startStone } = await import('../scripts/stone');
+    stone = startStone(canvas, { color: canvas.dataset.color!, normal: canvas.dataset.normal! }, () => {
+      viewer.classList.add('is-live');
+      if (loading) loading.hidden = true;
+      if (ui) ui.hidden = false;
+    });
+    if (!stone && loading) loading.hidden = true;
+  };
+  if (canvas) {
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          io.disconnect();
+          boot();
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    io.observe(canvas);
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const m = b.dataset.mode as 'lamp' | 'turn';
+      stone?.setMode(m);
+      document.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach((o) => {
+        o.classList.toggle('is-on', o === b);
+        o.setAttribute('aria-pressed', String(o === b));
+      });
+      if (hint) hint.textContent = (m === 'lamp' ? hint.dataset.lamp : hint.dataset.turn) ?? '';
+    }),
+  );
+  document.querySelectorAll<HTMLButtonElement>('[data-spot]').forEach((b) =>
+    b.addEventListener('click', () => {
+      document.querySelectorAll('[data-spot]').forEach((o) => o.classList.toggle('is-on', o === b));
+      if (stone) {
+        stone.focus(b.dataset.spot as SpotId);
+        canvas?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+      }
+    }),
+  );
+
+  // ── wheel of years: 926 samvatsaras from Vikrama (1100–01) to Parabhava (2026–27) ──
+  const wheel = document.querySelector<HTMLElement>('[data-wheel]');
+  const hand = wheel?.querySelector<SVGGElement>('[data-hand]');
+  const yearsEl = wheel?.querySelector<HTMLElement>('[data-years]');
+  const turnsEl = wheel?.querySelector<HTMLElement>('[data-turns]');
+  const endEl = wheel?.querySelector<HTMLElement>('[data-end]');
+  const replay = wheel?.querySelector<HTMLButtonElement>('[data-replay]');
+  const START = 14; // Vikrama
+  const STEPS = 926;
+  const setAt = (steps: number) => {
+    if (!hand || !yearsEl || !turnsEl) return;
+    hand.style.transform = `rotate(${(START - 1 + steps) * 6}deg)`;
+    yearsEl.textContent = digits(Math.round(steps));
+    turnsEl.textContent = digits(Math.floor(steps / 60));
+  };
+  const spin = () => {
+    if (endEl) endEl.hidden = true;
+    if (replay) replay.hidden = true;
+    const finish = () => {
+      setAt(STEPS);
+      if (endEl) endEl.hidden = false;
+      if (replay) replay.hidden = false;
+    };
+    if (reduce) return finish();
+    const dur = 6000;
+    const t0 = performance.now();
+    const step = (now: number) => {
+      const t = Math.min(1, (now - t0) / dur);
+      const e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      setAt(e * STEPS);
+      if (t < 1) requestAnimationFrame(step);
+      else finish();
+    };
+    requestAnimationFrame(step);
+  };
+  if (wheel) {
+    setAt(0);
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          io.disconnect();
+          spin();
+        }
+      },
+      { threshold: 0.5 },
+    );
+    io.observe(wheel);
+    replay?.addEventListener('click', spin);
+  }
+</script>
+
 <style>
-  .ins-head {
+  /* ── viewer ── */
+  .viewer {
+    padding-top: 5.5rem;
     background:
-      radial-gradient(40rem 24rem at 90% 0%, rgb(255 255 255 / 0.07), transparent 70%),
-      linear-gradient(165deg, var(--stone), var(--stone-2));
-    color: var(--stone-ink);
-    padding-block: clamp(2.5rem, 7vw, 4.5rem) clamp(4rem, 9vw, 5.5rem);
+      radial-gradient(60rem 40rem at 50% 45%, rgb(255 154 60 / 0.08), transparent 70%),
+      var(--night);
   }
-  .head-grid {
-    display: grid;
-    gap: 2rem;
-    align-items: center;
+  .viewer-head {
+    text-align: center;
   }
-  .head-stone {
-    max-width: 13rem;
-    width: 100%;
-    justify-self: center;
-    order: -1;
+  .kicker {
+    font-family: var(--display);
+    color: var(--flame) !important;
+    margin-bottom: 0.25rem;
   }
-  @media (min-width: 900px) {
-    .head-grid {
-      grid-template-columns: minmax(0, 1fr) 16rem;
-      gap: 3.5rem;
-    }
-    .head-stone {
-      max-width: none;
-      order: 0;
-    }
-  }
-  .stone-parts {
-    margin: 1.5rem 0;
-    border-top: 1px solid var(--line);
-  }
-  .stone-parts div {
-    display: grid;
-    gap: 0.1rem 1.5rem;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--line);
-  }
-  @media (min-width: 640px) {
-    .stone-parts div {
-      grid-template-columns: 11rem 1fr;
-    }
-  }
-  .ins-head .eyebrow {
-    color: var(--stone-accent);
-  }
-  .ins-head h1 {
+  .viewer h1 {
+    color: #fbefd9;
     margin-bottom: 0.1em;
   }
   .sub {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+    color: #d6c3a5 !important;
+  }
+  .stage {
+    position: relative;
+    height: min(78svh, 46rem);
+    min-height: 26rem;
+    margin-top: 1rem;
+  }
+  .stage-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    cursor: crosshair;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+  .stage-fallback {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    height: 92%;
+    width: auto;
+    filter: brightness(0.75) sepia(0.2);
+    transition: opacity 1s ease;
+  }
+  .is-live .stage-canvas {
+    opacity: 1;
+  }
+  .is-live .stage-fallback {
+    opacity: 0;
+  }
+  .stage-loading {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    translate: -50% 0;
+    font-size: 0.875rem;
+    color: #e9d7b8 !important;
+    background: rgb(15 11 9 / 0.7);
+    padding: 0.3rem 0.8rem;
+  }
+  .viewer-ui {
+    display: grid;
+    justify-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    text-align: center;
+  }
+  .viewer-ui[hidden] {
+    display: none;
+  }
+  .modes {
+    display: inline-flex;
+    border: 1px solid rgb(255 154 60 / 0.5);
+  }
+  .mode {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font: inherit;
+    font-size: 0.9375rem;
+    color: #e9d7b8;
+    background: transparent;
+    border: 0;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  .mode svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  .mode.is-on {
+    background: var(--flame);
+    color: #1a0f08;
+  }
+  .hint {
+    max-width: 34rem;
+    font-size: 0.9375rem;
+  }
+  .spots-wrap {
+    padding-block: 2.5rem 4rem;
+  }
+  .spots-title {
+    font-size: 1.4rem;
+    color: #fbefd9;
+    text-align: center;
+    margin-bottom: 1.25rem;
+  }
+  .spots {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 60rem;
+    display: grid;
+    gap: 0;
+    border-top: 1px solid rgb(255 255 255 / 0.12);
+  }
+  @media (min-width: 720px) {
+    .spots {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 2.5rem;
+    }
+  }
+  .spots button {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: 0 0.5rem;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    border-bottom: 1px solid rgb(255 255 255 / 0.12);
+    padding: 0.85rem 0;
+    cursor: pointer;
+  }
+  .spot-n {
+    grid-row: span 2;
     font-family: var(--display);
-    font-size: clamp(1.125rem, 2.6vw, 1.5rem);
-    opacity: 0.85;
-    margin-bottom: 2rem;
+    font-weight: 800;
+    color: var(--flame);
+    font-size: 1.3rem;
+    line-height: 1.3;
+  }
+  .spot-label {
+    font-weight: 600;
+    color: #fbefd9;
+  }
+  .spot-text {
+    font-size: 0.9375rem;
+    color: var(--night-soft);
+  }
+  .spots button:hover .spot-label,
+  .spots button.is-on .spot-label {
+    color: var(--flame);
+  }
+  .why {
+    text-align: center;
+    font-family: var(--serif);
+    font-style: italic;
+    margin: 2rem auto 0.5rem;
+    max-width: 36rem;
+  }
+  .viewer-note {
+    text-align: center;
+    font-size: 0.8125rem;
+    opacity: 0.7;
+  }
+
+  /* ── notice + facts ── */
+  .notice {
+    margin: 3rem 0 2rem;
+    padding: 0.2rem 0 0.2rem 1.25rem;
+    border-left: 4px solid var(--kumkum);
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+    line-height: 1.6;
+    max-width: 50rem;
   }
   .facts {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1px;
     margin: 0;
-    background: rgb(255 255 255 / 0.12);
-    border: 1px solid rgb(255 255 255 / 0.12);
-    border-radius: var(--radius);
-    overflow: hidden;
+    border-top: 2px solid var(--ink);
   }
-  .facts div {
-    background: color-mix(in srgb, var(--stone-2) 88%, black);
-    padding: 0.9rem 1.1rem;
-  }
-  .facts dt {
-    font-size: 0.8125rem;
-    opacity: 0.7;
-  }
-  @media (min-width: 760px) {
+  @media (min-width: 800px) {
     .facts {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
+  .facts div {
+    padding: 0.9rem 1rem 0.9rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .facts dt {
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
+  }
   .facts dd {
-    color: var(--stone-ink);
     margin: 0;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.5;
   }
 
-  .notice {
-    display: flex;
-    gap: 0.9rem;
-    align-items: flex-start;
-    margin: -2rem 0 0;
-    position: relative;
-    padding: 1.1rem 1.25rem;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-left: 5px solid var(--kumkum);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    font-weight: 500;
+  /* ── chapters ── */
+  .chapters {
+    padding-block: 2rem 5rem;
   }
-  .notice svg {
-    flex: none;
-    width: 1.5rem;
-    height: 1.5rem;
-    color: var(--kumkum);
-    margin-top: 0.2rem;
+  .chap {
+    padding-block: clamp(2.5rem, 6vw, 4rem);
+    border-bottom: 1px solid var(--rule);
+    scroll-margin-top: 5rem;
   }
-
-  .ins-layout {
-    display: grid;
-    gap: 2rem;
-    padding-block: 2.5rem 4rem;
-  }
-  .toc {
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 1rem 1.25rem;
-    background: var(--surface);
-  }
-  .toc-title {
-    font-weight: 700;
-    font-size: 0.8125rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--turmeric);
-    margin-bottom: 0.5rem;
-  }
-  .toc ol {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem 1rem;
-  }
-  .toc a {
-    color: var(--ink);
-    text-decoration: none;
-    font-size: 0.9375rem;
-  }
-  .toc a:hover {
-    color: var(--kumkum);
-    text-decoration: underline;
-  }
-  @media (min-width: 1000px) {
-    .ins-layout {
-      grid-template-columns: 13rem minmax(0, 1fr);
-      gap: 3.5rem;
-    }
-    .toc {
-      position: sticky;
-      top: 6rem;
-      align-self: start;
-    }
-    .toc ol {
-      display: grid;
-      gap: 0.35rem;
-    }
-  }
-  .ins-body {
-    min-width: 0;
-    max-width: 50rem;
-  }
-  .block {
-    padding-block: 1.5rem 2rem;
-    border-bottom: 1px solid var(--line);
-    scroll-margin-top: 6rem;
-  }
-  .block:last-child {
+  .chap:last-child {
     border-bottom: 0;
   }
-
-  .titles {
-    list-style: none;
-    margin: 1rem 0 1.5rem;
-    padding: 0;
-    display: grid;
-    gap: 0.75rem;
-  }
-  @media (min-width: 640px) {
-    .titles {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  .titles li {
-    display: grid;
-    padding: 0.9rem 1.1rem;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-  }
-  .title-term {
-    font-family: var(--display);
-    font-size: 1.125rem;
-    color: var(--kumkum);
-    overflow-wrap: anywhere;
-  }
-  .title-mean {
+  .aside {
+    border-left: 3px solid var(--arishina);
+    padding-left: 1rem;
     color: var(--ink-soft);
-    font-size: 0.9375rem;
-  }
-
-  .people {
-    display: grid;
-    gap: 1rem;
-    margin-top: 1.25rem;
-  }
-  @media (min-width: 640px) {
-    .people {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  .person {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-top: 3px solid var(--turmeric);
-    border-radius: 12px;
-    padding: 1.1rem 1.25rem;
-  }
-  .person h3 {
-    margin-bottom: 0.25em;
-    font-size: 1.1875rem;
-  }
-  .person p {
-    margin: 0;
     font-size: 0.9688rem;
   }
-  .person-lines {
-    margin-top: 0.5rem !important;
-    font-size: 0.8125rem !important;
-    color: var(--ink-soft);
-  }
-
-  .date-parts,
-  .grants,
-  .glossary {
-    margin: 1rem 0 1.5rem;
-    border-top: 1px solid var(--line);
-  }
-  .date-parts div,
-  .grants div,
-  .glossary div {
-    display: grid;
-    gap: 0.1rem 1.5rem;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--line);
-  }
-  @media (min-width: 640px) {
-    .date-parts div,
-    .grants div,
-    .glossary div {
-      grid-template-columns: 14rem 1fr;
-    }
-  }
   dt {
-    font-weight: 500;
+    font-weight: 600;
   }
   dd {
     margin: 0;
     color: var(--ink-soft);
   }
+  .titles {
+    display: grid;
+    margin: 1.5rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  @media (min-width: 720px) {
+    .titles {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 3rem;
+    }
+  }
+  .titles div {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .titles dt {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.3rem;
+    color: var(--kumkum);
+    overflow-wrap: anywhere;
+    line-height: 1.3;
+  }
+  .titles dt:lang(kn-Latn) {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-style: italic;
+  }
+  .people {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: grid;
+    gap: 0 3rem;
+    border-top: 1px solid var(--rule);
+  }
+  @media (min-width: 720px) {
+    .people {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .people li {
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .people h3 {
+    margin-bottom: 0.2em;
+  }
+  .people p {
+    margin: 0;
+  }
+  .lines-ref {
+    font-size: 0.8125rem;
+    color: var(--arishina);
+    margin-top: 0.3rem !important;
+  }
+  .date-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (min-width: 960px) {
+    .date-grid {
+      grid-template-columns: 1fr 24rem;
+      gap: 4rem;
+    }
+  }
+  .date-parts div,
+  .two-col div {
+    display: grid;
+    gap: 0 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .date-parts div,
+    .two-col div {
+      grid-template-columns: 13rem 1fr;
+    }
+  }
+  .two-col {
+    margin: 1.5rem 0;
+  }
   .gloss-title {
-    margin-top: 2rem;
+    margin-top: 2.5rem;
   }
   .gloss-kn {
     font-weight: 400;
@@ -728,23 +1004,147 @@ for (const s of sections) if (!sectionStarts.has(s.from)) sectionStarts.set(s.fr
   }
   .gloss-src {
     font-size: 0.8125rem;
-    color: var(--turmeric);
+    color: var(--arishina);
   }
 
-  /* The inscription panel: light letters on dark soapstone. */
-  .stone {
-    margin: 1.5rem 0 2rem;
+  /* ── wheel ── */
+  .wheel {
+    margin: 0;
+    padding: 1.5rem;
+    background: var(--night);
+    color: var(--night-ink);
+    text-align: center;
+  }
+  .wheel h3 {
+    color: var(--flame);
+  }
+  .wheel figcaption p {
+    font-size: 0.9375rem;
+    color: var(--night-soft);
+  }
+  .wheel svg {
+    width: 100%;
+    max-width: 20rem;
+    margin: 0.5rem auto;
+    display: block;
+    overflow: visible;
+  }
+  .w-ring {
+    fill: none;
+    stroke: rgb(241 230 210 / 0.35);
+    stroke-width: 1;
+  }
+  .w-inner {
+    stroke-dasharray: 2 4;
+  }
+  .w-tick {
+    stroke: rgb(241 230 210 / 0.5);
+    stroke-width: 1;
+  }
+  .w-tick--long {
+    stroke: rgb(241 230 210 / 0.9);
+    stroke-width: 1.6;
+  }
+  .w-mark circle {
+    fill: var(--night);
+    stroke: currentColor;
+    stroke-width: 1.4;
+  }
+  .w-mark text {
+    fill: currentColor;
+    font-size: 9px;
+    text-anchor: middle;
+    font-family: var(--display);
+    font-weight: 800;
+  }
+  .w-mark--prabhava,
+  .w-l--prabhava span {
+    color: #d8c7ab;
+  }
+  .w-mark--yuva,
+  .w-l--yuva span {
+    color: #9fc3a8;
+  }
+  .w-mark--vikrama,
+  .w-l--vikrama span {
+    color: var(--flame);
+  }
+  .w-mark--parabhava,
+  .w-l--parabhava span {
+    color: #f07a62;
+  }
+  .w-hand line {
+    stroke: var(--flame);
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+  .w-flame {
+    fill: #ffd28a;
+    filter: drop-shadow(0 0 6px #ff9a3c);
+  }
+  .w-hub {
+    fill: var(--flame);
+  }
+  .w-counter {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    font-size: 0.9375rem;
+    color: var(--night-soft);
+  }
+  .w-counter b {
+    font-family: var(--display);
+    font-size: 1.9rem;
+    color: #fbefd9;
+    font-variant-numeric: tabular-nums;
+  }
+  .w-legend {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: grid;
+    gap: 0.3rem;
+    text-align: left;
+    font-size: 0.875rem;
+  }
+  .w-legend li {
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+  }
+  .w-legend span {
+    font-family: var(--display);
+    font-weight: 800;
+    width: 1rem;
+  }
+  .w-end {
+    margin-top: 1rem;
+    font-family: var(--serif);
+    color: #fbefd9 !important;
+    font-size: 1.1rem;
+  }
+  .w-replay {
+    font: inherit;
+    font-weight: 600;
+    background: none;
+    border: 0;
+    border-bottom: 2px solid currentColor;
+    color: var(--flame);
+    cursor: pointer;
+    padding: 0 0 0.1rem;
+  }
+
+  /* ── full text panel ── */
+  .slab {
+    margin: 2rem 0;
     padding: clamp(1rem, 4vw, 2.5rem) clamp(0.75rem, 4vw, 2.5rem) clamp(1.5rem, 4vw, 2.5rem);
-    border-radius: 48% 48% 18px 18px / 110px 110px 18px 18px;
+    border-radius: 48% 48% 6px 6px / 110px 110px 6px 6px;
     background:
-      radial-gradient(28rem 16rem at 30% 0%, rgb(255 255 255 / 0.08), transparent 70%),
+      radial-gradient(28rem 16rem at 30% 0%, rgb(255 255 255 / 0.07), transparent 70%),
       repeating-linear-gradient(95deg, rgb(255 255 255 / 0.015) 0 2px, transparent 2px 7px),
-      linear-gradient(170deg, #4a554f, #2a312d);
+      linear-gradient(170deg, #4a4f4a, #262a27);
     color: #ece6d6;
-    box-shadow:
-      inset 0 2px 0 rgb(255 255 255 / 0.08),
-      inset 0 -10px 30px rgb(0 0 0 / 0.35),
-      var(--shadow);
+    box-shadow: inset 0 -10px 30px rgb(0 0 0 / 0.35);
   }
   .arch {
     width: 100%;
@@ -753,7 +1153,7 @@ for (const s of sections) if (!sectionStarts.has(s.from)) sectionStarts.set(s.fr
     margin: 0 auto 0.5rem;
   }
   .arch-text {
-    font-family: var(--display);
+    font-family: var(--serif);
     font-size: 19px;
     fill: #e9dfc6;
   }
@@ -761,7 +1161,7 @@ for (const s of sections) if (!sectionStarts.has(s.from)) sectionStarts.set(s.fr
     list-style: none;
     margin: 0;
     padding: 0;
-    font-family: var(--display);
+    font-family: var(--serif);
     font-size: clamp(0.9375rem, 2.3vw, 1.0625rem);
     line-height: 1.85;
   }
@@ -769,14 +1169,12 @@ for (const s of sections) if (!sectionStarts.has(s.from)) sectionStarts.set(s.fr
     display: grid;
     grid-template-columns: 2.2rem 1fr;
     gap: 0.5rem;
-    padding: 0.15rem 0;
     text-shadow: 0 1px 0 rgb(0 0 0 / 0.5);
   }
   .ln {
     color: #c9a85a;
     text-align: right;
     font-size: 0.85em;
-    padding-top: 0.1em;
   }
   .lt {
     overflow-wrap: anywhere;
@@ -791,7 +1189,6 @@ for (const s of sections) if (!sectionStarts.has(s.from)) sectionStarts.set(s.fr
     font-family: var(--body);
     font-size: 0.75rem;
     letter-spacing: 0.06em;
-    text-transform: uppercase;
     color: #c9a85a;
     border-top: 1px dashed rgb(201 168 90 / 0.35);
     padding-top: 0.5rem;
@@ -801,47 +1198,51 @@ for (const s of sections) if (!sectionStarts.has(s.from)) sectionStarts.set(s.fr
     border-top: 0;
     padding-top: 0;
   }
-
-  .guide {
-    list-style: none;
-    margin: 1rem 0 0;
-    padding: 0;
-    display: grid;
-    gap: 0.75rem;
-  }
   .guide li {
     display: grid;
-    padding: 0.9rem 1.1rem;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 12px;
   }
   .guide-range {
     font-size: 0.8125rem;
-    color: var(--turmeric);
-    font-weight: 700;
+    color: var(--arishina);
+    font-weight: 600;
   }
   .guide span:last-child {
     color: var(--ink-soft);
     font-size: 0.9688rem;
   }
 
+  /* ── journey ── */
+  .journey-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+  }
+  .journey-grid :global(.journey-print) {
+    max-width: 16rem;
+    justify-self: center;
+  }
+  @media (min-width: 900px) {
+    .journey-grid {
+      grid-template-columns: 1fr 17rem;
+      gap: 4rem;
+    }
+  }
   .timeline {
     list-style: none;
     margin: 1.5rem 0 0;
     padding: 0 0 0 1.5rem;
-    border-left: 2px solid var(--turmeric);
+    border-left: 2px dashed var(--arishina);
   }
   .timeline li {
     position: relative;
-    padding: 0 0 1.5rem;
+    padding-bottom: 1.5rem;
     display: grid;
   }
   .timeline li::before {
     content: '';
     position: absolute;
     left: calc(-1.5rem - 7px);
-    top: 0.45rem;
+    top: 0.55rem;
     width: 12px;
     height: 12px;
     border-radius: 50%;
@@ -850,17 +1251,18 @@ for (const s of sections) if (!sectionStarts.has(s.from)) sectionStarts.set(s.fr
   }
   .tl-year {
     font-family: var(--display);
-    font-size: 1.1875rem;
+    font-weight: 800;
+    font-size: 1.25rem;
     color: var(--kumkum);
   }
   .tl-text {
     color: var(--ink-soft);
   }
-  .sources {
-    padding-left: 1.2rem;
+  .care {
+    margin-top: 2rem;
   }
-  .sources li {
-    margin-bottom: 0.5rem;
+  .sources ul {
+    padding-left: 1.2rem;
   }
   .caveat {
     font-size: 0.875rem;

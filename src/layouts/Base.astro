@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Kolam from '../components/Kolam.astro';
 import { nav, pages, href, asset, type Lang, type Page } from '../i18n';
 import { temple } from '../data/site';
 
@@ -9,25 +10,30 @@ interface Props {
   title?: string;
   description: string;
   image?: string;
+  /** Header floats over a dark hero. */
+  overlay?: boolean;
 }
 
-const { lang, page, title, description, image = 'images/kalabhairaveshwara-belli-prabhavali.jpg' } = Astro.props;
+const { lang, page, title, description, image = 'images/jatre-night-gopura.jpg', overlay = false } = Astro.props;
 const other: Lang = lang === 'kn' ? 'en' : 'kn';
-const siteName = `${temple.shortName[lang]}, ${temple.place[lang]}`;
-const fullTitle = title ? `${title} · ${siteName}` : `${temple.name[lang]} · ${temple.place[lang]}`;
+const fullTitle = title ? `${title} · ${temple.shortName[lang]}, ${temple.place[lang]}` : `${temple.name[lang]} · ${temple.place[lang]}`;
 const canonical = new URL(href(lang, page), Astro.site);
 const t = {
-  kn: { skip: 'ಮುಖ್ಯ ವಿಷಯಕ್ಕೆ ಹೋಗಿ', menu: 'ಮೆನು', switchTo: 'English', switchLabel: 'Read this page in English' },
-  en: { skip: 'Skip to content', menu: 'Menu', switchTo: 'ಕನ್ನಡ', switchLabel: 'ಈ ಪುಟವನ್ನು ಕನ್ನಡದಲ್ಲಿ ಓದಿ' },
+  kn: { skip: 'ಮುಖ್ಯ ವಿಷಯಕ್ಕೆ ಹೋಗಿ', menu: 'ಮೆನು', close: 'ಮುಚ್ಚಿ', switchTo: 'English', switchLabel: 'Read this page in English' },
+  en: { skip: 'Skip to content', menu: 'Menu', close: 'Close', switchTo: 'ಕನ್ನಡ', switchLabel: 'ಈ ಪುಟವನ್ನು ಕನ್ನಡದಲ್ಲಿ ಓದಿ' },
 }[lang];
-const footer = {
+const f = {
   kn: {
-    note: 'ಈ ಜಾಲತಾಣದ ಚಿತ್ರಗಳು ದೇವಸ್ಥಾನದವು. ಅನುಮತಿಯಿಲ್ಲದೆ ಬೇರೆಡೆ ಬಳಸಬೇಡಿ.',
-    follow: 'ಫೇಸ್‌ಬುಕ್‌ನಲ್ಲಿ ಹಿಂಬಾಲಿಸಿ',
+    blessing: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಪ್ರಸನ್ನ',
+    photos: 'ಇಲ್ಲಿನ ಎಲ್ಲ ಚಿತ್ರಗಳು ಮನಕತ್ತೂರಿನವರೇ ತೆಗೆದವು. ಅನುಮತಿಯಿಲ್ಲದೆ ಬೇರೆಡೆ ಬಳಸಬೇಡಿ.',
+    classic: 'ಹಳೆಯ ವಿನ್ಯಾಸ',
+    follow: 'ಫೇಸ್‌ಬುಕ್',
   },
   en: {
-    note: 'Photographs on this site belong to the temple. Please do not reuse them without permission.',
-    follow: 'Follow on Facebook',
+    blessing: 'Sri Kalabhairaveshwara Prasanna',
+    photos: 'Every photograph here was taken in Manakathuru. Please do not reuse them without permission.',
+    classic: 'Classic version',
+    follow: 'Facebook',
   },
 }[lang];
 ---
@@ -44,7 +50,7 @@ const footer = {
     <link rel="alternate" hreflang="en" href={new URL(href('en', page), Astro.site)} />
     <link rel="alternate" hreflang="x-default" href={new URL(href('kn', page), Astro.site)} />
     <link rel="icon" href={asset('favicon.svg')} type="image/svg+xml" />
-    <meta name="theme-color" content="#9e2a1e" />
+    <meta name="theme-color" content="#0f0b09" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={temple.name[lang]} />
     <meta property="og:title" content={fullTitle} />
@@ -56,19 +62,13 @@ const footer = {
   <body>
     <a class="skip" href="#main">{t.skip}</a>
 
-    <div class="topbar">
-      <div class="wrap">{temple.invocation[lang]}</div>
-    </div>
-
-    <header class="site-header">
+    <header class:list={['site-header', { 'site-header--overlay': overlay }]}>
       <div class="wrap header-row">
         <a class="brand" href={href(lang)}>
-          <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
-            <rect width="64" height="64" rx="14" fill="var(--kumkum)"></rect>
-            <g fill="none" stroke="#F3D48A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M32 10v44"></path><path d="M18 16c0 12 6 18 14 18s14-6 14-18"></path>
-              <path d="M32 10l-4 6h8z" fill="#F3D48A"></path><path d="M24 54h16"></path>
-            </g>
+          <svg class="brand-mark" viewBox="0 0 40 48" aria-hidden="true">
+            <!-- a hand-drawn trishula with a small flame -->
+            <path d="M20 46V12M11 7c0 9 3.5 13 9 13s9-4 9-13M20 12l-3.4-5.2L20 2l3.4 4.8z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M14.5 30.5h11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path>
           </svg>
           <span class="brand-text">
             <span class="brand-name">{temple.shortName[lang]}</span>
@@ -77,40 +77,32 @@ const footer = {
         </a>
 
         <nav class="desk-nav" aria-label={t.menu}>
-          <ul>
-            {
-              pages.map((p) => (
-                <li>
-                  <a href={href(lang, p)} aria-current={p === page ? 'page' : undefined}>
-                    {nav[lang][p]}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
+          {
+            pages.map((p) => (
+              <a href={href(lang, p)} aria-current={p === page ? 'page' : undefined}>
+                {nav[lang][p]}
+              </a>
+            ))
+          }
         </nav>
 
-        <a class="lang-switch" href={href(other, page)} hreflang={other} lang={other} aria-label={t.switchLabel}>
-          {t.switchTo}
-        </a>
+        <a class="lang-switch" href={href(other, page)} hreflang={other} lang={other} aria-label={t.switchLabel}>{t.switchTo}</a>
 
         <details class="menu">
-          <summary>
-            <span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span>{t.menu}</span>
+          <summary aria-label={t.menu}>
+            <svg viewBox="0 0 28 20" aria-hidden="true"><path d="M2 4c8-1.2 16-.8 24 0M2 10.2c6.5-.7 15-.6 24 .3M2 16.4c9-1 17-.6 24 .2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
           </summary>
           <nav aria-label={t.menu}>
-            <ul>
-              {
-                pages.map((p) => (
-                  <li>
-                    <a href={href(lang, p)} aria-current={p === page ? 'page' : undefined}>
-                      {nav[lang][p]}
-                    </a>
-                  </li>
-                ))
-              }
-            </ul>
+            <p class="menu-bless">{f.blessing}</p>
+            {
+              pages.map((p, i) => (
+                <a href={href(lang, p)} aria-current={p === page ? 'page' : undefined}>
+                  <small>{'೧೨೩೪೫೬'[i]}</small>
+                  {nav[lang][p]}
+                </a>
+              ))
+            }
+            <a class="menu-lang" href={href(other, page)} hreflang={other} lang={other}>{t.switchTo}</a>
           </nav>
         </details>
       </div>
@@ -120,175 +112,200 @@ const footer = {
       <slot />
     </main>
 
-    <footer class="site-footer">
-      <div class="frieze" aria-hidden="true"></div>
-      <div class="wrap footer-grid">
-        <div>
-          <p class="footer-name">{temple.name[lang]}</p>
-          <p>{temple.place[lang]}, {temple.region[lang]}</p>
-          <p><a href={temple.contact.facebook} rel="noopener">{footer.follow}</a></p>
-        </div>
-        <nav aria-label="Footer">
-          <ul>
-            {pages.map((p) => <li><a href={href(lang, p)}>{nav[lang][p]}</a></li>)}
-          </ul>
+    <footer class="site-footer night">
+      <div class="wrap">
+        <Kolam dots={11} class="footer-kolam" />
+        <p class="footer-bless">{f.blessing}</p>
+        <p class="footer-name">{temple.name[lang]}</p>
+        <p class="footer-place">{temple.place[lang]} · {temple.region[lang]}</p>
+        <nav class="footer-nav" aria-label="Footer">
+          {pages.map((p) => <a href={href(lang, p)}>{nav[lang][p]}</a>)}
+          <a href={temple.contact.facebook} rel="noopener">{f.follow} ↗</a>
         </nav>
-        <p class="footer-note">{footer.note}</p>
+        <p class="footer-note">
+          {f.photos} · <a href={asset('classic/') + (lang === 'en' ? 'en/' : '')}>{f.classic}</a>
+        </p>
       </div>
     </footer>
+
+    <script>
+      // Draw each kolam when it scrolls into view.
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const kolams = document.querySelectorAll<SVGSVGElement>('[data-kolam]');
+      if (!reduce && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (!e.isIntersecting) continue;
+              e.target.classList.add('drawn');
+              io.unobserve(e.target);
+            }
+          },
+          { threshold: 0.4 },
+        );
+        kolams.forEach((k) => {
+          k.querySelectorAll('path').forEach((p) => p.style.setProperty('--len', String(Math.ceil(p.getTotalLength()))));
+          k.classList.add('will-draw');
+          io.observe(k);
+        });
+      }
+    </script>
   </body>
 </html>
 
 <style>
-  .topbar {
-    background: var(--kumkum);
-    color: var(--kumkum-ink);
-    font-family: var(--display);
-    text-align: center;
-    font-size: 0.9375rem;
-    padding-block: 0.3rem;
-    letter-spacing: 0.02em;
-  }
   .site-header {
     position: sticky;
     top: 0;
     z-index: 50;
-    background: color-mix(in srgb, var(--paper) 92%, transparent);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--paper) 96%, transparent);
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink);
+  }
+  .site-header--overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to bottom, rgb(10 6 4 / 0.7), transparent);
+    border-bottom: 0;
+    color: #f7ecd9;
   }
   .header-row {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    min-height: 4.25rem;
+    gap: 1rem;
+    min-height: 4.5rem;
   }
   .brand {
     display: flex;
     align-items: center;
-    gap: 0.7rem;
-    text-decoration: none;
-    color: var(--ink);
+    gap: 0.6rem;
     margin-right: auto;
+    color: inherit;
+    text-decoration: none;
     min-width: 0;
   }
   .brand-mark {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 1.7rem;
+    height: 2.1rem;
+    color: var(--kumkum);
     flex: none;
   }
+  .site-header--overlay .brand-mark {
+    color: var(--flame);
+  }
   .brand-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.25;
+    display: grid;
+    line-height: 1.15;
     min-width: 0;
   }
   .brand-name {
     font-family: var(--display);
-    font-size: 1.125rem;
+    font-weight: 800;
+    font-size: 1.15rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   .brand-place {
     font-size: 0.8125rem;
-    color: var(--ink-soft);
+    opacity: 0.75;
   }
-  .lang-switch {
-    font-size: 0.9375rem;
-    padding: 0.35rem 0.8rem;
-    border: 1px solid var(--line);
-    border-radius: 999px;
+  .desk-nav {
+    display: none;
+    gap: 1.4rem;
+  }
+  .desk-nav a {
+    color: inherit;
     text-decoration: none;
-    color: var(--ink);
-    background: var(--surface);
-    white-space: nowrap;
+    font-size: 0.9688rem;
+    padding-block: 0.3rem;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat;
+    transition: background-size 0.3s ease;
   }
-  .lang-switch:hover {
-    border-color: var(--kumkum);
+  .desk-nav a:hover,
+  .desk-nav a[aria-current='page'] {
+    background-size: 100% 2px;
+  }
+  .desk-nav a[aria-current='page'] {
     color: var(--kumkum);
   }
-
-  /* Mobile: disclosure menu. Desktop: inline links. */
+  .site-header--overlay .desk-nav a[aria-current='page'] {
+    color: var(--flame);
+  }
+  .lang-switch {
+    color: inherit;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px dashed currentColor;
+  }
   .menu summary {
     list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
     cursor: pointer;
-    padding: 0.4rem 0.6rem;
-    border-radius: 8px;
-    font-size: 0.9375rem;
+    padding: 0.5rem;
+    margin-right: -0.5rem;
+    position: relative;
+    z-index: 61;
   }
   .menu summary::-webkit-details-marker {
     display: none;
   }
-  .menu-icon {
-    display: grid;
-    gap: 4px;
-  }
-  .menu-icon i {
+  .menu summary svg {
+    width: 1.75rem;
     display: block;
-    width: 18px;
-    height: 2px;
-    background: currentColor;
-    border-radius: 2px;
+  }
+  .menu[open] summary {
+    color: #f7ecd9;
   }
   .menu nav {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
-    background: var(--paper);
-    border-bottom: 1px solid var(--line);
-    box-shadow: var(--shadow);
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: var(--night);
+    color: #f7ecd9;
+    padding: 5.5rem 1.5rem 2rem;
+    display: grid;
+    align-content: start;
+    gap: 0.25rem;
+    overflow-y: auto;
   }
-  .menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0.5rem 1rem 1rem;
+  .menu-bless {
+    font-family: var(--display);
+    color: var(--flame);
+    margin-bottom: 1.5rem;
   }
-  .menu a {
-    display: block;
-    padding: 0.7rem 0.25rem;
-    color: var(--ink);
+  .menu nav a {
+    color: inherit;
     text-decoration: none;
-    border-bottom: 1px solid var(--line);
-  }
-  .menu a[aria-current='page'] {
-    color: var(--kumkum);
-    font-weight: 500;
-  }
-
-  .desk-nav {
-    display: none;
-  }
-  .desk-nav ul {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.9rem;
     display: flex;
-    gap: 0.15rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    align-items: baseline;
+    gap: 0.9rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid rgb(255 255 255 / 0.1);
   }
-  .desk-nav a {
-    display: block;
-    padding: 0.4rem 0.65rem;
-    border-radius: 8px;
-    font-size: 0.9375rem;
-    color: var(--ink);
-    text-decoration: none;
-    white-space: nowrap;
+  .menu nav a small {
+    font-size: 0.95rem;
+    color: var(--flame);
+    width: 1.2rem;
   }
-  .desk-nav a:hover {
-    background: var(--paper-2);
+  .menu nav a[aria-current='page'] {
+    color: var(--flame);
   }
-  .desk-nav a[aria-current='page'] {
-    color: var(--kumkum);
-    background: color-mix(in srgb, var(--kumkum) 10%, transparent);
+  .menu nav a.menu-lang {
+    font-family: var(--body);
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-bottom: 0;
+    margin-top: 1.5rem;
+    color: var(--flame);
   }
   @media (min-width: 1080px) {
     .desk-nav {
-      display: block;
+      display: flex;
     }
     .menu {
       display: none;
@@ -296,51 +313,45 @@ const footer = {
   }
 
   .site-footer {
-    background: var(--stone-2);
-    color: var(--stone-ink);
-    margin-top: 0;
+    position: relative;
+    padding-block: 4rem 2.5rem;
+    text-align: center;
   }
-  .site-footer a {
-    color: var(--stone-accent);
+  .footer-kolam {
+    color: var(--flame);
+    opacity: 0.8;
+    margin-bottom: 2rem;
   }
-  .footer-grid {
-    display: grid;
-    gap: 1.5rem;
-    padding-block: 2.5rem 2rem;
-    font-size: 0.9375rem;
-  }
-  .footer-grid p {
-    margin: 0 0 0.4rem;
+  .footer-bless {
+    font-family: var(--display);
+    color: var(--flame) !important;
+    margin: 0;
   }
   .footer-name {
     font-family: var(--display);
-    font-size: 1.25rem;
+    font-weight: 800;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    color: var(--night-ink) !important;
+    margin: 0.25rem 0;
   }
-  .footer-grid ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.35rem 1rem;
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1.4rem;
+    margin: 2rem 0;
   }
-  .footer-grid ul a {
-    color: var(--stone-ink);
+  .footer-nav a {
+    color: var(--night-ink);
     text-decoration: none;
   }
-  .footer-grid ul a:hover {
-    text-decoration: underline;
+  .footer-nav a:hover {
+    color: var(--flame);
   }
   .footer-note {
-    grid-column: 1 / -1;
-    opacity: 0.7;
     font-size: 0.8125rem;
-    border-top: 1px solid rgb(255 255 255 / 0.12);
-    padding-top: 1rem;
-  }
-  @media (min-width: 720px) {
-    .footer-grid {
-      grid-template-columns: 1.3fr 1fr;
-    }
+    opacity: 0.7;
+    max-width: 36rem;
+    margin-inline: auto;
   }
 </style>

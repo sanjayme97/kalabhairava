@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import Photo from '../components/Photo.astro';
+import Print from '../components/Print.astro';
 import { href, type Lang } from '../i18n';
 import { photos, photoCategories, galleryOrder, type PhotoCategory } from '../data/site';
 
@@ -9,21 +9,19 @@ const { lang } = Astro.props as { lang: Lang };
 const c = {
   kn: {
     title: 'ಚಿತ್ರಸಂಪುಟ',
-    description: 'ಮನಕತ್ತೂರು ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನ, ಜಾತ್ರಾ ಮಹೋತ್ಸವ ಮತ್ತು ಶಾಸನ ಕಲ್ಲಿನ ಚಿತ್ರಗಳು.',
-    lede: 'ಸ್ವಾಮಿಯ ದರ್ಶನ, ಜಾತ್ರೆಯ ಸಂಭ್ರಮ ಮತ್ತು ಊರಿನ ಪರಂಪರೆ. ದೊಡ್ಡದಾಗಿ ನೋಡಲು ಚಿತ್ರದ ಮೇಲೆ ಒತ್ತಿ.',
-    more: 'ನಿಮ್ಮ ಬಳಿ ಚಿತ್ರಗಳಿವೆಯೇ?',
-    moreBody:
-      'ಹಳೆಯ ಜಾತ್ರೆಗಳ, ದೇವಸ್ಥಾನದ ಜೀರ್ಣೋದ್ಧಾರದ ಅಥವಾ ಊರಿನ ಹಳೆಯ ಚಿತ್ರಗಳಿದ್ದರೆ ದೇವಸ್ಥಾನ ಸಮಿತಿಯೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ. ಅವುಗಳನ್ನು ಇಲ್ಲಿ ಸೇರಿಸಲಾಗುವುದು.',
-    contact: 'ಸಂಪರ್ಕಿಸಿ',
+    description: 'ಮನಕತ್ತೂರು ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನ, ಜಾತ್ರೆ ಮತ್ತು ಶಾಸನ ಕಲ್ಲಿನ ಚಿತ್ರಗಳು.',
+    lede: 'ಊರಿನವರು ತೆಗೆದ ಚಿತ್ರಗಳು. ದೊಡ್ಡದಾಗಿ ನೋಡಲು ಚಿತ್ರದ ಮೇಲೆ ಒತ್ತಿ.',
+    more: 'ನಿಮ್ಮ ಬಳಿ ಹಳೆಯ ಚಿತ್ರಗಳಿವೆಯೇ?',
+    moreBody: 'ಹಳೆಯ ಜಾತ್ರೆಗಳ, ದೇವಸ್ಥಾನದ ಅಥವಾ ಊರಿನ ಹಳೆಯ ಫೋಟೋಗಳಿದ್ದರೆ ದೇವಸ್ಥಾನ ಸಮಿತಿಗೆ ಕೊಡಿ. ಇಲ್ಲಿ ಸೇರಿಸುತ್ತೇವೆ.',
+    contact: 'ಸಂಪರ್ಕ',
   },
   en: {
     title: 'Gallery',
-    description: 'Photographs of Sri Kalabhairaveshwara Swamy Temple, Manakathuru — the deity, the jatra festival and the inscription stone.',
-    lede: 'Darshan of the deity, the joy of the jatra and the heritage of the village. Tap a photo to see it larger.',
-    more: 'Have photos to share?',
-    moreBody:
-      'If you have photos of past jatras, of the temple’s renovation or of the old village, please share them with the temple committee so they can be added here.',
-    contact: 'Get in touch',
+    description: 'Photographs of Sri Kalabhairaveshwara Swamy Temple, Manakathuru: the deity, the jatra and the inscription stone.',
+    lede: 'Photographs taken by people of the village. Tap a photo to see it larger.',
+    more: 'Have old photographs?',
+    moreBody: 'If you have photos of past jatras, of the temple or of the old village, please give them to the temple committee and we will add them here.',
+    contact: 'Contact',
   },
 }[lang];
 
@@ -31,27 +29,29 @@ const order: PhotoCategory[] = ['deity', 'jatre', 'temple', 'inscription'];
 const groups = order
   .map((cat) => ({ cat, ids: galleryOrder.filter((id) => photos[id].category === cat) }))
   .filter((g) => g.ids.length);
+// A fixed, hand-picked scatter of tilts so the wall looks pinned up, not generated.
+const tilts = [-2.2, 1.6, -0.8, 2.4, -1.6, 0.9, -2.6, 1.2, -0.5, 2];
 ---
 
 <Base lang={lang} page="gallery" title={c.title} description={c.description} image="images/jatre-night-gopura.jpg">
-  <header class="page-head">
+  <header class="section head">
     <div class="wrap">
       <h1>{c.title}</h1>
       <p class="lede">{c.lede}</p>
-      <nav class="chips" aria-label={c.title}>
+      <nav class="jump" aria-label={c.title}>
         {groups.map((g) => <a href={`#${g.cat}`}>{photoCategories[g.cat][lang]}</a>)}
       </nav>
     </div>
   </header>
 
   {
-    groups.map((g, i) => (
-      <section id={g.cat} class:list={['section', 'gallery-section', { 'section--tint': i % 2 === 1 }]}>
+    groups.map((g, gi) => (
+      <section id={g.cat} class:list={['section', 'group', { night: g.cat === 'jatre' }]}>
         <div class="wrap">
           <h2>{photoCategories[g.cat][lang]}</h2>
-          <div class="masonry">
-            {g.ids.map((id) => (
-              <Photo lang={lang} id={id} zoom sizes="(min-width: 1000px) 33vw, (min-width: 640px) 50vw, 100vw" />
+          <div class="wall">
+            {g.ids.map((id, i) => (
+              <Print lang={lang} id={id} zoom tilt={tilts[(i + gi * 3) % tilts.length]} sizes="(min-width: 1000px) 30vw, (min-width: 640px) 45vw, 90vw" />
             ))}
           </div>
         </div>
@@ -63,50 +63,45 @@ const groups = order
     <div class="wrap prose">
       <h2>{c.more}</h2>
       <p>{c.moreBody}</p>
-      <a class="btn btn--ghost" href={href(lang, 'visit')}>{c.contact}</a>
+      <a class="go" href={href(lang, 'visit')}>{c.contact}</a>
     </div>
   </section>
 </Base>
 
 <style>
-  .chips {
+  .head {
+    padding-bottom: 1rem;
+  }
+  .jump {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1.25rem;
-  }
-  .chips a {
-    padding: 0.35rem 0.9rem;
-    border-radius: 999px;
-    border: 1px solid var(--line);
-    background: var(--surface);
-    color: var(--ink);
-    text-decoration: none;
-    font-size: 0.9375rem;
-  }
-  .chips a:hover {
-    border-color: var(--kumkum);
-    color: var(--kumkum);
-  }
-  .gallery-section {
-    scroll-margin-top: 4rem;
-  }
-  .masonry {
-    columns: 1;
-    column-gap: 1.25rem;
+    gap: 0.5rem 1.5rem;
     margin-top: 1.5rem;
   }
-  .masonry :global(.photo) {
+  .jump a {
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px dashed currentColor;
+  }
+  .group {
+    scroll-margin-top: 4rem;
+  }
+  .wall {
+    columns: 1;
+    column-gap: 2rem;
+    margin-top: 2rem;
+  }
+  .wall :global(.print) {
     break-inside: avoid;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.25rem;
   }
   @media (min-width: 640px) {
-    .masonry {
+    .wall {
       columns: 2;
     }
   }
   @media (min-width: 1000px) {
-    .masonry {
+    .wall {
       columns: 3;
     }
   }

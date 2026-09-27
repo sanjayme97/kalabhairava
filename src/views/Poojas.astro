@@ -1,175 +1,207 @@
 ---
 import Base from '../layouts/Base.astro';
-import Tbd from '../components/Tbd.astro';
-import Photo from '../components/Photo.astro';
+import Print from '../components/Print.astro';
+import Kolam from '../components/Kolam.astro';
 import { href, type Lang } from '../i18n';
 import { timings, festivals } from '../data/site';
 
 const { lang } = Astro.props as { lang: Lang };
+const [jatre, ...rest] = festivals;
+const knownTimings = timings.filter((t) => t.time);
 
 const c = {
   kn: {
     title: 'ಪೂಜೆ ಮತ್ತು ಉತ್ಸವಗಳು',
-    description: 'ಮನಕತ್ತೂರು ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನದ ದೈನಂದಿನ ಪೂಜಾ ಸಮಯಗಳು, ಜಾತ್ರೆ ಮತ್ತು ವಿಶೇಷ ದಿನಗಳು.',
-    lede: 'ದೈನಂದಿನ ಪೂಜೆ, ತಿಂಗಳ ವಿಶೇಷ ದಿನಗಳು ಮತ್ತು ವರ್ಷದ ಉತ್ಸವಗಳು.',
-    daily: 'ದೈನಂದಿನ ಪೂಜಾ ಸಮಯ',
-    dailyNote: 'ಹಬ್ಬದ ದಿನಗಳಲ್ಲಿ ಸಮಯ ಬದಲಾಗಬಹುದು.',
-    fest: 'ಉತ್ಸವಗಳು ಮತ್ತು ವಿಶೇಷ ದಿನಗಳು',
-    thisYear: 'ಈ ವರ್ಷ',
-    seva: 'ಸೇವೆಗಳು',
-    sevaBody:
-      'ಅಭಿಷೇಕ, ಅರ್ಚನೆ, ವಿಶೇಷ ಅಲಂಕಾರ ಮುಂತಾದ ಸೇವೆಗಳ ವಿವರ ಮತ್ತು ಕಾಣಿಕೆ ಮೊತ್ತವನ್ನು ಶೀಘ್ರದಲ್ಲಿ ಇಲ್ಲಿ ಸೇರಿಸಲಾಗುವುದು. ಸೇವೆ ಮಾಡಿಸಲು ದೇವಸ್ಥಾನದ ಅರ್ಚಕರನ್ನು ಅಥವಾ ಸಮಿತಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ.',
-    contact: 'ಸಂಪರ್ಕ ಮಾಹಿತಿ',
+    description: 'ಮನಕತ್ತೂರು ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನದ ಜಾತ್ರೆ, ಪೂಜೆ ಮತ್ತು ವರ್ಷದ ವಿಶೇಷ ದಿನಗಳು.',
+    bless: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಪ್ರಸನ್ನ',
+    inviteTop: 'ಭಕ್ತಾದಿಗಳಿಗೆ ಆದರದ ಆಹ್ವಾನ',
+    day: 'ಹಗಲು',
+    dayText: 'ಬಣ್ಣದ ಬಟ್ಟೆ, ಹೂವು, ಹಸಿರು ಎಲೆ, ತೆಂಗಿನಕಾಯಿಗಳಿಂದ ಶೃಂಗರಿಸಿದ ರಥ. ಭಕ್ತರು ರಥ ಎಳೆಯುತ್ತಾರೆ, ರಥಕ್ಕೆ ಬಾಳೆಹಣ್ಣು ಎಸೆಯುತ್ತಾರೆ.',
+    night: 'ರಾತ್ರಿ',
+    nightText: 'ದೀಪಾಲಂಕೃತ ದೇವಸ್ಥಾನ. ಉರಿಯುವ ಆರತಿಯನ್ನು ತಲೆಯ ಮೇಲೆ ಹೊತ್ತು ದೇವಸ್ಥಾನದವರೆಗೆ ಮೆರವಣಿಗೆ.',
+    thisYear: 'ಈ ವರ್ಷದ ಜಾತ್ರೆ',
+    dateSoon: 'ದಿನಾಂಕವನ್ನು ದೇವಸ್ಥಾನ ಸಮಿತಿ ಪ್ರಕಟಿಸುತ್ತದೆ.',
+    yearTitle: 'ವರ್ಷದ ವಿಶೇಷ ದಿನಗಳು',
+    timingsTitle: 'ದೈನಂದಿನ ಪೂಜೆ',
+    timingsAsk: 'ದಿನನಿತ್ಯದ ಪೂಜೆಯ ಸಮಯಗಳನ್ನು ದೇವಸ್ಥಾನದ ಅರ್ಚಕರಿಂದ ತಿಳಿಯಿರಿ. ಹಬ್ಬದ ದಿನಗಳಲ್ಲಿ ಸಮಯ ಬದಲಾಗುತ್ತದೆ.',
+    seva: 'ಅಭಿಷೇಕ, ಅರ್ಚನೆ, ವಿಶೇಷ ಅಲಂಕಾರ ಸೇವೆಗಳಿಗೆ ಅರ್ಚಕರನ್ನು ಅಥವಾ ದೇವಸ್ಥಾನ ಸಮಿತಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ.',
+    contact: 'ದಾರಿ ಮತ್ತು ಸಂಪರ್ಕ',
   },
   en: {
     title: 'Poojas & Festivals',
-    description: 'Daily pooja timings, the annual jatra and special days at Sri Kalabhairaveshwara Swamy Temple, Manakathuru.',
-    lede: 'Daily worship, the special days of each month and the festivals of the year.',
-    daily: 'Daily pooja timings',
-    dailyNote: 'Timings may change on festival days.',
-    fest: 'Festivals & special days',
-    thisYear: 'This year',
-    seva: 'Sevas',
-    sevaBody:
-      'Details of sevas such as abhisheka, archana and special alankara, with offering amounts, will be added here soon. To book a seva, please contact the temple priest or committee.',
-    contact: 'Contact details',
+    description: 'The jatra, poojas and special days of the year at Sri Kalabhairaveshwara Swamy Temple, Manakathuru.',
+    bless: 'Sri Kalabhairaveshwara Prasanna',
+    inviteTop: 'All devotees are warmly invited',
+    day: 'By day',
+    dayText: 'The chariot, dressed in coloured cloth, flowers, green leaves and coconuts. Devotees pull it through the village and toss bananas up to it.',
+    night: 'By night',
+    nightText: 'The temple lit from top to bottom, and a procession to its door with blazing aarati carried on the head.',
+    thisYear: 'This year’s jatra',
+    dateSoon: 'The temple committee announces the dates.',
+    yearTitle: 'Special days of the year',
+    timingsTitle: 'Daily worship',
+    timingsAsk: 'Please ask the temple priest for the daily pooja times. They change on festival days.',
+    seva: 'For abhisheka, archana or a special alankara, please speak to the priest or the temple committee.',
+    contact: 'Directions & contact',
   },
 }[lang];
 ---
 
-<Base lang={lang} page="poojas" title={c.title} description={c.description}>
-  <header class="page-head">
+<Base lang={lang} page="poojas" title={c.title} description={c.description} image="images/rathotsava-crowd.jpg">
+  <section class="section invite-sheet">
     <div class="wrap">
-      <h1>{c.title}</h1>
-      <p class="lede">{c.lede}</p>
-    </div>
-  </header>
+      <div class="invite">
+        <span class="invite-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 26"><path d="M20 2c4 5 4 11 0 17-4-6-4-12 0-17zM6 10c6 0 11 3 14 9-6 1-12-2-14-9zm28 0c-2 7-8 10-14 9 3-6 8-9 14-9zM6 24h28" fill="currentColor" stroke="currentColor" stroke-width="1"></path></svg>
+        </span>
+        <p class="bless">{c.bless}</p>
+        <p class="invite-top">{c.inviteTop}</p>
+        <h1>{jatre.name[lang]}</h1>
+        <p class="this-year">
+          {c.thisYear}: {jatre.date ? <strong>{jatre.date[lang]}</strong> : <span>{c.dateSoon}</span>}
+        </p>
 
-  <section class="section">
-    <div class="wrap layout">
-      <div class="card timings">
-        <h2>{c.daily}</h2>
-        <table class="table">
-          <tbody>
-            {
-              timings.map((t) => (
-                <tr>
-                  <th scope="row">{t.label[lang]}</th>
-                  <td>{t.time ? t.time[lang] : <Tbd lang={lang} />}</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-        <p class="small">{c.dailyNote}</p>
-      </div>
-
-      <div>
-        <h2>{c.fest}</h2>
-        <ol class="fests">
-          {
-            festivals.map((f) => (
-              <li class:list={['fest', { 'fest--main': f.highlight }]}>
-                <h3>{f.name[lang]}</h3>
-                <p class="when">{f.when[lang]}</p>
-                <p>{f.about[lang]}</p>
-                {f.date && (
-                  <p class="date">
-                    {c.thisYear}: <strong>{f.date[lang]}</strong>
-                  </p>
-                )}
-                {f.highlight && (
-                  <div class="fest-photos">
-                    <Photo lang={lang} id="rathaBanana" ratio="1 / 1" focus="50% 35%" sizes="(min-width: 900px) 18vw, 45vw" />
-                    <Photo lang={lang} id="nightAarati" ratio="1 / 1" focus="50% 60%" sizes="(min-width: 900px) 18vw, 45vw" />
-                  </div>
-                )}
-                {f.highlight && !f.date && (
-                  <p class="date">
-                    {c.thisYear}: <Tbd lang={lang} />
-                  </p>
-                )}
-              </li>
-            ))
-          }
-        </ol>
+        <div class="daynight">
+          <div>
+            <Print lang={lang} id="rathaCrowd" tilt={-2} ratio="4 / 3" caption={false} sizes="(min-width: 900px) 26rem, 85vw" />
+            <h2>{c.day}</h2>
+            <p>{c.dayText}</p>
+          </div>
+          <div>
+            <Print lang={lang} id="nightProcession" tilt={2} ratio="4 / 3" caption={false} sizes="(min-width: 900px) 26rem, 85vw" />
+            <h2>{c.night}</h2>
+            <p>{c.nightText}</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--tint">
+  <Kolam dots={9} />
+
+  <section class="section">
+    <div class="wrap">
+      <h2>{c.yearTitle}</h2>
+      <ol class="almanac">
+        {
+          rest.map((f) => (
+            <li>
+              <p class="when">{f.date ? f.date[lang] : f.when[lang]}</p>
+              <div>
+                <h3>{f.name[lang]}</h3>
+                <p>{f.about[lang]}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section daily">
     <div class="wrap prose">
-      <h2>{c.seva}</h2>
-      <p>{c.sevaBody}</p>
-      <a class="btn" href={href(lang, 'visit')}>{c.contact}</a>
+      <h2>{c.timingsTitle}</h2>
+      {
+        knownTimings.length > 0 ? (
+          <dl class="list-rule times">
+            {knownTimings.map((t) => (
+              <div>
+                <dt>{t.label[lang]}</dt>
+                <dd>{t.time![lang]}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : (
+          <p>{c.timingsAsk}</p>
+        )
+      }
+      <p>{c.seva}</p>
+      <a class="go" href={href(lang, 'visit')}>{c.contact}</a>
     </div>
   </section>
 </Base>
 
 <style>
-  .layout {
-    display: grid;
-    gap: 2.5rem;
-    align-items: start;
+  .invite-sheet {
+    background: var(--paper-2);
   }
-  @media (min-width: 900px) {
-    .layout {
-      grid-template-columns: 1fr 1.4fr;
+  .bless {
+    font-family: var(--display);
+    font-weight: 600;
+    color: var(--kumkum);
+    margin: 0.5rem 0 0;
+  }
+  .invite-top {
+    color: var(--ink-soft);
+  }
+  .invite h1 {
+    color: var(--kumkum);
+    font-size: clamp(2rem, 6vw, 3.6rem);
+  }
+  .this-year {
+    font-size: 1.125rem;
+  }
+  .this-year span {
+    color: var(--ink-soft);
+  }
+  .daynight {
+    display: grid;
+    gap: 3rem;
+    margin-top: 3rem;
+    text-align: left;
+  }
+  .daynight h2 {
+    margin-top: 1.5rem;
+    font-size: 1.6rem;
+  }
+  .daynight p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+  @media (min-width: 800px) {
+    .daynight {
+      grid-template-columns: 1fr 1fr;
       gap: 3.5rem;
     }
-    .timings {
-      position: sticky;
-      top: 6rem;
+  }
+  .almanac {
+    list-style: none;
+    margin: 2rem 0 0;
+    padding: 0;
+    border-top: 2px solid var(--ink);
+  }
+  .almanac li {
+    display: grid;
+    gap: 0.25rem 2rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  @media (min-width: 760px) {
+    .almanac li {
+      grid-template-columns: 16rem 1fr;
     }
   }
-  .timings h2 {
-    font-size: 1.5rem;
+  .almanac .when {
+    margin: 0;
+    color: var(--kumkum);
+    font-size: 0.9688rem;
   }
-  .small {
-    font-size: 0.875rem;
-    color: var(--ink-soft);
-    margin: 1rem 0 0;
+  .almanac h3 {
+    margin-bottom: 0.15em;
   }
-  .fests {
-    list-style: none;
-    margin: 1.25rem 0 0;
-    padding: 0;
-    display: grid;
-    gap: 1rem;
-  }
-  .fest {
-    padding: 1.25rem 1.5rem;
-    border: 1px solid var(--line);
-    border-left: 4px solid var(--turmeric);
-    border-radius: var(--radius);
-    background: var(--surface);
-  }
-  .fest--main {
-    border-left-color: var(--kumkum);
-    background: linear-gradient(120deg, color-mix(in srgb, var(--kumkum) 8%, var(--surface)), var(--surface));
-  }
-  .fest h3 {
-    margin-bottom: 0.1em;
-  }
-  .fest p {
+  .almanac p {
     margin: 0;
   }
-  .when {
-    color: var(--kumkum);
-    font-size: 0.9375rem;
-    margin-bottom: 0.4rem !important;
+  .daily {
+    background: var(--paper-2);
   }
-  .fest-photos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
-    margin-top: 1rem;
+  .times div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
   }
-  .fest-photos :global(figcaption) {
-    font-size: 0.8125rem;
-  }
-  .date {
-    margin-top: 0.6rem !important;
-    font-size: 0.9375rem;
+  .times dd {
+    margin: 0;
+    font-weight: 600;
   }
 </style>

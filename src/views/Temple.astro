@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
-import Photo from '../components/Photo.astro';
+import Print from '../components/Print.astro';
+import Kolam from '../components/Kolam.astro';
 import { href, type Lang } from '../i18n';
 import { temple } from '../data/site';
 
@@ -10,72 +11,70 @@ const c = {
   kn: {
     title: 'ದೇವಾಲಯ',
     description: 'ಮನಕತ್ತೂರಿನ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನ ಮತ್ತು ಶ್ರೀ ಕಾಲಭೈರವನ ಬಗ್ಗೆ.',
-    lede: 'ಮನಕತ್ತೂರಿನ ಗ್ರಾಮದೇವತೆಯಾಗಿ, ಊರಿನ ಬದುಕಿನ ನಡುವೆ ನೆಲೆಸಿರುವ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ.',
-    deityTitle: 'ಶ್ರೀ ಕಾಲಭೈರವ',
+    kicker: 'ಮನಕತ್ತೂರು',
+    lede: 'ಮನಕತ್ತೂರು ಊರನ್ನು ಕಾಯುವ ದೇವರ ಸನ್ನಿಧಿ.',
+    ch1: 'ಶ್ರೀ ಕಾಲಭೈರವ',
     deity: [
-      'ಶಿವಪುರಾಣ ಮತ್ತು ಇತರ ಪುರಾಣಗಳು ಕಾಲಭೈರವನನ್ನು ಶಿವನ ಉಗ್ರ ರೂಪವೆಂದು ವರ್ಣಿಸುತ್ತವೆ. ಅಹಂಕಾರವನ್ನು ನಾಶಮಾಡಲು ಶಿವನಿಂದಲೇ ಪ್ರಕಟನಾದವನು ಭೈರವ ಎಂಬುದು ಪ್ರಸಿದ್ಧ ಕಥೆ.',
-      '“ಕಾಲ” ಎಂದರೆ ಸಮಯ ಮತ್ತು ಮೃತ್ಯು — ಇವೆರಡಕ್ಕೂ ಒಡೆಯನಾದ್ದರಿಂದ ಆತ ಕಾಲಭೈರವ. ಪ್ರತಿ ಶಿವಕ್ಷೇತ್ರವನ್ನು ಕಾಯುವ ಕ್ಷೇತ್ರಪಾಲನಾಗಿ, ಊರನ್ನು ಕಾಯುವ ರಕ್ಷಕನಾಗಿ ಭೈರವನನ್ನು ಪೂಜಿಸುವ ಪರಂಪರೆ ಇದೆ.',
-      'ಹಳೆಯ ಮೈಸೂರು ಪ್ರಾಂತ್ಯದಲ್ಲಿ, ವಿಶೇಷವಾಗಿ ಹಾಸನ, ಮಂಡ್ಯ, ತುಮಕೂರು ಭಾಗಗಳಲ್ಲಿ, ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರನನ್ನು ಅನೇಕ ಕುಟುಂಬಗಳು ಮನೆದೇವರಾಗಿ ಆರಾಧಿಸುತ್ತವೆ.',
+      'ಪುರಾಣಗಳು ಕಾಲಭೈರವನನ್ನು ಶಿವನ ಉಗ್ರ ರೂಪವೆಂದು ಹೇಳುತ್ತವೆ. ಅಹಂಕಾರವನ್ನು ಮುರಿಯಲು ಶಿವನಿಂದಲೇ ಹುಟ್ಟಿದವನು ಭೈರವ.',
+      '“ಕಾಲ” ಎಂದರೆ ಸಮಯ. ಸಮಯಕ್ಕೂ ಒಡೆಯನಾದ್ದರಿಂದ ಅವನು ಕಾಲಭೈರವ. ಶಿವನ ಕ್ಷೇತ್ರಗಳನ್ನು ಕಾಯುವ ಕ್ಷೇತ್ರಪಾಲನೂ ಅವನೇ.',
+      'ಹಾಸನ, ಮಂಡ್ಯ, ತುಮಕೂರು ಕಡೆಗಳಲ್ಲಿ ಅನೇಕ ಮನೆತನಗಳಿಗೆ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಮನೆದೇವರು.',
     ],
-    formTitle: 'ಸ್ವರೂಪ',
     form: [
-      ['ತ್ರಿಶೂಲ ಮತ್ತು ಡಮರು', 'ಶಿವನ ಶಕ್ತಿ ಮತ್ತು ಸೃಷ್ಟಿಯ ನಾದದ ಸಂಕೇತ.'],
-      ['ಶ್ವಾನ (ನಾಯಿ)', 'ಭೈರವನ ವಾಹನ — ಎಚ್ಚರ ಮತ್ತು ನಿಷ್ಠೆಯ ಸಂಕೇತ.'],
-      ['ಕ್ಷೇತ್ರಪಾಲ', 'ಕ್ಷೇತ್ರವನ್ನೂ ಭಕ್ತರನ್ನೂ ಕಾಯುವ ರಕ್ಷಕ.'],
-      ['ಕಾಲ', 'ಸಮಯಕ್ಕೆ ಒಡೆಯ — ಭಯ ನಿವಾರಕ.'],
+      ['ತ್ರಿಶೂಲ', 'ಶಿವನ ಶಕ್ತಿ.'],
+      ['ಡಮರು', 'ಸೃಷ್ಟಿಯ ನಾದ.'],
+      ['ಶ್ವಾನ', 'ಭೈರವನ ವಾಹನ. ಎಚ್ಚರ ಮತ್ತು ನಿಷ್ಠೆ.'],
+      ['ಕ್ಷೇತ್ರಪಾಲ', 'ಊರನ್ನೂ ಭಕ್ತರನ್ನೂ ಕಾಯುವವನು.'],
     ],
-    templeTitle: 'ಮನಕತ್ತೂರಿನ ದೇವಸ್ಥಾನ',
+    ch2: 'ನಮ್ಮ ದೇವಸ್ಥಾನ',
     templeBody: [
-      'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನವು ಮನಕತ್ತೂರು ಗ್ರಾಮದ ಧಾರ್ಮಿಕ ಮತ್ತು ಸಾಮಾಜಿಕ ಬದುಕಿನ ಕೇಂದ್ರ. ದೇವಸ್ಥಾನದ ಮುಂಭಾಗದ ಗೋಪುರವನ್ನು ದೇವತೆಗಳ ಬಣ್ಣಬಣ್ಣದ ಶಿಲ್ಪಗಳಿಂದ ಅಲಂಕರಿಸಲಾಗಿದೆ.',
-      'ಹಬ್ಬ ಹರಿದಿನಗಳಲ್ಲಿ ಸ್ವಾಮಿಗೆ ಬೆಳ್ಳಿಯ ಪ್ರಭಾವಳಿ ಮತ್ತು ಹೂವಿನ ವಿಶೇಷ ಅಲಂಕಾರ ಮಾಡಲಾಗುತ್ತದೆ. ಜಾತ್ರೆಯ ರಾತ್ರಿಗಳಲ್ಲಿ ಇಡೀ ದೇವಸ್ಥಾನ ಸಾವಿರಾರು ದೀಪಗಳಿಂದ ಬೆಳಗುತ್ತದೆ.',
+      'ದೇವಸ್ಥಾನದ ಮುಂಬಾಗಿಲ ಮೇಲಿನ ಗೋಪುರದಲ್ಲಿ ದೇವತೆಗಳ ಬಣ್ಣದ ಶಿಲ್ಪಗಳಿವೆ. ಜಾತ್ರೆಯ ರಾತ್ರಿ ಇಡೀ ಗೋಪುರ ದೀಪಗಳಿಂದ ಬೆಳಗುತ್ತದೆ.',
+      'ಹಬ್ಬದ ದಿನಗಳಲ್ಲಿ ಸ್ವಾಮಿಗೆ ಬೆಳ್ಳಿಯ ಪ್ರಭಾವಳಿ ಮತ್ತು ಹೂವಿನ ಅಲಂಕಾರ.',
     ],
-    historyTitle: 'ದೇವಸ್ಥಾನದ ಇತಿಹಾಸ',
     history:
-      'ದೇವಸ್ಥಾನದ ಇತಿಹಾಸ, ಊರಿನ ಹಿರಿಯರು ನೆನಪಿಸಿಕೊಳ್ಳುವ ಕಥೆಗಳು ಮತ್ತು ಜೀರ್ಣೋದ್ಧಾರದ ವಿವರಗಳನ್ನು ಶೀಘ್ರದಲ್ಲಿ ಇಲ್ಲಿ ಸೇರಿಸಲಾಗುವುದು. ನಿಮ್ಮ ಬಳಿ ಮಾಹಿತಿ ಅಥವಾ ಹಳೆಯ ಚಿತ್ರಗಳಿದ್ದರೆ ದೇವಸ್ಥಾನ ಸಮಿತಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ.',
-    villageTitle: 'ಮನಕತ್ತೂರು ಗ್ರಾಮ',
+      'ದೇವಸ್ಥಾನದ ಹಳೆಯ ಕಥೆಗಳನ್ನು ಊರಿನ ಹಿರಿಯರಿಂದ ಕೇಳಿ ಇಲ್ಲಿ ಬರೆಯಬೇಕಿದೆ. ನಿಮಗೆ ಗೊತ್ತಿರುವ ಕಥೆ ಅಥವಾ ಹಳೆಯ ಫೋಟೋ ಇದ್ದರೆ ದೇವಸ್ಥಾನ ಸಮಿತಿಗೆ ತಿಳಿಸಿ.',
+    ch3: 'ಮನಕತ್ತೂರು',
     village:
-      'ಮನಕತ್ತೂರು ಹಾಸನ ಜಿಲ್ಲೆಯ ಅರಸೀಕೆರೆ ತಾಲ್ಲೂಕಿನ ಗ್ರಾಮ. ಊರಿನ ಇತಿಹಾಸ ಕನಿಷ್ಠ ಒಂಬೈನೂರು ವರ್ಷಗಳಷ್ಟು ಹಳೆಯದು — ಕ್ರಿ.ಶ. ೧೧೦೧ರ ಹೊಯ್ಸಳ ಶಾಸನವೊಂದು “ಮನಗತ್ತೂರು” ಊರನ್ನು ಕಟ್ಟಿದ ಗಾವುಂಡರನ್ನು ಹೆಸರಿಸುತ್ತದೆ.',
-    insNote: 'ಈ ಶಾಸನ ಇಂದು ನಮ್ಮ ದೇವಸ್ಥಾನದಲ್ಲಿ ಸಂರಕ್ಷಿತವಾಗಿದೆ, ಆದರೆ ಅದು ಈ ದೇವಾಲಯದ ಇತಿಹಾಸಕ್ಕೆ ಸಂಬಂಧಿಸಿದ್ದಲ್ಲ.',
-    insLink: 'ಶಾಸನದ ಪುಟ ನೋಡಿ',
+      'ಮನಕತ್ತೂರು ಹಾಸನ ಜಿಲ್ಲೆಯ ಅರಸೀಕೆರೆ ತಾಲ್ಲೂಕಿನ ಹಳ್ಳಿ. ಕನಿಷ್ಠ ಒಂಬೈನೂರು ವರ್ಷ ಹಳೆಯ ಊರು. ಕ್ರಿ.ಶ. ೧೧೦೧ರ ಒಂದು ಹೊಯ್ಸಳ ಶಾಸನ “ಮನಗತ್ತೂರು” ಊರನ್ನು ಕಟ್ಟಿದ ಗಾವುಂಡರ ಹೆಸರು ಹೇಳುತ್ತದೆ.',
+    insNote: 'ಆ ಶಾಸನ ಕಲ್ಲು ನಮ್ಮ ದೇವಸ್ಥಾನದ ಆವರಣದಲ್ಲಿದೆ. ಆದರೆ ಅದು ಈ ದೇವಾಲಯದ ಕುರಿತದ್ದಲ್ಲ.',
+    insLink: 'ಶಾಸನದ ಪುಟ',
   },
   en: {
     title: 'The Temple',
     description: 'About Sri Kalabhairaveshwara Swamy Temple in Manakathuru and the deity Sri Kalabhairava.',
-    lede: 'Sri Kalabhairaveshwara Swamy, the presiding deity of Manakathuru, at the heart of village life.',
-    deityTitle: 'Sri Kalabhairava',
+    kicker: 'Manakathuru',
+    lede: 'The shrine of the god who watches over Manakathuru.',
+    ch1: 'Sri Kalabhairava',
     deity: [
-      'The Shiva Purana and other Puranas describe Kalabhairava as the fierce form of Lord Shiva. In a well-known story, Bhairava emerges from Shiva himself to humble pride and ego.',
-      'Kāla means both time and death; as master of both he is Kalabhairava. By tradition he is worshipped as the kshetrapala who guards every Shiva shrine, and as the protector of the village.',
-      'Across the old Mysore region — especially around Hassan, Mandya and Tumakuru — many families worship Sri Kalabhairaveshwara as their family deity (manedevaru).',
+      'The Puranas describe Kalabhairava as the fierce form of Shiva, born from Shiva himself to break pride.',
+      'Kāla means time. As master even of time, he is Kalabhairava. He is also the kshetrapala who guards every Shiva shrine.',
+      'Around Hassan, Mandya and Tumakuru, many families worship Sri Kalabhairaveshwara as their family deity.',
     ],
-    formTitle: 'His form',
     form: [
-      ['Trishula & damaru', 'Symbols of Shiva’s power and of the primal sound of creation.'],
-      ['The dog', 'Bhairava’s vehicle — a symbol of vigilance and loyalty.'],
-      ['Kshetrapala', 'Guardian of the sacred place and of the devotees.'],
-      ['Kāla', 'Master of time, who removes fear.'],
+      ['Trishula', 'The power of Shiva.'],
+      ['Damaru', 'The sound of creation.'],
+      ['The dog', 'Bhairava’s vehicle. Watchful and loyal.'],
+      ['Kshetrapala', 'Guardian of the village and its people.'],
     ],
-    templeTitle: 'The temple at Manakathuru',
+    ch2: 'Our temple',
     templeBody: [
-      'Sri Kalabhairaveshwara Swamy Temple is the centre of Manakathuru’s religious and social life. Its entrance tower (gopura) is adorned with colourful sculptures of deities.',
-      'On festival days the deity is adorned with a silver prabhavali (arch) and elaborate floral alankara, and on jatra nights the whole temple glows with thousands of lights.',
+      'The tower over the temple entrance is covered in painted figures of the gods. On jatra night the whole tower is strung with lights.',
+      'On festival days the deity wears the silver prabhavali and a covering of flowers.',
     ],
-    historyTitle: 'History of the temple',
     history:
-      'The history of the temple, stories remembered by the village elders and details of its renovations will be added here soon. If you have information or old photographs, please contact the temple committee.',
-    villageTitle: 'Manakathuru village',
+      'The old stories of the temple still need to be gathered from the village elders and written down here. If you know one, or have an old photograph, please tell the temple committee.',
+    ch3: 'Manakathuru',
     village:
-      'Manakathuru is a village in Arsikere Taluk, Hassan District. Its history goes back at least nine centuries — a Hoysala inscription of 1101 CE names the gavundas (headmen) who founded “Managatur”.',
-    insNote: 'That inscription is kept safe at our temple today, but it is not related to this temple’s history.',
-    insLink: 'See the inscription page',
+      'Manakathuru is a village in Arsikere Taluk, Hassan District, at least nine hundred years old. A Hoysala inscription of 1101 CE names the gavundas who founded “Managatur”.',
+    insNote: 'That inscribed stone stands in our temple courtyard, but it is not about this temple.',
+    insLink: 'The inscription page',
   },
 }[lang];
 ---
 
-<Base lang={lang} page="temple" title={c.title} description={c.description}>
+<Base lang={lang} page="temple" title={c.title} description={c.description} image="images/jatre-night-gopura-2.jpg">
   <header class="page-head">
     <div class="wrap">
-      <p class="eyebrow">{temple.place[lang]}</p>
+      <p class="kicker">{c.kicker}</p>
       <h1>{temple.name[lang]}</h1>
       <p class="lede">{c.lede}</p>
     </div>
@@ -84,81 +83,105 @@ const c = {
   <section class="section">
     <div class="wrap split">
       <div class="prose">
-        <h2>{c.deityTitle}</h2>
+        <p class="chapter"><b>೧</b><span>{c.ch1}</span></p>
         {c.deity.map((p) => <p>{p}</p>)}
+        <dl class="list-rule form">
+          {
+            c.form.map(([t, d]) => (
+              <div>
+                <dt>{t}</dt>
+                <dd>{d}</dd>
+              </div>
+            ))
+          }
+        </dl>
       </div>
-      <div class="split-photo"><Photo lang={lang} id="pushpaAlankara" arch /></div>
+      <Print lang={lang} id="pushpaAlankara" tilt={2} class="split-print" sizes="(min-width: 900px) 22rem, 75vw" />
     </div>
   </section>
 
-  <section class="section section--tint">
-    <div class="wrap">
-      <h2>{c.formTitle}</h2>
-      <div class="grid form-grid">
-        {
-          c.form.map(([t, d]) => (
-            <div class="card">
-              <h3>{t}</h3>
-              <p>{d}</p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+  <Kolam dots={7} />
 
   <section class="section">
     <div class="wrap split split--rev">
-      <div class="split-photo"><Photo lang={lang} id="nightGopura2" sizes="(min-width: 860px) 35vw, 100vw" /></div>
+      <Print lang={lang} id="nightGopura2" tilt={-2} class="split-print" sizes="(min-width: 900px) 24rem, 80vw" />
       <div class="prose">
-        <h2>{c.templeTitle}</h2>
+        <p class="chapter"><b>೨</b><span>{c.ch2}</span></p>
         {c.templeBody.map((p) => <p>{p}</p>)}
-        <h3>{c.historyTitle}</h3>
-        <p class="note">{c.history}</p>
+        <p class="ask">{c.history}</p>
       </div>
     </div>
   </section>
 
-  <section class="section section--tint">
-    <div class="wrap prose">
-      <h2>{c.villageTitle}</h2>
-      <p>{c.village}</p>
-      <p class="note"><strong>{c.insNote}</strong> <a href={href(lang, 'inscription')}>{c.insLink} →</a></p>
+  <section class="section night village">
+    <div class="wrap split">
+      <div class="prose">
+        <p class="chapter"><b>೩</b><span>{c.ch3}</span></p>
+        <p class="village-text">{c.village}</p>
+        <p>{c.insNote}</p>
+        <a class="go" href={href(lang, 'inscription')}>{c.insLink}</a>
+      </div>
+      <Print lang={lang} id="templeNight" tilt={1.5} class="split-print" sizes="(min-width: 900px) 26rem, 85vw" />
     </div>
   </section>
 </Base>
 
 <style>
+  .page-head {
+    padding-block: clamp(2.5rem, 7vw, 4.5rem) 0;
+  }
+  .kicker {
+    font-family: var(--display);
+    color: var(--kumkum);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
   .split {
     display: grid;
-    gap: 2.5rem;
+    gap: 3rem;
     align-items: center;
   }
-  .split-photo {
-    max-width: 22rem;
+  .split :global(.split-print) {
+    max-width: 24rem;
     width: 100%;
-    margin-inline: auto;
+    justify-self: center;
   }
-  @media (min-width: 860px) {
+  @media (min-width: 900px) {
     .split {
-      grid-template-columns: 1.5fr 1fr;
-      gap: 4rem;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 5rem;
     }
     .split--rev {
-      grid-template-columns: 1fr 1.5fr;
+      grid-template-columns: 1fr 1.3fr;
     }
   }
-  .form-grid {
-    margin-top: 1.5rem;
+  .form {
+    margin-top: 2rem;
   }
-  @media (min-width: 640px) {
-    .form-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .form div {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: 1rem;
   }
-  @media (min-width: 1000px) {
-    .form-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
+  .form dt {
+    font-family: var(--display);
+    font-weight: 800;
+    color: var(--kumkum);
+  }
+  .form dd {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+  .ask {
+    border-left: 3px solid var(--arishina);
+    padding-left: 1rem;
+    color: var(--ink-soft);
+    font-size: 0.9688rem;
+  }
+  .village-text {
+    font-family: var(--serif);
+    font-size: clamp(1.2rem, 2.6vw, 1.5rem);
+    line-height: 1.6;
+    color: var(--night-ink) !important;
   }
 </style>

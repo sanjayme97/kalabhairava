@@ -1,73 +1,58 @@
+@import '@fontsource/baloo-tamma-2/600.css';
+@import '@fontsource/baloo-tamma-2/800.css';
 @import '@fontsource/tiro-kannada/400.css';
 @import '@fontsource/tiro-kannada/400-italic.css';
 @import '@fontsource/noto-sans-kannada/400.css';
-@import '@fontsource/noto-sans-kannada/500.css';
-@import '@fontsource/noto-sans-kannada/700.css';
+@import '@fontsource/noto-sans-kannada/600.css';
 
-/* ── Tokens ──────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────
+   Palette: lime-washed walls, kumkum, arishina (turmeric),
+   lamp-soot and soapstone. Night is its own world, not "dark mode".
+   ───────────────────────────────────────────────────────────── */
 :root {
-  --paper: #fbf6ec;
-  --paper-2: #f4ead6;
-  --surface: #fffdf8;
-  --ink: #2b211b;
-  --ink-soft: #5e4f44;
-  --kumkum: #9e2a1e;
-  --kumkum-ink: #fff6ee;
-  --turmeric: #b8860b;
-  --turmeric-soft: #f3d48a;
-  --stone: #3f4a44;
-  --stone-2: #2c3430;
-  --stone-ink: #e8e2d4;
-  --stone-accent: #f3d48a;
-  --line: #e4d5b7;
-  --shadow: 0 1px 2px rgb(60 35 15 / 0.06), 0 8px 24px rgb(60 35 15 / 0.08);
-  --radius: 14px;
-  --display: 'Tiro Kannada', 'Noto Serif Kannada', Georgia, serif;
+  --paper: #f3ece0;
+  --paper-2: #e9dfcc;
+  --ink: #221812;
+  --ink-soft: #5d4d40;
+  --rule: #cdbb9c;
+  --kumkum: #a3261a;
+  --arishina: #c98f0f;
+  --flame: #ff9a3c;
+  --stone: #3b403b;
+  --night: #0f0b09;
+  --night-2: #1a130f;
+  --night-ink: #f1e6d2;
+  --night-soft: #bda98f;
+  --display: 'Baloo Tamma 2', 'Noto Sans Kannada', system-ui, sans-serif;
+  --serif: 'Tiro Kannada', Georgia, serif;
   --body: 'Noto Sans Kannada', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --wrap: 72rem;
+  --wrap: 74rem;
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --paper: #15110e;
-    --paper-2: #1d1814;
-    --surface: #221c17;
-    --ink: #f0e7d8;
-    --ink-soft: #bfb1a0;
-    --kumkum: #e6775f;
-    --kumkum-ink: #1a0f0b;
-    --turmeric: #e2b64e;
-    --turmeric-soft: #6b5320;
-    --stone: #2a322e;
-    --stone-2: #1b211e;
-    --stone-ink: #e2dccd;
-    --stone-accent: #e2b64e;
-    --line: #3a3029;
-    --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.35);
+    --paper: #17110d;
+    --paper-2: #211913;
+    --ink: #f1e6d2;
+    --ink-soft: #bba791;
+    --rule: #4a3b2f;
+    --kumkum: #e0674f;
+    --arishina: #e3b347;
     color-scheme: dark;
   }
 }
 :root[data-theme='dark'] {
-  --paper: #15110e;
-  --paper-2: #1d1814;
-  --surface: #221c17;
-  --ink: #f0e7d8;
-  --ink-soft: #bfb1a0;
-  --kumkum: #e6775f;
-  --kumkum-ink: #1a0f0b;
-  --turmeric: #e2b64e;
-  --turmeric-soft: #6b5320;
-  --stone: #2a322e;
-  --stone-2: #1b211e;
-  --stone-ink: #e2dccd;
-  --stone-accent: #e2b64e;
-  --line: #3a3029;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.35);
+  --paper: #17110d;
+  --paper-2: #211913;
+  --ink: #f1e6d2;
+  --ink-soft: #bba791;
+  --rule: #4a3b2f;
+  --kumkum: #e0674f;
+  --arishina: #e3b347;
   color-scheme: dark;
 }
 
-/* ── Base ────────────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -75,7 +60,6 @@
 }
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
 }
 body {
   margin: 0;
@@ -83,12 +67,28 @@ body {
   color: var(--ink);
   font-family: var(--body);
   font-size: 1.0625rem;
-  line-height: 1.75;
+  line-height: 1.8;
   overflow-x: hidden;
 }
-:lang(en) body,
-body:lang(en) {
-  line-height: 1.65;
+/* Paper grain — a faint fibre texture over everything light. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .35 0 0 0 0 .22 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) body::before {
+    mix-blend-mode: screen;
+    opacity: 0.12;
+  }
+}
+:lang(en) {
+  line-height: 1.7;
 }
 img {
   max-width: 100%;
@@ -97,34 +97,44 @@ img {
 }
 a {
   color: var(--kumkum);
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.22em;
   text-decoration-thickness: 1px;
 }
 a:hover {
   text-decoration-thickness: 2px;
 }
 :focus-visible {
-  outline: 3px solid var(--turmeric);
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline: 2px solid var(--arishina);
+  outline-offset: 3px;
 }
 h1,
 h2,
 h3 {
   font-family: var(--display);
-  font-weight: 400;
-  line-height: 1.35;
-  margin: 0 0 0.5em;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 0.4em;
   text-wrap: balance;
+  letter-spacing: -0.005em;
+}
+:lang(en) h1,
+:lang(en) h2,
+:lang(en) h3,
+h1:lang(en),
+h2:lang(en),
+h3:lang(en) {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: 0;
 }
 h1 {
-  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-size: clamp(2.4rem, 7vw, 4.8rem);
 }
 h2 {
-  font-size: clamp(1.5rem, 3.4vw, 2.125rem);
+  font-size: clamp(1.75rem, 4.2vw, 2.75rem);
 }
 h3 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
 }
 p {
   margin: 0 0 1em;
@@ -141,19 +151,19 @@ p {
 .skip {
   position: absolute;
   left: 1rem;
-  top: -3rem;
+  top: -4rem;
   background: var(--kumkum);
-  color: var(--kumkum-ink);
+  color: #fff;
   padding: 0.5rem 1rem;
-  border-radius: 8px;
   z-index: 100;
 }
 .skip:focus {
   top: 1rem;
 }
 
-/* ── Layout helpers ──────────────────────────────────────── */
 .wrap {
+  position: relative;
+  z-index: 2;
   width: 100%;
   max-width: var(--wrap);
   margin-inline: auto;
@@ -161,141 +171,172 @@ p {
 }
 @media (min-width: 640px) {
   .wrap {
-    padding-inline: 1.5rem;
+    padding-inline: 1.75rem;
   }
 }
 .section {
-  padding-block: clamp(3rem, 8vw, 5.5rem);
-}
-.section--tint {
-  background: var(--paper-2);
-}
-.eyebrow {
-  font-size: 0.8125rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--turmeric);
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-.lede {
-  font-size: 1.1875rem;
-  color: var(--ink-soft);
-  max-width: 44rem;
+  position: relative;
+  padding-block: clamp(3.5rem, 9vw, 7rem);
 }
 .prose {
-  max-width: 44rem;
+  max-width: 40rem;
 }
-.grid {
-  display: grid;
-  gap: 1.25rem;
+.lede {
+  font-size: clamp(1.125rem, 2.2vw, 1.3rem);
+  color: var(--ink-soft);
+  max-width: 40rem;
 }
-@media (min-width: 720px) {
-  .grid--2 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .grid--3 {
-    grid-template-columns: repeat(3, 1fr);
-  }
+
+/* A chapter mark: big Kannada numeral + small label, like a notebook margin. */
+.chapter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  --mark: var(--kumkum);
+  color: var(--mark);
 }
-.card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  box-shadow: var(--shadow);
+.chapter b {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 2.6rem;
+  line-height: 1;
+  -webkit-text-stroke: 1.5px var(--mark);
+  color: transparent;
 }
-.card h3 {
-  margin-bottom: 0.35em;
+.chapter span {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
 }
-.card p:last-child {
-  margin-bottom: 0;
-}
-.btn {
+
+/* Plain text links with a hand-drawn arrow. */
+.go {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.7rem 1.25rem;
-  border-radius: 999px;
-  background: var(--kumkum);
-  color: var(--kumkum-ink);
+  font-weight: 600;
   text-decoration: none;
-  font-weight: 500;
-  border: 1px solid transparent;
-  line-height: 1.4;
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 0.1rem;
 }
-.btn:hover {
-  filter: brightness(1.08);
+.go::after {
+  content: '';
+  width: 1.6em;
+  height: 0.7em;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 14'%3E%3Cpath d='M1 7.5c6-1 14-.4 28-.6M22 1.5c2.5 2.3 4.6 3.9 7.2 5.4-2.9 1.4-5.1 3.2-7.4 5.6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 14'%3E%3Cpath d='M1 7.5c6-1 14-.4 28-.6M22 1.5c2.5 2.3 4.6 3.9 7.2 5.4-2.9 1.4-5.1 3.2-7.4 5.6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform 0.25s ease;
 }
-.btn--ghost {
-  background: transparent;
-  color: var(--kumkum);
-  border-color: currentColor;
-}
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1.5rem;
-}
-.pill {
-  display: inline-block;
-  font-size: 0.8125rem;
-  padding: 0.1rem 0.6rem;
-  border-radius: 999px;
-  background: var(--paper-2);
-  border: 1px dashed var(--turmeric);
-  color: var(--ink-soft);
-  white-space: nowrap;
-}
-.note {
-  border-left: 4px solid var(--turmeric);
-  background: var(--surface);
-  padding: 1rem 1.25rem;
-  border-radius: 0 var(--radius) var(--radius) 0;
-  color: var(--ink-soft);
-}
-.note strong {
-  color: var(--ink);
+.go:hover::after {
+  transform: translateX(4px);
 }
 
-/* Hoysala-inspired frieze: a row of lotus petals and beads, drawn in CSS. */
-.frieze {
-  height: 18px;
-  color: var(--turmeric);
-  background:
-    radial-gradient(circle at 50% 50%, currentColor 2.2px, transparent 2.8px) 0 0 / 24px 18px repeat-x,
-    radial-gradient(ellipse 7px 9px at 50% 100%, transparent 6px, currentColor 6.5px, currentColor 7.5px, transparent 8px) 12px 0 / 24px 18px repeat-x;
-  opacity: 0.55;
+/* A printed photograph: white border, slight tilt, soft drop. */
+.print {
+  margin: 0;
+  background: #fbf8f2;
+  padding: 0.55rem 0.55rem 0.75rem;
+  box-shadow: 0 1px 1px rgb(40 25 10 / 0.12), 0 12px 28px -12px rgb(40 25 10 / 0.45);
+  transform: rotate(var(--tilt, 0deg));
 }
-
-/* Page heading band used on inner pages */
-.page-head {
-  padding-block: clamp(2.5rem, 7vw, 4.5rem) clamp(2rem, 5vw, 3rem);
-  background:
-    radial-gradient(60rem 20rem at 85% -10%, color-mix(in srgb, var(--turmeric) 16%, transparent), transparent 70%),
-    var(--paper-2);
-  border-bottom: 1px solid var(--line);
-}
-.page-head h1 {
-  margin-bottom: 0.25em;
-}
-
-.table {
+.print img {
   width: 100%;
-  border-collapse: collapse;
 }
-.table th,
-.table td {
-  text-align: left;
-  padding: 0.8rem 0.25rem;
-  border-bottom: 1px solid var(--line);
-  vertical-align: top;
+.print figcaption {
+  font-size: 0.8125rem;
+  color: #5d4d40;
+  padding-top: 0.5rem;
+  line-height: 1.5;
 }
-.table th {
-  font-weight: 500;
+
+/* Temple-invitation frame: double kumkum rule with corner lotuses. */
+.invite {
+  position: relative;
+  border: 2px solid var(--kumkum);
+  outline: 1px solid var(--kumkum);
+  outline-offset: 5px;
+  padding: clamp(1.5rem, 5vw, 3rem);
+  margin: 6px;
+  text-align: center;
 }
-.table td {
-  color: var(--ink-soft);
-  text-align: right;
+.invite-mark {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  translate: -50% -58%;
+  width: 3.25rem;
+  padding-inline: 0.5rem;
+  background: var(--paper);
+  color: var(--kumkum);
+}
+.invite-mark svg {
+  display: block;
+  width: 100%;
+}
+
+/* Kolam divider — drawn in by script when it scrolls into view. */
+.kolam {
+  display: block;
+  width: min(100%, 34rem);
+  height: auto;
+  margin: 0 auto;
+  color: var(--arishina);
+  overflow: visible;
+}
+.kolam path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.kolam circle {
+  fill: currentColor;
+}
+.kolam.will-draw path {
+  stroke-dasharray: var(--len);
+  stroke-dashoffset: var(--len);
+}
+.kolam.drawn path {
+  transition: stroke-dashoffset 2.6s cubic-bezier(0.6, 0.1, 0.2, 1);
+  stroke-dashoffset: 0;
+}
+
+/* Night bands */
+.night {
+  background: var(--night);
+  color: var(--night-ink);
+}
+.night a {
+  color: var(--flame);
+}
+.night .chapter {
+  --mark: var(--flame);
+}
+.night .lede,
+.night p {
+  color: var(--night-soft);
+}
+
+.list-rule {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid var(--rule);
+}
+.list-rule > li,
+.list-rule > div {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
 }

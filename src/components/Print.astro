@@ -1,0 +1,41 @@
+---
+/** A photograph shown as a printed photo: white border, slight tilt, caption underneath. */
+import { asset, type Lang } from '../i18n';
+import { photos, type PhotoId } from '../data/site';
+
+interface Props {
+  lang: Lang;
+  id: PhotoId;
+  tilt?: number;
+  caption?: boolean;
+  ratio?: string;
+  focus?: string;
+  sizes?: string;
+  eager?: boolean;
+  zoom?: boolean;
+  class?: string;
+}
+const { lang, id, tilt = 0, caption = true, ratio, focus, sizes = '(min-width: 900px) 40vw, 90vw', eager = false, zoom = false, class: cls } = Astro.props;
+const p = photos[id];
+const full = asset(p.src);
+const small = 'small' in p && p.small ? asset(p.src.replace(/\.jpg$/, '-sm.jpg')) : null;
+const srcset = small ? `${small} 800w, ${full} ${p.w}w` : undefined;
+const style = [ratio && `aspect-ratio:${ratio}`, ratio && 'object-fit:cover', focus && `object-position:${focus}`].filter(Boolean).join(';') || undefined;
+const Tag = zoom ? 'a' : 'div';
+---
+
+<figure class:list={['print', cls]} style={`--tilt:${tilt}deg`}>
+  <Tag href={zoom ? full : undefined} class="print-img">
+    <img src={small ?? full} srcset={srcset} sizes={srcset ? sizes : undefined} width={p.w} height={p.h} alt={p.alt[lang]} loading={eager ? 'eager' : 'lazy'} decoding="async" style={style} />
+  </Tag>
+  {caption && <figcaption>{p.caption[lang]}</figcaption>}
+</figure>
+
+<style>
+  .print-img {
+    display: block;
+  }
+  a.print-img:hover img {
+    filter: brightness(1.06);
+  }
+</style>

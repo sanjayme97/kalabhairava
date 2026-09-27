@@ -1,362 +1,470 @@
 ---
 import Base from '../layouts/Base.astro';
-import Photo from '../components/Photo.astro';
-import Tbd from '../components/Tbd.astro';
+import Print from '../components/Print.astro';
+import Kolam from '../components/Kolam.astro';
 import { href, asset, type Lang } from '../i18n';
-import { temple, timings, festivals, photos } from '../data/site';
+import { temple, timings, festivals } from '../data/site';
 
 const { lang } = Astro.props as { lang: Lang };
+const jatre = festivals[0];
+const knownTimings = timings.filter((t) => t.time);
 
 const c = {
   kn: {
-    description: 'ಹಾಸನ ಜಿಲ್ಲೆ, ಅರಸೀಕೆರೆ ತಾಲ್ಲೂಕಿನ ಮನಕತ್ತೂರು ಗ್ರಾಮದ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನದ ಅಧಿಕೃತ ಜಾಲತಾಣ — ಪೂಜೆ, ಉತ್ಸವ, ಭೇಟಿ ಮಾಹಿತಿ ಮತ್ತು ಊರಿನ ಹೊಯ್ಸಳ ಕಾಲದ ಶಾಸನ.',
-    welcome: 'ಸ್ವಾಗತ',
-    lede: 'ಮನಕತ್ತೂರು ಗ್ರಾಮದ ಕ್ಷೇತ್ರಪಾಲ, ಭಕ್ತರನ್ನು ಕಾಯುವ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿಯ ಸನ್ನಿಧಿಗೆ ನಿಮಗೆ ಆದರದ ಸ್ವಾಗತ.',
-    ctaPoojas: 'ಪೂಜೆ ಮತ್ತು ಉತ್ಸವಗಳು',
-    ctaVisit: 'ದೇವಸ್ಥಾನಕ್ಕೆ ಭೇಟಿ',
-    aboutEyebrow: 'ದೇವರ ಬಗ್ಗೆ',
-    aboutTitle: 'ಕಾಲಕ್ಕೂ ಒಡೆಯನಾದ ಕಾಲಭೈರವ',
-    about: [
-      'ಕಾಲಭೈರವನು ಶಿವನ ಉಗ್ರರೂಪ. “ಕಾಲ” ಎಂದರೆ ಸಮಯ — ಸಮಯಕ್ಕೂ ಒಡೆಯನಾದವನು ಕಾಲಭೈರವ. ಕ್ಷೇತ್ರವನ್ನೂ ಊರನ್ನೂ ಕಾಯುವ ಕ್ಷೇತ್ರಪಾಲನಾಗಿ ಆತನನ್ನು ಪೂಜಿಸಲಾಗುತ್ತದೆ.',
-      'ತ್ರಿಶೂಲ, ಡಮರು ಹಿಡಿದು, ಶ್ವಾನವನ್ನು ವಾಹನವಾಗಿಸಿಕೊಂಡ ಭೈರವನು ಭಯವನ್ನು ದೂರಮಾಡಿ ಭಕ್ತರಿಗೆ ರಕ್ಷಣೆ ನೀಡುವನೆಂಬುದು ನಂಬಿಕೆ.',
+    description: 'ಹಾಸನ ಜಿಲ್ಲೆ, ಅರಸೀಕೆರೆ ತಾಲ್ಲೂಕಿನ ಮನಕತ್ತೂರು ಗ್ರಾಮದ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನ. ಪೂಜೆ, ಜಾತ್ರೆ ಮತ್ತು ಊರಿನ ಹೊಯ್ಸಳ ಕಾಲದ ಶಾಸನ.',
+    bless: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಪ್ರಸನ್ನ',
+    title: ['ಶ್ರೀ', 'ಕಾಲಭೈರವೇಶ್ವರ', 'ಸ್ವಾಮಿ'],
+    place: 'ಮನಕತ್ತೂರು · ಅರಸೀಕೆರೆ ತಾಲ್ಲೂಕು · ಹಾಸನ ಜಿಲ್ಲೆ',
+    hint: 'ಪರದೆಯ ಮೇಲೆ ತಟ್ಟಿ, ನಿಮ್ಮದೊಂದು ದೀಪ ಹಚ್ಚಿ',
+    litOne: 'ನಿಮ್ಮ ದೀಪ ಮೆರವಣಿಗೆ ಸೇರಿತು',
+    litMany: 'ನೀವು ಹಚ್ಚಿದ {n} ದೀಪಗಳು ಮೆರವಣಿಗೆಯಲ್ಲಿವೆ',
+    scroll: 'ಕೆಳಗೆ',
+    ch1: 'ದರ್ಶನ',
+    h1: 'ಊರು ಕಾಯುವ ದೇವರು',
+    p1: [
+      'ಕಾಲಭೈರವ ಶಿವನ ಉಗ್ರ ರೂಪ. ಊರನ್ನೂ ಕ್ಷೇತ್ರವನ್ನೂ ಕಾಯುವವನು ಅವನು ಎಂಬುದು ನಮ್ಮ ನಂಬಿಕೆ. ಕೈಯಲ್ಲಿ ತ್ರಿಶೂಲ, ಡಮರು. ಜೊತೆಯಲ್ಲಿ ಶ್ವಾನ.',
+      'ಹಬ್ಬದ ದಿನಗಳಲ್ಲಿ ಸ್ವಾಮಿಗೆ ಬೆಳ್ಳಿಯ ಪ್ರಭಾವಳಿ, ಮೈತುಂಬ ಹೂವು.',
     ],
-    aboutLink: 'ದೇವಾಲಯದ ಬಗ್ಗೆ ಇನ್ನಷ್ಟು',
+    more1: 'ದೇವಾಲಯದ ಬಗ್ಗೆ',
+    ch2: 'ಜಾತ್ರೆ',
+    inviteTop: 'ಭಕ್ತಾದಿಗಳಿಗೆ ಆದರದ ಆಹ್ವಾನ',
+    h2: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಜಾತ್ರಾ ಮಹೋತ್ಸವ',
+    p2: 'ಹಗಲು ರಥೋತ್ಸವ. ರಾತ್ರಿ ತಲೆಯ ಮೇಲೆ ಉರಿಯುವ ಆರತಿ ಹೊತ್ತು ದೇವಸ್ಥಾನದವರೆಗೆ ಮೆರವಣಿಗೆ. ಊರಿನವರು, ನೆಂಟರಿಷ್ಟರು ಎಲ್ಲರೂ ಸೇರುವ ವರ್ಷದ ದೊಡ್ಡ ಹಬ್ಬ.',
+    dateLabel: 'ಈ ವರ್ಷ',
+    more2: 'ಪೂಜೆ ಮತ್ತು ಉತ್ಸವಗಳು',
+    ch3: 'ಶಾಸನ',
+    h3: 'ಕಲ್ಲು ಹೇಳುವ ಕಥೆ',
+    p3: [
+      'ದೇವಸ್ಥಾನದ ಆವರಣದಲ್ಲಿ ನಿಂತಿರುವ ಈ ಕಲ್ಲಿನ ಮೇಲೆ ಕ್ರಿ.ಶ. ೧೧೦೧ರ ಬರಹವಿದೆ. ಆಗ ಹೊಯ್ಸಳರ ಕಾಲ.',
+      'ಇದು ಈ ದೇವಾಲಯದ ಕುರಿತದ್ದಲ್ಲ. ಆದರೆ “ಮನಗತ್ತೂರು” ಊರನ್ನು ಕಟ್ಟಿದ ಗಾವುಂಡರ ಹೆಸರುಗಳು ಇದರಲ್ಲಿವೆ.',
+    ],
+    more3: 'ದೀಪ ಹಿಡಿದು ಕಲ್ಲನ್ನು ಓದಿ',
     timingsTitle: 'ದರ್ಶನದ ಸಮಯ',
-    timingsNote: 'ಸಮಯಗಳನ್ನು ದೇವಸ್ಥಾನ ಸಮಿತಿ ಖಚಿತಪಡಿಸಿದ ನಂತರ ಇಲ್ಲಿ ನವೀಕರಿಸಲಾಗುವುದು.',
-    festTitle: 'ಪ್ರಮುಖ ಉತ್ಸವಗಳು',
-    festLink: 'ಎಲ್ಲ ಉತ್ಸವಗಳು',
-    insEyebrow: 'ಊರಿನ ಪರಂಪರೆ',
-    insTitle: 'ಒಂಬೈನೂರು ವರ್ಷಗಳ ಹಳೆಯ ಕಲ್ಬರಹ',
-    insBody:
-      'ಕ್ರಿ.ಶ. ೧೧೦೧ರ ಹೊಯ್ಸಳ ಕಾಲದ ಶಾಸನವೊಂದು ನಮ್ಮ ದೇವಸ್ಥಾನದಲ್ಲಿ ಸಂರಕ್ಷಿತವಾಗಿದೆ. ಅದು ಈ ದೇವಾಲಯದ ಕುರಿತದ್ದಲ್ಲ — ಆದರೆ “ಮನಗತ್ತೂರು” ಊರನ್ನು ಕಟ್ಟಿದವರ, ಅಂದಿನ ದೇವಾಲಯಗಳ ಮತ್ತು ದತ್ತಿಗಳ ಕಥೆಯನ್ನು ಹೇಳುತ್ತದೆ.',
-    insLink: 'ಶಾಸನದ ಕಥೆ ಓದಿ',
-    jatreEyebrow: 'ವರ್ಷದ ಹಬ್ಬ',
-    jatreTitle: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಜಾತ್ರಾ ಮಹೋತ್ಸವ',
-    jatreBody: [
-      'ಜಾತ್ರೆಯ ದಿನ ಊರಿಗೆ ಊರೇ ಸೇರುತ್ತದೆ. ಹಗಲಿನಲ್ಲಿ ಬಣ್ಣದ ಬಟ್ಟೆ, ಹೂವು, ತೆಂಗಿನಕಾಯಿಗಳಿಂದ ಶೃಂಗರಿಸಿದ ರಥವನ್ನು ಭಕ್ತರು ಎಳೆಯುತ್ತಾರೆ; ರಥಕ್ಕೆ ಬಾಳೆಹಣ್ಣು ಎಸೆದು ಭಕ್ತಿ ಸಲ್ಲಿಸುತ್ತಾರೆ.',
-      'ರಾತ್ರಿ ದೀಪಾಲಂಕೃತ ದೇವಸ್ಥಾನದ ಮುಂದೆ ನೂರಾರು ಭಕ್ತರು ಉರಿಯುವ ಆರತಿಗಳನ್ನು ತಲೆಯ ಮೇಲೆ ಹೊತ್ತು ಸಾಗುತ್ತಾರೆ — ಊರಿನ ಬೀದಿಯುದ್ದಕ್ಕೂ ದೀಪಗಳ ನದಿ ಹರಿದಂತೆ ಕಾಣುತ್ತದೆ.',
-    ],
-    jatreDate: 'ಈ ವರ್ಷದ ಜಾತ್ರೆಯ ದಿನಾಂಕ',
-    jatreLink: 'ಚಿತ್ರಸಂಪುಟ ನೋಡಿ',
     visitTitle: 'ಮನಕತ್ತೂರಿಗೆ ಬನ್ನಿ',
-    visitBody: 'ಹಾಸನ ಜಿಲ್ಲೆಯ ಅರಸೀಕೆರೆ ತಾಲ್ಲೂಕಿನಲ್ಲಿದೆ. ದಾರಿ, ನಕ್ಷೆ ಮತ್ತು ಸಂಪರ್ಕ ಮಾಹಿತಿ ಇಲ್ಲಿದೆ.',
-    visitLink: 'ಭೇಟಿ ಮತ್ತು ಸಂಪರ್ಕ',
+    visitMap: 'ನಕ್ಷೆಯಲ್ಲಿ ನೋಡಿ',
+    visitMore: 'ದಾರಿ ಮತ್ತು ಸಂಪರ್ಕ',
   },
   en: {
-    description: 'Official website of Sri Kalabhairaveshwara Swamy Temple, Manakathuru village, Arsikere Taluk, Hassan District — poojas, festivals, visitor information and the village’s Hoysala-era stone inscription.',
-    welcome: 'Welcome',
-    lede: 'A warm welcome to the abode of Sri Kalabhairaveshwara Swamy, guardian deity of Manakathuru village and protector of his devotees.',
-    ctaPoojas: 'Poojas & Festivals',
-    ctaVisit: 'Plan a visit',
-    aboutEyebrow: 'The deity',
-    aboutTitle: 'Kalabhairava, lord even of time',
-    about: [
-      'Kalabhairava is the fierce form of Lord Shiva. Kāla means time, and Kalabhairava is the master of time itself. He is worshipped as the kshetrapala — the guardian of the sacred place and of the village.',
-      'Holding the trishula and damaru, with the dog as his vehicle, Bhairava is believed to drive away fear and protect those who seek him.',
+    description: 'Sri Kalabhairaveshwara Swamy Temple, Manakathuru village, Arsikere Taluk, Hassan District: worship, the annual jatra and the village’s Hoysala-era inscription.',
+    bless: 'Sri Kalabhairaveshwara Prasanna',
+    title: ['Sri', 'Kalabhairaveshwara', 'Swamy'],
+    place: 'Manakathuru · Arsikere Taluk · Hassan District',
+    hint: 'Tap the screen to light a lamp of your own',
+    litOne: 'Your lamp has joined the procession',
+    litMany: '{n} of your lamps are in the procession',
+    scroll: 'Scroll',
+    ch1: 'Darshan',
+    h1: 'The god who guards the village',
+    p1: [
+      'Kalabhairava is the fierce form of Shiva. We believe he watches over the village and this sacred place. He holds the trishula and the damaru, and the dog walks with him.',
+      'On festival days he wears the silver prabhavali and is covered in flowers.',
     ],
-    aboutLink: 'More about the temple',
+    more1: 'About the temple',
+    ch2: 'Jatra',
+    inviteTop: 'All devotees are warmly invited',
+    h2: 'Sri Kalabhairaveshwara Jatra Mahotsava',
+    p2: 'The chariot by day. By night, a procession to the temple with blazing aarati carried on the head. The biggest festival of the year, when the whole village and relatives from far away come together.',
+    dateLabel: 'This year',
+    more2: 'Poojas & festivals',
+    ch3: 'Inscription',
+    h3: 'What the stone says',
+    p3: [
+      'The stone standing in the temple courtyard carries writing from 1101 CE, in the time of the Hoysalas.',
+      'It is not about this temple. But it names the gavundas who founded the village, then called “Managatur”.',
+    ],
+    more3: 'Read the stone by lamplight',
     timingsTitle: 'Darshan timings',
-    timingsNote: 'Timings will be updated here once confirmed by the temple committee.',
-    festTitle: 'Major festivals',
-    festLink: 'All festivals',
-    insEyebrow: 'Village heritage',
-    insTitle: 'A 900-year-old stone inscription',
-    insBody:
-      'A Hoysala-period inscription dated 1101 CE is preserved at our temple. It is not about this temple — it tells of the founders of “Managatur”, the temples of that time and the gifts made to them.',
-    insLink: 'Read the inscription’s story',
-    jatreEyebrow: 'The festival of the year',
-    jatreTitle: 'Sri Kalabhairaveshwara Jatra Mahotsava',
-    jatreBody: [
-      'On jatra day the whole village gathers. By day, devotees pull the chariot decked with coloured cloth, flowers and coconuts, and toss bananas towards it as an offering.',
-      'By night, in front of the illuminated temple, hundreds of devotees carry blazing aarati lamps on their heads — a river of light flowing down the village street.',
-    ],
-    jatreDate: 'This year’s jatra date',
-    jatreLink: 'See the gallery',
     visitTitle: 'Come to Manakathuru',
-    visitBody: 'In Arsikere Taluk, Hassan District. Directions, map and contact details are here.',
-    visitLink: 'Visit & Contact',
+    visitMap: 'Open the map',
+    visitMore: 'Directions & contact',
   },
 }[lang];
-
-const highlights = festivals.slice(0, 3);
 ---
 
-<Base lang={lang} page="" description={c.description}>
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-text">
-        <p class="eyebrow">{c.welcome} · {temple.place[lang]}</p>
-        <h1>{temple.name[lang]}</h1>
-        <p class="lede">{c.lede}</p>
-        <p class="hero-region">{temple.region[lang]}</p>
-        <div class="actions">
-          <a class="btn" href={href(lang, 'poojas')}>{c.ctaPoojas}</a>
-          <a class="btn btn--ghost" href={href(lang, 'visit')}>{c.ctaVisit}</a>
-        </div>
+<Base lang={lang} page="" description={c.description} overlay>
+  <section class="hero night" data-hero>
+    <picture class="hero-bg">
+      <source media="(max-width: 700px)" srcset={asset('images/jatre-night-gopura-sm.jpg')} />
+      <img src={asset('images/jatre-night-procession.jpg')} alt="" width="1600" height="1200" fetchpriority="high" />
+    </picture>
+    <div class="hero-veil" aria-hidden="true"></div>
+    <canvas class="hero-canvas" data-lamps aria-hidden="true"></canvas>
+
+    <div class="wrap hero-copy">
+      <p class="bless">{c.bless}</p>
+      <h1>
+        <span class="t-sri">{c.title[0]}</span>
+        <span class="t-main">{c.title[1]}</span>
+        <span class="t-swamy">{c.title[2]}</span>
+      </h1>
+      <p class="place">{c.place}</p>
+    </div>
+    <p class="hero-hint" data-hint data-one={c.litOne} data-many={c.litMany} hidden aria-live="polite">{c.hint}</p>
+    <span class="scroll-cue" aria-hidden="true">{c.scroll}</span>
+  </section>
+
+  <section class="section darshan">
+    <div class="wrap darshan-grid">
+      <div class="darshan-prints">
+        <Print lang={lang} id="pushpaAlankara" tilt={-2.5} class="dp-a" sizes="(min-width: 900px) 24rem, 70vw" />
+        <Print lang={lang} id="belliPrabhavali" tilt={3} class="dp-b" sizes="(min-width: 900px) 20rem, 55vw" />
       </div>
-      <div class="hero-photo">
-        <Photo lang={lang} id="pushpaAlankara" arch eager />
+      <div class="prose">
+        <p class="chapter"><b>೧</b><span>{c.ch1}</span></p>
+        <h2>{c.h1}</h2>
+        {c.p1.map((p) => <p>{p}</p>)}
+        <a class="go" href={href(lang, 'temple')}>{c.more1}</a>
       </div>
     </div>
   </section>
 
-  <div class="frieze" aria-hidden="true"></div>
+  <Kolam dots={9} />
 
-  <section class="section">
-    <div class="wrap about-grid">
-      <div class="about-photo"><Photo lang={lang} id="belliPrabhavali" /></div>
-      <div>
-        <p class="eyebrow">{c.aboutEyebrow}</p>
-        <h2>{c.aboutTitle}</h2>
-        {c.about.map((p) => <p>{p}</p>)}
-        <a href={href(lang, 'temple')}>{c.aboutLink} →</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="jatre" aria-labelledby="jatre-title">
-    <div class="wrap jatre-grid">
-      <div class="jatre-text">
-        <p class="eyebrow">{c.jatreEyebrow}</p>
-        <h2 id="jatre-title">{c.jatreTitle}</h2>
-        {c.jatreBody.map((p) => <p>{p}</p>)}
-        <p class="jatre-date">
-          {c.jatreDate}: {festivals[0].date ? <strong>{festivals[0].date[lang]}</strong> : <Tbd lang={lang} />}
-        </p>
-        <a class="btn" href={href(lang, 'gallery')}>{c.jatreLink}</a>
-      </div>
-      <div class="jatre-mosaic">
-        <Photo lang={lang} id="nightGopura" caption={false} class="m-tall" ratio="3 / 4" sizes="(min-width: 900px) 30vw, 60vw" />
-        <Photo lang={lang} id="rathaCrowd" caption={false} class="m-a" ratio="4 / 3" focus="30% 50%" sizes="(min-width: 900px) 25vw, 50vw" />
-        <Photo lang={lang} id="nightProcession" caption={false} class="m-b" ratio="4 / 3" sizes="(min-width: 900px) 25vw, 50vw" />
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--tint">
-    <div class="wrap grid grid--2">
-      <div class="card">
-        <h2 class="card-title">{c.timingsTitle}</h2>
-        <table class="table">
-          <tbody>
-            {
-              timings.map((t) => (
-                <tr>
-                  <th scope="row">{t.label[lang]}</th>
-                  <td>{t.time ? t.time[lang] : <Tbd lang={lang} />}</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-        {timings.some((t) => !t.time) && <p class="small">{c.timingsNote}</p>}
-      </div>
-      <div class="card">
-        <h2 class="card-title">{c.festTitle}</h2>
-        <ul class="fest-list">
-          {
-            highlights.map((f) => (
-              <li>
-                <strong>{f.name[lang]}</strong>
-                <span>{f.date ? f.date[lang] : f.when[lang]}</span>
-              </li>
-            ))
-          }
-        </ul>
-        <a href={href(lang, 'poojas')}>{c.festLink} →</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
+  <section class="section jatre">
     <div class="wrap">
-      <a class="stone-card" href={href(lang, 'inscription')}>
-        <img class="stone-photo" src={asset('images/shasana-relief-sm.jpg')} width="800" height="533" alt={photos.stoneRelief.alt[lang]} loading="lazy" decoding="async" />
-        <div>
-          <p class="eyebrow">{c.insEyebrow}</p>
-          <h2>{c.insTitle}</h2>
-          <p>{c.insBody}</p>
-          <span class="stone-link">{c.insLink} →</span>
+      <p class="chapter"><b>೨</b><span>{c.ch2}</span></p>
+      <div class="jatre-grid">
+        <div class="invite">
+          <span class="invite-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 26"><path d="M20 2c4 5 4 11 0 17-4-6-4-12 0-17zM6 10c6 0 11 3 14 9-6 1-12-2-14-9zm28 0c-2 7-8 10-14 9 3-6 8-9 14-9zM6 24h28" fill="currentColor" stroke="currentColor" stroke-width="1"></path></svg>
+          </span>
+          <p class="invite-top">{c.inviteTop}</p>
+          <h2>{c.h2}</h2>
+          <p>{c.p2}</p>
+          {jatre.date && <p class="invite-date">{c.dateLabel}: <strong>{jatre.date[lang]}</strong></p>}
+          <a class="go" href={href(lang, 'poojas')}>{c.more2}</a>
         </div>
-      </a>
+        <div class="jatre-prints">
+          <Print lang={lang} id="rathaCrowd" tilt={-3} class="jp-1" ratio="4 / 3" caption={false} sizes="(min-width: 900px) 22rem, 60vw" />
+          <Print lang={lang} id="nightGopura" tilt={2} class="jp-2" ratio="3 / 4" caption={false} sizes="(min-width: 900px) 16rem, 45vw" />
+          <Print lang={lang} id="rathaBanana" tilt={4} class="jp-3" ratio="3 / 4" focus="50% 30%" caption={false} sizes="(min-width: 900px) 13rem, 38vw" />
+          <Print lang={lang} id="nightAarati" tilt={-2} class="jp-4" ratio="1 / 1" focus="50% 70%" caption={false} sizes="(min-width: 900px) 15rem, 45vw" />
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="section section--tint">
-    <div class="wrap visit">
+  <section class="section night stone-band">
+    <div class="wrap stone-grid">
+      <Print lang={lang} id="stoneRelief" tilt={-1.5} caption={false} sizes="(min-width: 900px) 34rem, 92vw" />
+      <div class="prose">
+        <p class="chapter"><b>೩</b><span>{c.ch3}</span></p>
+        <h2>{c.h3}</h2>
+        {c.p3.map((p) => <p>{p}</p>)}
+        <a class="go" href={href(lang, 'inscription')}>{c.more3}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section visit">
+    <div class="wrap visit-grid">
+      {
+        knownTimings.length > 0 && (
+          <div>
+            <h2>{c.timingsTitle}</h2>
+            <dl class="list-rule times">
+              {knownTimings.map((t) => (
+                <div>
+                  <dt>{t.label[lang]}</dt>
+                  <dd>{t.time![lang]}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )
+      }
       <div>
         <h2>{c.visitTitle}</h2>
-        <p>{c.visitBody}</p>
+        <p class="lede">{temple.place[lang]}, {temple.region[lang]}</p>
+        <p class="visit-links">
+          <a class="go" href={temple.mapUrl} rel="noopener">{c.visitMap}</a>
+          <a class="go" href={href(lang, 'visit')}>{c.visitMore}</a>
+        </p>
       </div>
-      <a class="btn" href={href(lang, 'visit')}>{c.visitLink}</a>
     </div>
   </section>
 </Base>
 
+<script>
+  import type { LampsHandle } from '../scripts/lamps';
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-lamps]');
+  const hint = document.querySelector<HTMLElement>('[data-hint]');
+  const saveData = (navigator as { connection?: { saveData?: boolean } }).connection?.saveData;
+  let handle: LampsHandle | null = null;
+
+  const start = async () => {
+    if (!canvas || !hero || saveData) return;
+    const { startLamps } = await import('../scripts/lamps');
+    const kn = document.documentElement.lang === 'kn';
+    handle = startLamps(canvas, {
+      onLight: (n) => {
+        if (!hint) return;
+        const num = kn ? String(n).replace(/\d/g, (d) => '೦೧೨೩೪೫೬೭೮೯'[+d]) : String(n);
+        hint.textContent = n === 1 ? hint.dataset.one! : hint.dataset.many!.replace('{n}', num);
+        hint.classList.add('lit');
+      },
+    });
+    if (handle) {
+      hero.classList.add('is-live');
+      if (hint) hint.hidden = false;
+    }
+  };
+  if ('requestIdleCallback' in window) requestIdleCallback(() => start(), { timeout: 1500 });
+  else setTimeout(start, 600);
+</script>
+
 <style>
+  /* ── hero ── */
   .hero {
-    padding-block: clamp(2.5rem, 7vw, 5rem);
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    align-items: end;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero-bg img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 30% 50%;
+    z-index: -3;
+    filter: saturate(1.05) brightness(0.62);
+    transform: scale(1.04);
+  }
+  .hero-veil {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
     background:
-      radial-gradient(50rem 26rem at 90% 10%, color-mix(in srgb, var(--turmeric) 22%, transparent), transparent 70%),
-      radial-gradient(40rem 30rem at -10% 100%, color-mix(in srgb, var(--kumkum) 10%, transparent), transparent 70%),
-      var(--paper);
+      radial-gradient(120% 70% at 50% 110%, rgb(15 11 9 / 0.2), rgb(15 11 9 / 0.9) 75%),
+      linear-gradient(to top, var(--night) 2%, transparent 45%);
   }
-  .hero-grid {
-    display: grid;
-    gap: 2.5rem;
-    align-items: center;
+  .is-live .hero-bg img {
+    filter: saturate(0.85) brightness(0.5) blur(1px);
+    transition: filter 1.6s ease;
   }
-  .hero-photo {
-    max-width: 20rem;
+  .hero-canvas {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    margin-inline: auto;
+    height: 100%;
+    z-index: -1;
+    touch-action: pan-y;
+    cursor: crosshair;
   }
-  .hero-region {
-    font-size: 0.9375rem;
-    color: var(--ink-soft);
-    margin-top: -0.25rem;
+  .hero-copy {
+    padding-block: 8rem clamp(6rem, 14vh, 9rem);
+    pointer-events: none;
   }
-  @media (min-width: 860px) {
-    .hero-grid {
-      grid-template-columns: 1.35fr 1fr;
-      gap: 4rem;
-    }
+  .bless {
+    font-family: var(--display);
+    font-weight: 600;
+    color: var(--flame) !important;
+    font-size: clamp(1rem, 2.2vw, 1.25rem);
+    margin-bottom: 0.5rem;
   }
-  .about-grid {
+  .hero h1 {
     display: grid;
-    gap: 2.5rem;
-    align-items: center;
+    margin: 0;
+    line-height: 0.98;
+    color: #fbefd9;
+    text-shadow: 0 2px 30px rgb(0 0 0 / 0.6);
   }
-  .about-photo {
-    max-width: 26rem;
-    margin-inline: auto;
-    width: 100%;
+  .t-sri,
+  .t-swamy {
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    color: var(--flame);
   }
-  @media (min-width: 860px) {
-    .about-grid {
-      grid-template-columns: 1fr 1.2fr;
-      gap: 4rem;
-    }
+  .t-main {
+    font-size: clamp(3rem, 12.5vw, 9.5rem);
+    letter-spacing: -0.02em;
   }
-  .card-title {
-    font-size: 1.5rem;
+  :lang(en) .t-main {
+    font-size: clamp(2.6rem, 9vw, 7rem);
   }
-  .small {
+  .t-swamy {
+    justify-self: end;
+    margin-top: -0.2em;
+  }
+  .place {
+    margin-top: 1.25rem;
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: #e4d3b8 !important;
+    letter-spacing: 0.02em;
+  }
+  .hero-hint {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    margin: 0;
     font-size: 0.875rem;
-    color: var(--ink-soft);
-    margin: 1rem 0 0;
+    color: #f5d8a8 !important;
+    background: rgb(15 11 9 / 0.55);
+    border: 1px solid rgb(255 154 60 / 0.35);
+    padding: 0.35rem 0.8rem;
+    pointer-events: none;
+    animation: breathe 3.5s ease-in-out infinite;
   }
-  .fest-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1.25rem;
+  .hero-hint.lit {
+    animation: none;
+    border-color: var(--flame);
   }
-  .fest-list li {
-    display: grid;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--line);
+  @keyframes breathe {
+    50% {
+      opacity: 0.55;
+    }
   }
-  .fest-list strong {
-    font-weight: 500;
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 1.25rem;
+    translate: -50% 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: #cdb89a;
+    writing-mode: vertical-rl;
+    display: none;
   }
-  .fest-list span {
-    font-size: 0.9375rem;
-    color: var(--ink-soft);
+  @media (min-width: 900px) {
+    .scroll-cue {
+      display: block;
+    }
   }
 
-  .stone-card {
+  /* ── darshan ── */
+  .darshan-grid {
     display: grid;
-    gap: 2rem;
+    gap: 3.5rem;
     align-items: center;
-    padding: clamp(1.5rem, 5vw, 3rem);
-    border-radius: calc(var(--radius) + 6px);
-    background:
-      radial-gradient(30rem 20rem at 20% 0%, rgb(255 255 255 / 0.06), transparent 70%),
-      linear-gradient(160deg, var(--stone), var(--stone-2));
-    color: var(--stone-ink);
-    text-decoration: none;
-    box-shadow: var(--shadow);
   }
-  .stone-card .eyebrow {
-    color: var(--stone-accent);
+  .darshan-prints {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
   }
-  .stone-card p {
-    color: color-mix(in srgb, var(--stone-ink) 85%, transparent);
+  .darshan-prints :global(.dp-a) {
+    grid-column: 1 / 9;
+    grid-row: 1;
+    z-index: 1;
   }
-  .stone-link {
-    color: var(--stone-accent);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
+  .darshan-prints :global(.dp-b) {
+    grid-column: 6 / 13;
+    grid-row: 1;
+    align-self: end;
+    margin-bottom: -2rem;
+    z-index: 2;
   }
-  .stone-photo {
-    width: 100%;
-    border-radius: 999px 999px 12px 12px / 38% 38% 12px 12px;
-    box-shadow: 0 10px 30px rgb(0 0 0 / 0.35);
-  }
-  @media (min-width: 860px) {
-    .stone-card {
-      grid-template-columns: 1fr 1.4fr;
-      gap: 3rem;
+  @media (min-width: 900px) {
+    .darshan-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
     }
   }
+
+  /* ── jatre ── */
   .jatre {
-    padding-block: clamp(3rem, 8vw, 5.5rem);
-    background:
-      radial-gradient(40rem 24rem at 15% 0%, rgb(226 182 78 / 0.18), transparent 70%),
-      radial-gradient(40rem 30rem at 100% 100%, rgb(158 42 30 / 0.35), transparent 70%),
-      #1a120e;
-    color: #f3e9d8;
-  }
-  .jatre .eyebrow {
-    color: #e2b64e;
-  }
-  .jatre p {
-    color: rgb(243 233 216 / 0.85);
-  }
-  .jatre-date {
-    margin: 1.25rem 0 1.5rem;
-  }
-  .jatre-date strong {
-    color: #fff;
+    background: var(--paper-2);
   }
   .jatre-grid {
     display: grid;
-    gap: 2.5rem;
+    gap: 3.5rem;
     align-items: center;
   }
-  .jatre-mosaic {
+  .invite-top {
+    font-family: var(--display);
+    color: var(--kumkum);
+    font-weight: 600;
+  }
+  .invite h2 {
+    color: var(--kumkum);
+  }
+  .invite p {
+    max-width: 30rem;
+    margin-inline: auto;
+  }
+  .invite-date {
+    font-size: 1.125rem;
+  }
+  .jatre-prints {
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 0.9rem;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 3.5rem;
   }
-  .jatre-mosaic :global(.m-tall) {
-    grid-row: span 2;
+  .jatre-prints :global(.jp-1) {
+    grid-column: 1 / 5;
+    grid-row: 1 / 5;
+    z-index: 1;
   }
-  .jatre-mosaic :global(.m-tall img) {
-    height: 100%;
+  .jatre-prints :global(.jp-2) {
+    grid-column: 4 / 7;
+    grid-row: 2 / 7;
+    z-index: 2;
   }
-  .jatre-mosaic :global(.m-tall .photo-frame) {
-    height: 100%;
+  .jatre-prints :global(.jp-3) {
+    grid-column: 1 / 3;
+    grid-row: 5 / 9;
+    z-index: 3;
   }
-  .jatre-mosaic :global(figcaption) {
-    color: rgb(243 233 216 / 0.7);
-    font-size: 0.8125rem;
+  .jatre-prints :global(.jp-4) {
+    grid-column: 3 / 6;
+    grid-row: 6 / 10;
+    z-index: 4;
   }
   @media (min-width: 900px) {
     .jatre-grid {
-      grid-template-columns: 1fr 1.25fr;
+      grid-template-columns: 1fr 1.1fr;
       gap: 4rem;
     }
+    .jatre-prints {
+      grid-auto-rows: 4.2rem;
+    }
   }
-  .visit {
+
+  /* ── stone ── */
+  .stone-band {
+    background:
+      radial-gradient(50rem 30rem at 20% 50%, rgb(255 154 60 / 0.14), transparent 70%),
+      var(--night);
+  }
+  .stone-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .stone-grid {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 4.5rem;
+    }
+  }
+
+  /* ── visit ── */
+  .visit-grid {
+    display: grid;
+    gap: 3rem;
+  }
+  @media (min-width: 900px) {
+    .visit-grid {
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    }
+  }
+  .times div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .times dd {
+    margin: 0;
+    font-weight: 600;
+  }
+  .visit-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.5rem;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .visit p {
-    margin: 0;
-    color: var(--ink-soft);
+    gap: 1rem 2rem;
+    margin-top: 1.5rem;
   }
 </style>

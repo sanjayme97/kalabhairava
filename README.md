@@ -35,3 +35,15 @@ For a custom domain, set `site` to that domain in `astro.config.mjs` and remove 
 
 - Photographs are the temple’s own. No stock or unrelated temple images are used.
 - The inscription content comes from the village document “ಮನಕತ್ತೂರಿನ ಕಲ್ಬರಹ: ಹೊಯ್ಸಳ ಕಾಲದ ಒಂದು ನೋಟ”, based on B. L. Rice, *Epigraphia Carnatica*, Vol. 5 (Hassan District).
+
+## Design notes
+
+- **Home — the aarati procession** (`src/scripts/lamps.ts`): a Three.js scene of lamp flames walking up the street, drawn over the real jatra-night photograph. Visitors can tap to light a lamp of their own.
+- **Inscription — the stone by lamplight** (`src/scripts/stone.ts`): the inscription stone in 3D, built from photographs (`public/3d/`), with a lamp you can move across it — the raking light epigraphers use to read worn letters. It is not a scan; a phone photogrammetry scan (Polycam, RealityScan) would make it exact.
+- **The wheel of years**: the 60-year samvatsara cycle, spinning from Vikrama (1100–01, when the stone was carved) to Parabhava (2026–27).
+- 3D loads only after the page is readable, pauses off-screen, and is skipped with Data Saver on; a still photograph shows instead.
+- Hand-made details: kolam dividers that draw themselves (`src/components/Kolam.astro`), photographs shown as prints (`src/components/Print.astro`), temple-invitation frames.
+
+## Classic version
+
+The earlier, simpler design is kept as a static copy in `public/classic/` and is live at `/kalabhairava/classic/`.

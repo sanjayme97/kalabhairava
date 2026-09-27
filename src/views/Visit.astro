@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import Tbd from '../components/Tbd.astro';
+import Kolam from '../components/Kolam.astro';
 import { type Lang } from '../i18n';
 import { temple } from '../data/site';
 
@@ -10,26 +10,24 @@ const k = temple.contact;
 const c = {
   kn: {
     title: 'ಭೇಟಿ ಮತ್ತು ಸಂಪರ್ಕ',
-    description: 'ಮನಕತ್ತೂರು ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನಕ್ಕೆ ತಲುಪುವ ದಾರಿ, ನಕ್ಷೆ, ಭಕ್ತರಿಗೆ ಸೂಚನೆಗಳು ಮತ್ತು ಸಂಪರ್ಕ ಮಾಹಿತಿ.',
-    lede: 'ದಾರಿ, ನಕ್ಷೆ ಮತ್ತು ಸಂಪರ್ಕ ಮಾಹಿತಿ.',
-    address: 'ವಿಳಾಸ',
+    description: 'ಮನಕತ್ತೂರು ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನಕ್ಕೆ ದಾರಿ, ನಕ್ಷೆ, ಭಕ್ತಾದಿಗಳಿಗೆ ಸೂಚನೆಗಳು ಮತ್ತು ಸಂಪರ್ಕ.',
+    lede: 'ಮನಕತ್ತೂರಿಗೆ ಬನ್ನಿ.',
     map: 'ಗೂಗಲ್ ನಕ್ಷೆಯಲ್ಲಿ ತೆರೆಯಿರಿ',
-    reach: 'ತಲುಪುವುದು ಹೇಗೆ',
+    reach: 'ಬರುವ ದಾರಿ',
     reachItems: [
-      ['ರಸ್ತೆ ಮೂಲಕ', 'ಅರಸೀಕೆರೆ ಪಟ್ಟಣದಿಂದ ಹತ್ತಿರದ ಊರು. ಸ್ಥಳೀಯ ಬಸ್ ಮತ್ತು ಆಟೋ ವಿವರಗಳು ಶೀಘ್ರದಲ್ಲಿ.'],
-      ['ರೈಲಿನ ಮೂಲಕ', 'ಹತ್ತಿರದ ಪ್ರಮುಖ ರೈಲು ನಿಲ್ದಾಣ: ಅರಸೀಕೆರೆ ಜಂಕ್ಷನ್.'],
-      ['ಜಿಲ್ಲಾ ಕೇಂದ್ರ', 'ಹಾಸನ.'],
+      ['ಹತ್ತಿರದ ಪಟ್ಟಣ', 'ಅರಸೀಕೆರೆ'],
+      ['ರೈಲು ನಿಲ್ದಾಣ', 'ಅರಸೀಕೆರೆ ಜಂಕ್ಷನ್'],
+      ['ಜಿಲ್ಲಾ ಕೇಂದ್ರ', 'ಹಾಸನ'],
     ],
-    etiquette: 'ಭಕ್ತರಿಗೆ ಸೂಚನೆಗಳು',
-    etiquetteItems: [
-      'ದೇವಸ್ಥಾನದ ಒಳಗೆ ಪಾದರಕ್ಷೆಗಳನ್ನು ಹೊರಗೆ ಬಿಡಿ.',
-      'ಸಾಂಪ್ರದಾಯಿಕ, ಸಭ್ಯ ಉಡುಪು ಧರಿಸಿ.',
-      'ಗರ್ಭಗುಡಿಯ ಚಿತ್ರ ತೆಗೆಯುವ ಮೊದಲು ಅರ್ಚಕರ ಅನುಮತಿ ಪಡೆಯಿರಿ.',
-      'ದೇವಸ್ಥಾನದ ಆವರಣವನ್ನು ಸ್ವಚ್ಛವಾಗಿಡಿ; ಪ್ಲಾಸ್ಟಿಕ್ ಬಳಸಬೇಡಿ.',
-      'ದೇವಸ್ಥಾನದಲ್ಲಿರುವ ಪ್ರಾಚೀನ ಶಾಸನ ಕಲ್ಲನ್ನು ಮುಟ್ಟಬೇಡಿ, ಅದರ ಮೇಲೆ ಏನನ್ನೂ ಹಚ್ಚಬೇಡಿ.',
+    notice: 'ಭಕ್ತಾದಿಗಳಿಗೆ ಸೂಚನೆ',
+    etiquette: [
+      'ಪಾದರಕ್ಷೆಗಳನ್ನು ಹೊರಗೆ ಬಿಡಿ.',
+      'ಸಭ್ಯ ಉಡುಪು ಧರಿಸಿ.',
+      'ಗರ್ಭಗುಡಿಯ ಫೋಟೋ ತೆಗೆಯುವ ಮೊದಲು ಅರ್ಚಕರನ್ನು ಕೇಳಿ.',
+      'ಆವರಣ ಸ್ವಚ್ಛವಾಗಿಡಿ. ಪ್ಲಾಸ್ಟಿಕ್ ಬೇಡ.',
+      'ಹಳೆಯ ಶಾಸನ ಕಲ್ಲನ್ನು ಮುಟ್ಟಬೇಡಿ, ಅದಕ್ಕೆ ಏನನ್ನೂ ಹಚ್ಚಬೇಡಿ.',
     ],
     contact: 'ಸಂಪರ್ಕ',
-    committee: 'ದೇವಸ್ಥಾನ ಸಮಿತಿ',
     phone: 'ದೂರವಾಣಿ',
     whatsapp: 'ವಾಟ್ಸ್‌ಆ್ಯಪ್',
     email: 'ಇ-ಮೇಲ್',
@@ -38,26 +36,24 @@ const c = {
   },
   en: {
     title: 'Visit & Contact',
-    description: 'How to reach Sri Kalabhairaveshwara Swamy Temple, Manakathuru — map, directions, visitor guidelines and contact details.',
-    lede: 'Directions, map and contact details.',
-    address: 'Address',
+    description: 'How to reach Sri Kalabhairaveshwara Swamy Temple, Manakathuru: map, directions, guidance for devotees and contact.',
+    lede: 'Come to Manakathuru.',
     map: 'Open in Google Maps',
-    reach: 'How to reach',
+    reach: 'Getting here',
     reachItems: [
-      ['By road', 'Arsikere is the nearest town. Local bus and auto details coming soon.'],
-      ['By rail', 'Nearest major railway station: Arsikere Junction.'],
-      ['District headquarters', 'Hassan.'],
+      ['Nearest town', 'Arsikere'],
+      ['Railway station', 'Arsikere Junction'],
+      ['District headquarters', 'Hassan'],
     ],
-    etiquette: 'Guidelines for devotees',
-    etiquetteItems: [
-      'Please leave footwear outside the temple.',
-      'Wear modest, traditional clothing.',
+    notice: 'For devotees',
+    etiquette: [
+      'Please leave footwear outside.',
+      'Wear modest clothing.',
       'Ask the priest before photographing the sanctum.',
-      'Keep the premises clean and avoid plastic.',
-      'Please do not touch the ancient inscription stone or apply anything to it.',
+      'Keep the courtyard clean. No plastic, please.',
+      'Please do not touch the old inscription stone or put anything on it.',
     ],
     contact: 'Contact',
-    committee: 'Temple committee',
     phone: 'Phone',
     whatsapp: 'WhatsApp',
     email: 'Email',
@@ -65,115 +61,125 @@ const c = {
     fbLink: 'Shri Kalabhairaveshwara Manakathur',
   },
 }[lang];
+
+const contacts = [
+  k.committee && { label: '', value: k.committee[lang] },
+  k.phone && { label: c.phone, value: k.phone, href: `tel:${k.phone.replace(/\s/g, '')}` },
+  k.whatsapp && { label: c.whatsapp, value: k.whatsapp, href: `https://wa.me/${k.whatsapp.replace(/\D/g, '')}` },
+  k.email && { label: c.email, value: k.email, href: `mailto:${k.email}` },
+  { label: c.facebook, value: c.fbLink + ' ↗', href: k.facebook },
+].filter(Boolean) as { label: string; value: string; href?: string }[];
 ---
 
-<Base lang={lang} page="visit" title={c.title} description={c.description}>
-  <header class="page-head">
+<Base lang={lang} page="visit" title={c.title} description={c.description} image="images/temple-night-view.jpg">
+  <header class="section head">
     <div class="wrap">
-      <h1>{c.title}</h1>
-      <p class="lede">{c.lede}</p>
+      <h1>{c.lede}</h1>
+      <address class="address">
+        {temple.name[lang]}<br />
+        {temple.place[lang]}, {temple.region[lang]}
+      </address>
+      <p><a class="go" href={temple.mapUrl} rel="noopener">{c.map}</a></p>
+      {temple.mapEmbed && <iframe class="map" src={temple.mapEmbed} title={c.map} loading="lazy" referrerpolicy="no-referrer-when-downgrade" />}
     </div>
   </header>
 
-  <section class="section">
-    <div class="wrap grid grid--2">
-      <div class="card">
-        <h2 class="h">{c.address}</h2>
-        <address>
-          {temple.name[lang]}<br />
-          {temple.place[lang]}<br />
-          {temple.region[lang]}
-        </address>
-        <div class="actions"><a class="btn" href={temple.mapUrl} rel="noopener">{c.map} ↗</a></div>
-        {
-          temple.mapEmbed && (
-            <iframe
-              class="map"
-              src={temple.mapEmbed}
-              title={c.map}
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            />
-          )
-        }
-      </div>
+  <Kolam dots={7} />
 
-      <div class="card">
-        <h2 class="h">{c.contact}</h2>
-        <dl class="contact">
-          <div><dt>{c.committee}</dt><dd>{k.committee ? k.committee[lang] : <Tbd lang={lang} />}</dd></div>
-          <div><dt>{c.phone}</dt><dd>{k.phone ? <a href={`tel:${k.phone.replace(/\s/g, '')}`}>{k.phone}</a> : <Tbd lang={lang} />}</dd></div>
-          <div><dt>{c.whatsapp}</dt><dd>{k.whatsapp ? <a href={`https://wa.me/${k.whatsapp.replace(/\D/g, '')}`}>{k.whatsapp}</a> : <Tbd lang={lang} />}</dd></div>
-          <div><dt>{c.email}</dt><dd>{k.email ? <a href={`mailto:${k.email}`}>{k.email}</a> : <Tbd lang={lang} />}</dd></div>
-          <div><dt>{c.facebook}</dt><dd><a href={k.facebook} rel="noopener">{c.fbLink} ↗</a></dd></div>
+  <section class="section">
+    <div class="wrap cols">
+      <div>
+        <h2>{c.reach}</h2>
+        <dl class="list-rule pairs">
+          {c.reachItems.map(([t, d]) => <div><dt>{t}</dt><dd>{d}</dd></div>)}
+        </dl>
+      </div>
+      <div>
+        <h2>{c.contact}</h2>
+        <dl class="list-rule pairs">
+          {
+            contacts.map((x) => (
+              <div>
+                <dt>{x.label}</dt>
+                <dd>{x.href ? <a href={x.href} rel="noopener">{x.value}</a> : x.value}</dd>
+              </div>
+            ))
+          }
         </dl>
       </div>
     </div>
   </section>
 
-  <section class="section section--tint">
-    <div class="wrap grid grid--2">
-      <div>
-        <h2>{c.reach}</h2>
-        <dl class="reach">
-          {c.reachItems.map(([t, d]) => <div><dt>{t}</dt><dd>{d}</dd></div>)}
-        </dl>
-      </div>
-      <div>
-        <h2>{c.etiquette}</h2>
-        <ul class="etiquette">
-          {c.etiquetteItems.map((e) => <li>{e}</li>)}
-        </ul>
+  <section class="section night">
+    <div class="wrap">
+      <div class="board">
+        <h2>{c.notice}</h2>
+        <ol>
+          {c.etiquette.map((e) => <li>{e}</li>)}
+        </ol>
       </div>
     </div>
   </section>
 </Base>
 
 <style>
-  .h {
-    font-size: 1.5rem;
-  }
-  address {
+  .address {
     font-style: normal;
-    line-height: 1.8;
+    font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+    line-height: 1.7;
+    margin: 1rem 0 1.5rem;
+    color: var(--ink-soft);
   }
   .map {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
     border: 0;
-    border-radius: 10px;
-    margin-top: 1.25rem;
+    margin-top: 1.5rem;
   }
-  .contact,
-  .reach {
-    margin: 0;
+  .cols {
+    display: grid;
+    gap: 3rem;
   }
-  .contact div,
-  .reach div {
-    padding: 0.7rem 0;
-    border-bottom: 1px solid var(--line);
+  @media (min-width: 860px) {
+    .cols {
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
   }
-  .contact div {
+  .pairs div {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
     flex-wrap: wrap;
   }
-  dt {
-    font-weight: 500;
-  }
-  dd {
+  .pairs dd {
     margin: 0;
     color: var(--ink-soft);
   }
-  .etiquette {
-    padding-left: 1.2rem;
+  /* a painted notice board, like the ones at temple gates */
+  .board {
+    max-width: 40rem;
+    margin: 0 auto;
+    border: 2px solid var(--flame);
+    outline: 1px solid var(--flame);
+    outline-offset: 5px;
+    padding: clamp(1.5rem, 5vw, 2.75rem);
+  }
+  .board h2 {
+    color: var(--flame);
+    text-align: center;
+  }
+  .board ol {
     margin: 0;
+    padding-left: 1.4rem;
+    display: grid;
+    gap: 0.6rem;
+    color: var(--night-ink);
+    font-size: 1.0625rem;
   }
-  .etiquette li {
-    margin-bottom: 0.5rem;
-  }
-  .etiquette li::marker {
-    color: var(--kumkum);
+  .board li::marker {
+    color: var(--flame);
+    font-family: var(--display);
+    font-weight: 800;
   }
 </style>

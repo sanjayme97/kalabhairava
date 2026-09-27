@@ -1,0 +1,59 @@
+---
+/**
+ * A single-line kolam (sikku kolam): two strands braid around a row of dots
+ * and close at both ends, the way it is drawn on a doorstep without lifting the hand.
+ */
+interface Props {
+  dots?: number;
+  class?: string;
+}
+const { dots = 9, class: cls } = Astro.props;
+
+const gap = 40;
+const r = 15;
+const cy = 30;
+const x0 = 30;
+const xs = Array.from({ length: dots }, (_, i) => x0 + i * gap);
+const w = x0 * 2 + (dots - 1) * gap;
+
+// Strand A passes above even dots and below odd ones; strand B the reverse.
+const y = (i: number, flip: boolean) => cy + ((i % 2 === 0) !== flip ? -r : r);
+const strand = (flip: boolean, reverse: boolean) => {
+  const idx = xs.map((_, i) => i);
+  if (reverse) idx.reverse();
+  let d = '';
+  idx.forEach((i, k) => {
+    if (k === 0) return;
+    const p = idx[k - 1];
+    const dir = i > p ? 1 : -1;
+    d += ` C ${xs[p] + dir * 22} ${y(p, flip)} ${xs[i] - dir * 22} ${y(i, flip)} ${xs[i]} ${y(i, flip)}`;
+  });
+  return d;
+};
+const first = xs[0];
+const last = xs[dots - 1];
+const endA = y(dots - 1, false);
+const endB = y(dots - 1, true);
+const d =
+  `M ${first} ${y(0, false)}` +
+  strand(false, false) +
+  // loop around the last dot
+  ` C ${last + 26} ${endA} ${last + 26} ${endB} ${last} ${endB}` +
+  strand(true, true) +
+  // loop around the first dot, back to the start
+  ` C ${first - 26} ${y(0, true)} ${first - 26} ${y(0, false)} ${first} ${y(0, false)} Z`;
+
+// Little petals above and below every other gap.
+const petals = xs.slice(0, -1).map((x, i) => {
+  const mx = x + gap / 2;
+  const up = i % 2 === 0;
+  const ty = up ? cy - 27 : cy + 27;
+  return `M ${mx - 6} ${cy + (up ? -12 : 12)} Q ${mx} ${ty} ${mx + 6} ${cy + (up ? -12 : 12)}`;
+});
+---
+
+<svg class:list={['kolam', cls]} viewBox={`0 0 ${w} 60`} aria-hidden="true" data-kolam>
+  <path d={d}></path>
+  {petals.map((p) => <path d={p}></path>)}
+  {xs.map((x) => <circle cx={x} cy={cy} r="2.2"></circle>)}
+</svg>

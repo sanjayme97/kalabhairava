@@ -10,8 +10,13 @@
     "check": "astro check"
   },
   "dependencies": {
+    "@fontsource/baloo-tamma-2": "^5.3.0",
     "@fontsource/noto-sans-kannada": "^5.3.0",
     "@fontsource/tiro-kannada": "^5.3.0",
-    "astro": "^7.3.5"
+    "astro": "^7.3.5",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@types/three": "^0.186.0"
   }
 }
