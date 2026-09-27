@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import { href, type Lang } from '../i18n';
+import { photos } from '../data/site';
+
+const { lang } = Astro.props as { lang: Lang };
+
+const c = {
+  kn: {
+    title: 'ಚಿತ್ರಸಂಪುಟ',
+    description: 'ಮನಕತ್ತೂರು ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನದ ಚಿತ್ರಗಳು.',
+    lede: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿಯ ದರ್ಶನ.',
+    more: 'ಹೆಚ್ಚಿನ ಚಿತ್ರಗಳು ಬರಲಿವೆ',
+    moreBody:
+      'ಜಾತ್ರೆ, ಉತ್ಸವ, ದೇವಸ್ಥಾನದ ಕಟ್ಟಡ ಮತ್ತು ಊರಿನ ಚಿತ್ರಗಳನ್ನು ಶೀಘ್ರದಲ್ಲಿ ಸೇರಿಸಲಾಗುವುದು. ನಿಮ್ಮ ಬಳಿ ಉತ್ತಮ ಚಿತ್ರಗಳಿದ್ದರೆ ದೇವಸ್ಥಾನ ಸಮಿತಿಯೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಿ.',
+    contact: 'ಸಂಪರ್ಕಿಸಿ',
+  },
+  en: {
+    title: 'Gallery',
+    description: 'Photographs of Sri Kalabhairaveshwara Swamy Temple, Manakathuru.',
+    lede: 'Darshan of Sri Kalabhairaveshwara Swamy.',
+    more: 'More photos coming soon',
+    moreBody:
+      'Photos of the jatra, festivals, the temple building and the village will be added soon. If you have good photographs, please share them with the temple committee.',
+    contact: 'Get in touch',
+  },
+}[lang];
+---
+
+<Base lang={lang} page="gallery" title={c.title} description={c.description}>
+  <header class="page-head">
+    <div class="wrap">
+      <h1>{c.title}</h1>
+      <p class="lede">{c.lede}</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wrap gallery">
+      {photos.map((_, i) => <Photo lang={lang} index={i} />)}
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap prose">
+      <h2>{c.more}</h2>
+      <p>{c.moreBody}</p>
+      <a class="btn btn--ghost" href={href(lang, 'visit')}>{c.contact}</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .gallery {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    align-items: start;
+    max-width: 52rem;
+  }
+</style>

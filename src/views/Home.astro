@@ -1,0 +1,290 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import Tbd from '../components/Tbd.astro';
+import { href, type Lang } from '../i18n';
+import { temple, timings, festivals } from '../data/site';
+
+const { lang } = Astro.props as { lang: Lang };
+
+const c = {
+  kn: {
+    description: 'ಹಾಸನ ಜಿಲ್ಲೆ, ಅರಸೀಕೆರೆ ತಾಲ್ಲೂಕಿನ ಮನಕತ್ತೂರು ಗ್ರಾಮದ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನದ ಅಧಿಕೃತ ಜಾಲತಾಣ — ಪೂಜೆ, ಉತ್ಸವ, ಭೇಟಿ ಮಾಹಿತಿ ಮತ್ತು ಊರಿನ ಹೊಯ್ಸಳ ಕಾಲದ ಶಾಸನ.',
+    welcome: 'ಸ್ವಾಗತ',
+    lede: 'ಮನಕತ್ತೂರು ಗ್ರಾಮದ ಕ್ಷೇತ್ರಪಾಲ, ಭಕ್ತರನ್ನು ಕಾಯುವ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿಯ ಸನ್ನಿಧಿಗೆ ನಿಮಗೆ ಆದರದ ಸ್ವಾಗತ.',
+    ctaPoojas: 'ಪೂಜೆ ಮತ್ತು ಉತ್ಸವಗಳು',
+    ctaVisit: 'ದೇವಸ್ಥಾನಕ್ಕೆ ಭೇಟಿ',
+    aboutEyebrow: 'ದೇವರ ಬಗ್ಗೆ',
+    aboutTitle: 'ಕಾಲಕ್ಕೂ ಒಡೆಯನಾದ ಕಾಲಭೈರವ',
+    about: [
+      'ಕಾಲಭೈರವನು ಶಿವನ ಉಗ್ರರೂಪ. “ಕಾಲ” ಎಂದರೆ ಸಮಯ — ಸಮಯಕ್ಕೂ ಒಡೆಯನಾದವನು ಕಾಲಭೈರವ. ಕ್ಷೇತ್ರವನ್ನೂ ಊರನ್ನೂ ಕಾಯುವ ಕ್ಷೇತ್ರಪಾಲನಾಗಿ ಆತನನ್ನು ಪೂಜಿಸಲಾಗುತ್ತದೆ.',
+      'ತ್ರಿಶೂಲ, ಡಮರು ಹಿಡಿದು, ಶ್ವಾನವನ್ನು ವಾಹನವಾಗಿಸಿಕೊಂಡ ಭೈರವನು ಭಯವನ್ನು ದೂರಮಾಡಿ ಭಕ್ತರಿಗೆ ರಕ್ಷಣೆ ನೀಡುವನೆಂಬುದು ನಂಬಿಕೆ.',
+    ],
+    aboutLink: 'ದೇವಾಲಯದ ಬಗ್ಗೆ ಇನ್ನಷ್ಟು',
+    timingsTitle: 'ದರ್ಶನದ ಸಮಯ',
+    timingsNote: 'ಸಮಯಗಳನ್ನು ದೇವಸ್ಥಾನ ಸಮಿತಿ ಖಚಿತಪಡಿಸಿದ ನಂತರ ಇಲ್ಲಿ ನವೀಕರಿಸಲಾಗುವುದು.',
+    festTitle: 'ಪ್ರಮುಖ ಉತ್ಸವಗಳು',
+    festLink: 'ಎಲ್ಲ ಉತ್ಸವಗಳು',
+    insEyebrow: 'ಊರಿನ ಪರಂಪರೆ',
+    insTitle: 'ಒಂಬೈನೂರು ವರ್ಷಗಳ ಹಳೆಯ ಕಲ್ಬರಹ',
+    insBody:
+      'ಕ್ರಿ.ಶ. ೧೧೦೧ರ ಹೊಯ್ಸಳ ಕಾಲದ ಶಾಸನವೊಂದು ನಮ್ಮ ದೇವಸ್ಥಾನದಲ್ಲಿ ಸಂರಕ್ಷಿತವಾಗಿದೆ. ಅದು ಈ ದೇವಾಲಯದ ಕುರಿತದ್ದಲ್ಲ — ಆದರೆ “ಮನಗತ್ತೂರು” ಊರನ್ನು ಕಟ್ಟಿದವರ, ಅಂದಿನ ದೇವಾಲಯಗಳ ಮತ್ತು ದತ್ತಿಗಳ ಕಥೆಯನ್ನು ಹೇಳುತ್ತದೆ.',
+    insLink: 'ಶಾಸನದ ಕಥೆ ಓದಿ',
+    visitTitle: 'ಮನಕತ್ತೂರಿಗೆ ಬನ್ನಿ',
+    visitBody: 'ಹಾಸನ ಜಿಲ್ಲೆಯ ಅರಸೀಕೆರೆ ತಾಲ್ಲೂಕಿನಲ್ಲಿದೆ. ದಾರಿ, ನಕ್ಷೆ ಮತ್ತು ಸಂಪರ್ಕ ಮಾಹಿತಿ ಇಲ್ಲಿದೆ.',
+    visitLink: 'ಭೇಟಿ ಮತ್ತು ಸಂಪರ್ಕ',
+  },
+  en: {
+    description: 'Official website of Sri Kalabhairaveshwara Swamy Temple, Manakathuru village, Arsikere Taluk, Hassan District — poojas, festivals, visitor information and the village’s Hoysala-era stone inscription.',
+    welcome: 'Welcome',
+    lede: 'A warm welcome to the abode of Sri Kalabhairaveshwara Swamy, guardian deity of Manakathuru village and protector of his devotees.',
+    ctaPoojas: 'Poojas & Festivals',
+    ctaVisit: 'Plan a visit',
+    aboutEyebrow: 'The deity',
+    aboutTitle: 'Kalabhairava, lord even of time',
+    about: [
+      'Kalabhairava is the fierce form of Lord Shiva. Kāla means time, and Kalabhairava is the master of time itself. He is worshipped as the kshetrapala — the guardian of the sacred place and of the village.',
+      'Holding the trishula and damaru, with the dog as his vehicle, Bhairava is believed to drive away fear and protect those who seek him.',
+    ],
+    aboutLink: 'More about the temple',
+    timingsTitle: 'Darshan timings',
+    timingsNote: 'Timings will be updated here once confirmed by the temple committee.',
+    festTitle: 'Major festivals',
+    festLink: 'All festivals',
+    insEyebrow: 'Village heritage',
+    insTitle: 'A 900-year-old stone inscription',
+    insBody:
+      'A Hoysala-period inscription dated 1101 CE is preserved at our temple. It is not about this temple — it tells of the founders of “Managatur”, the temples of that time and the gifts made to them.',
+    insLink: 'Read the inscription’s story',
+    visitTitle: 'Come to Manakathuru',
+    visitBody: 'In Arsikere Taluk, Hassan District. Directions, map and contact details are here.',
+    visitLink: 'Visit & Contact',
+  },
+}[lang];
+
+const highlights = festivals.slice(0, 3);
+---
+
+<Base lang={lang} page="" description={c.description}>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow">{c.welcome} · {temple.place[lang]}</p>
+        <h1>{temple.name[lang]}</h1>
+        <p class="lede">{c.lede}</p>
+        <p class="hero-region">{temple.region[lang]}</p>
+        <div class="actions">
+          <a class="btn" href={href(lang, 'poojas')}>{c.ctaPoojas}</a>
+          <a class="btn btn--ghost" href={href(lang, 'visit')}>{c.ctaVisit}</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <Photo lang={lang} index={0} arch eager />
+      </div>
+    </div>
+  </section>
+
+  <div class="frieze" aria-hidden="true"></div>
+
+  <section class="section">
+    <div class="wrap about-grid">
+      <div class="about-photo"><Photo lang={lang} index={1} /></div>
+      <div>
+        <p class="eyebrow">{c.aboutEyebrow}</p>
+        <h2>{c.aboutTitle}</h2>
+        {c.about.map((p) => <p>{p}</p>)}
+        <a href={href(lang, 'temple')}>{c.aboutLink} →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap grid grid--2">
+      <div class="card">
+        <h2 class="card-title">{c.timingsTitle}</h2>
+        <table class="table">
+          <tbody>
+            {
+              timings.map((t) => (
+                <tr>
+                  <th scope="row">{t.label[lang]}</th>
+                  <td>{t.time ? t.time[lang] : <Tbd lang={lang} />}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+        {timings.some((t) => !t.time) && <p class="small">{c.timingsNote}</p>}
+      </div>
+      <div class="card">
+        <h2 class="card-title">{c.festTitle}</h2>
+        <ul class="fest-list">
+          {
+            highlights.map((f) => (
+              <li>
+                <strong>{f.name[lang]}</strong>
+                <span>{f.date ? f.date[lang] : f.when[lang]}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <a href={href(lang, 'poojas')}>{c.festLink} →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <a class="stone-card" href={href(lang, 'inscription')}>
+        <div class="stone-lines" aria-hidden="true">
+          <span>ಸ್ವಸ್ತಿ ಸಮಧಿಗತ ಪಂಚಮಹಾಶಬ್ದ</span>
+          <span>ಮಹಾಮಂಡಳೇಶ್ವರಂ ದ್ವಾರವತೀಪುರ</span>
+          <span>ವರಾಧೀಶ್ವರಂ ಯದುಕುಳ ಕುವಳಯ</span>
+          <span>ಸುದಾಕರಂ ಸತ್ಯ ರತ್ನಾಕರಂ…</span>
+        </div>
+        <div>
+          <p class="eyebrow">{c.insEyebrow}</p>
+          <h2>{c.insTitle}</h2>
+          <p>{c.insBody}</p>
+          <span class="stone-link">{c.insLink} →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap visit">
+      <div>
+        <h2>{c.visitTitle}</h2>
+        <p>{c.visitBody}</p>
+      </div>
+      <a class="btn" href={href(lang, 'visit')}>{c.visitLink}</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(2.5rem, 7vw, 5rem);
+    background:
+      radial-gradient(50rem 26rem at 90% 10%, color-mix(in srgb, var(--turmeric) 22%, transparent), transparent 70%),
+      radial-gradient(40rem 30rem at -10% 100%, color-mix(in srgb, var(--kumkum) 10%, transparent), transparent 70%),
+      var(--paper);
+  }
+  .hero-grid {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  .hero-photo {
+    max-width: 20rem;
+    width: 100%;
+    margin-inline: auto;
+  }
+  .hero-region {
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+    margin-top: -0.25rem;
+  }
+  @media (min-width: 860px) {
+    .hero-grid {
+      grid-template-columns: 1.35fr 1fr;
+      gap: 4rem;
+    }
+  }
+  .about-grid {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  .about-photo {
+    max-width: 26rem;
+    margin-inline: auto;
+    width: 100%;
+  }
+  @media (min-width: 860px) {
+    .about-grid {
+      grid-template-columns: 1fr 1.2fr;
+      gap: 4rem;
+    }
+  }
+  .card-title {
+    font-size: 1.5rem;
+  }
+  .small {
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+    margin: 1rem 0 0;
+  }
+  .fest-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+  }
+  .fest-list li {
+    display: grid;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fest-list strong {
+    font-weight: 500;
+  }
+  .fest-list span {
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+
+  .stone-card {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+    padding: clamp(1.5rem, 5vw, 3rem);
+    border-radius: calc(var(--radius) + 6px);
+    background:
+      radial-gradient(30rem 20rem at 20% 0%, rgb(255 255 255 / 0.06), transparent 70%),
+      linear-gradient(160deg, var(--stone), var(--stone-2));
+    color: var(--stone-ink);
+    text-decoration: none;
+    box-shadow: var(--shadow);
+  }
+  .stone-card .eyebrow {
+    color: var(--stone-accent);
+  }
+  .stone-card p {
+    color: color-mix(in srgb, var(--stone-ink) 85%, transparent);
+  }
+  .stone-link {
+    color: var(--stone-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .stone-lines {
+    display: grid;
+    gap: 0.4rem;
+    font-family: var(--display);
+    font-size: clamp(1rem, 2.4vw, 1.25rem);
+    color: rgb(236 230 214 / 0.55);
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 0.5);
+    padding: 1.25rem;
+    border-radius: 999px 999px 12px 12px / 60px 60px 12px 12px;
+    background: rgb(0 0 0 / 0.14);
+    text-align: center;
+  }
+  @media (min-width: 860px) {
+    .stone-card {
+      grid-template-columns: 1fr 1.4fr;
+      gap: 3rem;
+    }
+  }
+  .visit {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .visit p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+</style>

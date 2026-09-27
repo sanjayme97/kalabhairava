@@ -1,0 +1,162 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import { href, type Lang } from '../i18n';
+import { temple } from '../data/site';
+
+const { lang } = Astro.props as { lang: Lang };
+
+const c = {
+  kn: {
+    title: 'ದೇವಾಲಯ',
+    description: 'ಮನಕತ್ತೂರಿನ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನ ಮತ್ತು ಶ್ರೀ ಕಾಲಭೈರವನ ಬಗ್ಗೆ.',
+    lede: 'ಮನಕತ್ತೂರಿನ ಗ್ರಾಮದೇವತೆಯಾಗಿ, ಊರಿನ ಬದುಕಿನ ನಡುವೆ ನೆಲೆಸಿರುವ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ.',
+    deityTitle: 'ಶ್ರೀ ಕಾಲಭೈರವ',
+    deity: [
+      'ಶಿವಪುರಾಣ ಮತ್ತು ಇತರ ಪುರಾಣಗಳು ಕಾಲಭೈರವನನ್ನು ಶಿವನ ಉಗ್ರ ರೂಪವೆಂದು ವರ್ಣಿಸುತ್ತವೆ. ಅಹಂಕಾರವನ್ನು ನಾಶಮಾಡಲು ಶಿವನಿಂದಲೇ ಪ್ರಕಟನಾದವನು ಭೈರವ ಎಂಬುದು ಪ್ರಸಿದ್ಧ ಕಥೆ.',
+      '“ಕಾಲ” ಎಂದರೆ ಸಮಯ ಮತ್ತು ಮೃತ್ಯು — ಇವೆರಡಕ್ಕೂ ಒಡೆಯನಾದ್ದರಿಂದ ಆತ ಕಾಲಭೈರವ. ಪ್ರತಿ ಶಿವಕ್ಷೇತ್ರವನ್ನು ಕಾಯುವ ಕ್ಷೇತ್ರಪಾಲನಾಗಿ, ಊರನ್ನು ಕಾಯುವ ರಕ್ಷಕನಾಗಿ ಭೈರವನನ್ನು ಪೂಜಿಸುವ ಪರಂಪರೆ ಇದೆ.',
+      'ಹಳೆಯ ಮೈಸೂರು ಪ್ರಾಂತ್ಯದಲ್ಲಿ, ವಿಶೇಷವಾಗಿ ಹಾಸನ, ಮಂಡ್ಯ, ತುಮಕೂರು ಭಾಗಗಳಲ್ಲಿ, ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರನನ್ನು ಅನೇಕ ಕುಟುಂಬಗಳು ಮನೆದೇವರಾಗಿ ಆರಾಧಿಸುತ್ತವೆ.',
+    ],
+    formTitle: 'ಸ್ವರೂಪ',
+    form: [
+      ['ತ್ರಿಶೂಲ ಮತ್ತು ಡಮರು', 'ಶಿವನ ಶಕ್ತಿ ಮತ್ತು ಸೃಷ್ಟಿಯ ನಾದದ ಸಂಕೇತ.'],
+      ['ಶ್ವಾನ (ನಾಯಿ)', 'ಭೈರವನ ವಾಹನ — ಎಚ್ಚರ ಮತ್ತು ನಿಷ್ಠೆಯ ಸಂಕೇತ.'],
+      ['ಕ್ಷೇತ್ರಪಾಲ', 'ಕ್ಷೇತ್ರವನ್ನೂ ಭಕ್ತರನ್ನೂ ಕಾಯುವ ರಕ್ಷಕ.'],
+      ['ಕಾಲ', 'ಸಮಯಕ್ಕೆ ಒಡೆಯ — ಭಯ ನಿವಾರಕ.'],
+    ],
+    templeTitle: 'ಮನಕತ್ತೂರಿನ ದೇವಸ್ಥಾನ',
+    templeBody: [
+      'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನವು ಮನಕತ್ತೂರು ಗ್ರಾಮದ ಧಾರ್ಮಿಕ ಮತ್ತು ಸಾಮಾಜಿಕ ಬದುಕಿನ ಕೇಂದ್ರ. ಹಬ್ಬ ಹರಿದಿನಗಳಲ್ಲಿ ಸ್ವಾಮಿಗೆ ಬೆಳ್ಳಿಯ ಪ್ರಭಾವಳಿ ಮತ್ತು ಹೂವಿನ ವಿಶೇಷ ಅಲಂಕಾರ ಮಾಡಲಾಗುತ್ತದೆ.',
+    ],
+    historyTitle: 'ದೇವಸ್ಥಾನದ ಇತಿಹಾಸ',
+    history:
+      'ದೇವಸ್ಥಾನದ ಇತಿಹಾಸ, ಊರಿನ ಹಿರಿಯರು ನೆನಪಿಸಿಕೊಳ್ಳುವ ಕಥೆಗಳು ಮತ್ತು ಜೀರ್ಣೋದ್ಧಾರದ ವಿವರಗಳನ್ನು ಶೀಘ್ರದಲ್ಲಿ ಇಲ್ಲಿ ಸೇರಿಸಲಾಗುವುದು. ನಿಮ್ಮ ಬಳಿ ಮಾಹಿತಿ ಅಥವಾ ಹಳೆಯ ಚಿತ್ರಗಳಿದ್ದರೆ ದೇವಸ್ಥಾನ ಸಮಿತಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ.',
+    villageTitle: 'ಮನಕತ್ತೂರು ಗ್ರಾಮ',
+    village:
+      'ಮನಕತ್ತೂರು ಹಾಸನ ಜಿಲ್ಲೆಯ ಅರಸೀಕೆರೆ ತಾಲ್ಲೂಕಿನ ಗ್ರಾಮ. ಊರಿನ ಇತಿಹಾಸ ಕನಿಷ್ಠ ಒಂಬೈನೂರು ವರ್ಷಗಳಷ್ಟು ಹಳೆಯದು — ಕ್ರಿ.ಶ. ೧೧೦೧ರ ಹೊಯ್ಸಳ ಶಾಸನವೊಂದು “ಮನಗತ್ತೂರು” ಊರನ್ನು ಕಟ್ಟಿದ ಗಾವುಂಡರನ್ನು ಹೆಸರಿಸುತ್ತದೆ.',
+    insNote: 'ಈ ಶಾಸನ ಇಂದು ನಮ್ಮ ದೇವಸ್ಥಾನದಲ್ಲಿ ಸಂರಕ್ಷಿತವಾಗಿದೆ, ಆದರೆ ಅದು ಈ ದೇವಾಲಯದ ಇತಿಹಾಸಕ್ಕೆ ಸಂಬಂಧಿಸಿದ್ದಲ್ಲ.',
+    insLink: 'ಶಾಸನದ ಪುಟ ನೋಡಿ',
+  },
+  en: {
+    title: 'The Temple',
+    description: 'About Sri Kalabhairaveshwara Swamy Temple in Manakathuru and the deity Sri Kalabhairava.',
+    lede: 'Sri Kalabhairaveshwara Swamy, the presiding deity of Manakathuru, at the heart of village life.',
+    deityTitle: 'Sri Kalabhairava',
+    deity: [
+      'The Shiva Purana and other Puranas describe Kalabhairava as the fierce form of Lord Shiva. In a well-known story, Bhairava emerges from Shiva himself to humble pride and ego.',
+      'Kāla means both time and death; as master of both he is Kalabhairava. By tradition he is worshipped as the kshetrapala who guards every Shiva shrine, and as the protector of the village.',
+      'Across the old Mysore region — especially around Hassan, Mandya and Tumakuru — many families worship Sri Kalabhairaveshwara as their family deity (manedevaru).',
+    ],
+    formTitle: 'His form',
+    form: [
+      ['Trishula & damaru', 'Symbols of Shiva’s power and of the primal sound of creation.'],
+      ['The dog', 'Bhairava’s vehicle — a symbol of vigilance and loyalty.'],
+      ['Kshetrapala', 'Guardian of the sacred place and of the devotees.'],
+      ['Kāla', 'Master of time, who removes fear.'],
+    ],
+    templeTitle: 'The temple at Manakathuru',
+    templeBody: [
+      'Sri Kalabhairaveshwara Swamy Temple is the centre of Manakathuru’s religious and social life. On festival days the deity is adorned with a silver prabhavali (arch) and elaborate floral alankara.',
+    ],
+    historyTitle: 'History of the temple',
+    history:
+      'The history of the temple, stories remembered by the village elders and details of its renovations will be added here soon. If you have information or old photographs, please contact the temple committee.',
+    villageTitle: 'Manakathuru village',
+    village:
+      'Manakathuru is a village in Arsikere Taluk, Hassan District. Its history goes back at least nine centuries — a Hoysala inscription of 1101 CE names the gavundas (headmen) who founded “Managatur”.',
+    insNote: 'That inscription is kept safe at our temple today, but it is not related to this temple’s history.',
+    insLink: 'See the inscription page',
+  },
+}[lang];
+---
+
+<Base lang={lang} page="temple" title={c.title} description={c.description}>
+  <header class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">{temple.place[lang]}</p>
+      <h1>{temple.name[lang]}</h1>
+      <p class="lede">{c.lede}</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wrap split">
+      <div class="prose">
+        <h2>{c.deityTitle}</h2>
+        {c.deity.map((p) => <p>{p}</p>)}
+      </div>
+      <div class="split-photo"><Photo lang={lang} index={0} arch /></div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap">
+      <h2>{c.formTitle}</h2>
+      <div class="grid form-grid">
+        {
+          c.form.map(([t, d]) => (
+            <div class="card">
+              <h3>{t}</h3>
+              <p>{d}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap split split--rev">
+      <div class="split-photo"><Photo lang={lang} index={1} /></div>
+      <div class="prose">
+        <h2>{c.templeTitle}</h2>
+        {c.templeBody.map((p) => <p>{p}</p>)}
+        <h3>{c.historyTitle}</h3>
+        <p class="note">{c.history}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap prose">
+      <h2>{c.villageTitle}</h2>
+      <p>{c.village}</p>
+      <p class="note"><strong>{c.insNote}</strong> <a href={href(lang, 'inscription')}>{c.insLink} →</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .split {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  .split-photo {
+    max-width: 22rem;
+    width: 100%;
+    margin-inline: auto;
+  }
+  @media (min-width: 860px) {
+    .split {
+      grid-template-columns: 1.5fr 1fr;
+      gap: 4rem;
+    }
+    .split--rev {
+      grid-template-columns: 1fr 1.5fr;
+    }
+  }
+  .form-grid {
+    margin-top: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .form-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1000px) {
+    .form-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

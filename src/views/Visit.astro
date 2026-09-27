@@ -1,0 +1,179 @@
+---
+import Base from '../layouts/Base.astro';
+import Tbd from '../components/Tbd.astro';
+import { type Lang } from '../i18n';
+import { temple } from '../data/site';
+
+const { lang } = Astro.props as { lang: Lang };
+const k = temple.contact;
+
+const c = {
+  kn: {
+    title: 'ಭೇಟಿ ಮತ್ತು ಸಂಪರ್ಕ',
+    description: 'ಮನಕತ್ತೂರು ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನಕ್ಕೆ ತಲುಪುವ ದಾರಿ, ನಕ್ಷೆ, ಭಕ್ತರಿಗೆ ಸೂಚನೆಗಳು ಮತ್ತು ಸಂಪರ್ಕ ಮಾಹಿತಿ.',
+    lede: 'ದಾರಿ, ನಕ್ಷೆ ಮತ್ತು ಸಂಪರ್ಕ ಮಾಹಿತಿ.',
+    address: 'ವಿಳಾಸ',
+    map: 'ಗೂಗಲ್ ನಕ್ಷೆಯಲ್ಲಿ ತೆರೆಯಿರಿ',
+    reach: 'ತಲುಪುವುದು ಹೇಗೆ',
+    reachItems: [
+      ['ರಸ್ತೆ ಮೂಲಕ', 'ಅರಸೀಕೆರೆ ಪಟ್ಟಣದಿಂದ ಹತ್ತಿರದ ಊರು. ಸ್ಥಳೀಯ ಬಸ್ ಮತ್ತು ಆಟೋ ವಿವರಗಳು ಶೀಘ್ರದಲ್ಲಿ.'],
+      ['ರೈಲಿನ ಮೂಲಕ', 'ಹತ್ತಿರದ ಪ್ರಮುಖ ರೈಲು ನಿಲ್ದಾಣ: ಅರಸೀಕೆರೆ ಜಂಕ್ಷನ್.'],
+      ['ಜಿಲ್ಲಾ ಕೇಂದ್ರ', 'ಹಾಸನ.'],
+    ],
+    etiquette: 'ಭಕ್ತರಿಗೆ ಸೂಚನೆಗಳು',
+    etiquetteItems: [
+      'ದೇವಸ್ಥಾನದ ಒಳಗೆ ಪಾದರಕ್ಷೆಗಳನ್ನು ಹೊರಗೆ ಬಿಡಿ.',
+      'ಸಾಂಪ್ರದಾಯಿಕ, ಸಭ್ಯ ಉಡುಪು ಧರಿಸಿ.',
+      'ಗರ್ಭಗುಡಿಯ ಚಿತ್ರ ತೆಗೆಯುವ ಮೊದಲು ಅರ್ಚಕರ ಅನುಮತಿ ಪಡೆಯಿರಿ.',
+      'ದೇವಸ್ಥಾನದ ಆವರಣವನ್ನು ಸ್ವಚ್ಛವಾಗಿಡಿ; ಪ್ಲಾಸ್ಟಿಕ್ ಬಳಸಬೇಡಿ.',
+      'ದೇವಸ್ಥಾನದಲ್ಲಿರುವ ಪ್ರಾಚೀನ ಶಾಸನ ಕಲ್ಲನ್ನು ಮುಟ್ಟಬೇಡಿ, ಅದರ ಮೇಲೆ ಏನನ್ನೂ ಹಚ್ಚಬೇಡಿ.',
+    ],
+    contact: 'ಸಂಪರ್ಕ',
+    committee: 'ದೇವಸ್ಥಾನ ಸಮಿತಿ',
+    phone: 'ದೂರವಾಣಿ',
+    whatsapp: 'ವಾಟ್ಸ್‌ಆ್ಯಪ್',
+    email: 'ಇ-ಮೇಲ್',
+    facebook: 'ಫೇಸ್‌ಬುಕ್',
+    fbLink: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಮನಕತ್ತೂರು',
+  },
+  en: {
+    title: 'Visit & Contact',
+    description: 'How to reach Sri Kalabhairaveshwara Swamy Temple, Manakathuru — map, directions, visitor guidelines and contact details.',
+    lede: 'Directions, map and contact details.',
+    address: 'Address',
+    map: 'Open in Google Maps',
+    reach: 'How to reach',
+    reachItems: [
+      ['By road', 'Arsikere is the nearest town. Local bus and auto details coming soon.'],
+      ['By rail', 'Nearest major railway station: Arsikere Junction.'],
+      ['District headquarters', 'Hassan.'],
+    ],
+    etiquette: 'Guidelines for devotees',
+    etiquetteItems: [
+      'Please leave footwear outside the temple.',
+      'Wear modest, traditional clothing.',
+      'Ask the priest before photographing the sanctum.',
+      'Keep the premises clean and avoid plastic.',
+      'Please do not touch the ancient inscription stone or apply anything to it.',
+    ],
+    contact: 'Contact',
+    committee: 'Temple committee',
+    phone: 'Phone',
+    whatsapp: 'WhatsApp',
+    email: 'Email',
+    facebook: 'Facebook',
+    fbLink: 'Shri Kalabhairaveshwara Manakathur',
+  },
+}[lang];
+---
+
+<Base lang={lang} page="visit" title={c.title} description={c.description}>
+  <header class="page-head">
+    <div class="wrap">
+      <h1>{c.title}</h1>
+      <p class="lede">{c.lede}</p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="wrap grid grid--2">
+      <div class="card">
+        <h2 class="h">{c.address}</h2>
+        <address>
+          {temple.name[lang]}<br />
+          {temple.place[lang]}<br />
+          {temple.region[lang]}
+        </address>
+        <div class="actions"><a class="btn" href={temple.mapUrl} rel="noopener">{c.map} ↗</a></div>
+        {
+          temple.mapEmbed && (
+            <iframe
+              class="map"
+              src={temple.mapEmbed}
+              title={c.map}
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            />
+          )
+        }
+      </div>
+
+      <div class="card">
+        <h2 class="h">{c.contact}</h2>
+        <dl class="contact">
+          <div><dt>{c.committee}</dt><dd>{k.committee ? k.committee[lang] : <Tbd lang={lang} />}</dd></div>
+          <div><dt>{c.phone}</dt><dd>{k.phone ? <a href={`tel:${k.phone.replace(/\s/g, '')}`}>{k.phone}</a> : <Tbd lang={lang} />}</dd></div>
+          <div><dt>{c.whatsapp}</dt><dd>{k.whatsapp ? <a href={`https://wa.me/${k.whatsapp.replace(/\D/g, '')}`}>{k.whatsapp}</a> : <Tbd lang={lang} />}</dd></div>
+          <div><dt>{c.email}</dt><dd>{k.email ? <a href={`mailto:${k.email}`}>{k.email}</a> : <Tbd lang={lang} />}</dd></div>
+          <div><dt>{c.facebook}</dt><dd><a href={k.facebook} rel="noopener">{c.fbLink} ↗</a></dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="wrap grid grid--2">
+      <div>
+        <h2>{c.reach}</h2>
+        <dl class="reach">
+          {c.reachItems.map(([t, d]) => <div><dt>{t}</dt><dd>{d}</dd></div>)}
+        </dl>
+      </div>
+      <div>
+        <h2>{c.etiquette}</h2>
+        <ul class="etiquette">
+          {c.etiquetteItems.map((e) => <li>{e}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .h {
+    font-size: 1.5rem;
+  }
+  address {
+    font-style: normal;
+    line-height: 1.8;
+  }
+  .map {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: 0;
+    border-radius: 10px;
+    margin-top: 1.25rem;
+  }
+  .contact,
+  .reach {
+    margin: 0;
+  }
+  .contact div,
+  .reach div {
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .contact div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  dt {
+    font-weight: 500;
+  }
+  dd {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+  .etiquette {
+    padding-left: 1.2rem;
+    margin: 0;
+  }
+  .etiquette li {
+    margin-bottom: 0.5rem;
+  }
+  .etiquette li::marker {
+    color: var(--kumkum);
+  }
+</style>

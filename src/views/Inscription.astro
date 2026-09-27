@@ -1,0 +1,786 @@
+---
+import Base from '../layouts/Base.astro';
+import { href, num, type Lang } from '../i18n';
+import { lines, sections, people, glossary, timeline } from '../data/inscription';
+
+const { lang } = Astro.props as { lang: Lang };
+
+const c = {
+  kn: {
+    title: 'ಮನಕತ್ತೂರಿನ ಶಾಸನ',
+    description:
+      'ಮನಕತ್ತೂರಿನ ಕ್ರಿ.ಶ. ೧೧೦೧ರ ಹೊಯ್ಸಳ ಕಾಲದ ಕಲ್ಬರಹ — ಅದರ ಇತಿಹಾಸ, ಅರ್ಥ, ಪೂರ್ಣ ಪಾಠ ಮತ್ತು ಊರನ್ನು ಕಟ್ಟಿದ ಗಾವುಂಡರ ಕಥೆ.',
+    eyebrow: 'ಊರಿನ ಪರಂಪರೆ',
+    h1: 'ಮನಕತ್ತೂರಿನ ಕಲ್ಬರಹ',
+    sub: 'ಹೊಯ್ಸಳ ಕಾಲದ ಒಂದು ನೋಟ',
+    notice:
+      'ಈ ಶಾಸನ ಕಲ್ಲು ಇಂದು ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ದೇವಸ್ಥಾನದಲ್ಲಿ ಸಂರಕ್ಷಿತವಾಗಿದೆ. ಆದರೆ ಇದು ಈ ದೇವಾಲಯದ ಇತಿಹಾಸಕ್ಕೆ ಸಂಬಂಧಿಸಿದ್ದಲ್ಲ — ಇದು ಮನಕತ್ತೂರು ಊರಿನ ಹಾಗೂ ಅಂದಿನ ಬೇರೆ ದೇವಾಲಯಗಳ ಕುರಿತಾದ ದಾಖಲೆ.',
+    facts: [
+      ['ದಿನಾಂಕ', 'ಶಕ ೧೦೨೨ · ಕ್ರಿ.ಶ. ೧೧೦೧'],
+      ['ರಾಜವಂಶ', 'ಹೊಯ್ಸಳ — ವಿಷ್ಣುವರ್ಧನ'],
+      ['ಭಾಷೆ ಮತ್ತು ಲಿಪಿ', 'ಹಳಗನ್ನಡ'],
+      ['ಸಾಲುಗಳು', '೪೪'],
+      ['ಮೊದಲು ಇದ್ದ ಸ್ಥಳ', 'ಊರ ಕೆರೆಯ ಹಳೆಯ ಕೋಡಿಯ ಬಳಿ'],
+      ['ಪ್ರಕಟಣೆ', 'ಎಪಿಗ್ರಾಫಿಯಾ ಕರ್ನಾಟಿಕಾ, ಸಂಪುಟ ೫ (ಹಾಸನ)'],
+    ],
+    toc: 'ಈ ಪುಟದಲ್ಲಿ',
+    tocItems: [
+      ['overview', 'ಪರಿಚಯ'],
+      ['king', 'ರಾಜನ ಬಿರುದುಗಳು'],
+      ['people', 'ಶಾಸನದ ವ್ಯಕ್ತಿಗಳು'],
+      ['date', 'ದಿನಾಂಕ'],
+      ['grants', 'ದತ್ತಿಗಳು'],
+      ['text', 'ಪೂರ್ಣ ಪಾಠ'],
+      ['journey', 'ಕಲ್ಲಿನ ಪಯಣ'],
+      ['sources', 'ಆಧಾರ'],
+    ],
+    overviewTitle: 'ಪರಿಚಯ',
+    overview: [
+      'ಹೊಯ್ಸಳ ವಿಷ್ಣುವರ್ಧನನ ಆಳ್ವಿಕೆಯ ಕಾಲದ ಶಕ ವರ್ಷ ೧೦೨೨ (ಕ್ರಿ.ಶ. ೧೧೦೧) ರ ಈ ಕಲ್ಬರಹವು, ಮೊದಲಿಗೆ ರಾಜನಿಗೆ ಸಲ್ಲಿಸಲಾದ ವಿಸ್ತೃತವಾದ ಬಿರುದಾವಳಿಗಳ ಪ್ರಶಂಸೆಯನ್ನು ಒಳಗೊಂಡಿದ್ದು, ನಂತರ ಆ ಕಾಲದ ನಂಬಿಕೆಯ ಕಟ್ಟುಪಾಡು ಮತ್ತು ಕೂಡಣದ (ಧಾರ್ಮಿಕ ಮತ್ತು ಸಾಮಾಜಿಕ) ಬದುಕಿನ ಬೆಲೆಕಟ್ಟಲಾಗದ ಒಳನೋಟಗಳನ್ನು ನೀಡುತ್ತದೆ.',
+      'ಇದು ಮುಂದಾಳುಗಳು ಮಾಡಿದ ಹಿರಿಯ ಗುಡಿ ಕಟ್ಟೋಣಗಳು (ಪ್ರಮುಖ ದೇವಾಲಯ ನಿರ್ಮಾಣಗಳು), ದೇವರುಗಳ ನೆಲೆಗೊಳಿಸುವಿಕೆಗಳು ಮತ್ತು ನೆಲದ ಕೊಡುಗೆಗಳನ್ನು (ದೇವತಾ ಪ್ರತಿಷ್ಠಾಪನೆಗಳು ಮತ್ತು ಭೂದಾನಗಳನ್ನು) ಹೆಚ್ಚಾಗಿ ತಿಳಿಸುತ್ತದೆ. ಎಲ್ಲಕ್ಕಿಂತ ಮುಖ್ಯವಾಗಿ, ಮನಕತ್ತೂರು — ಅಂದಿನ “ಮನಗತ್ತೂರು” — ಊರನ್ನು ಕಟ್ಟಿದವರ ಹೆಸರುಗಳು ಇದರಲ್ಲಿವೆ.',
+    ],
+    kingTitle: 'ರಾಜನ ಬಿರುದುಗಳು',
+    kingIntro:
+      'ಶಾಸನದ ಮೊದಲ ಭಾಗ (ಸಾಲು ೩–೧೮) ಹೊಯ್ಸಳ ಅರಸ ವಿಷ್ಣುವರ್ಧನನನ್ನು ಬಿರುದುಗಳ ಸರಮಾಲೆಯಿಂದ ಕೊಂಡಾಡುತ್ತದೆ. ಅವುಗಳಲ್ಲಿ ಕೆಲವು:',
+    titles: [
+      ['ಯದುಕುಳ ಕುವಳಯ ಸುಧಾಕರಂ', 'ಯದುಕುಲವೆಂಬ ನೈದಿಲೆಗೆ ಚಂದ್ರನಂತಿರುವವನು'],
+      ['ಸತ್ಯ ರತ್ನಾಕರಂ', 'ಸತ್ಯದ ಸಾಗರ'],
+      ['ದ್ವಾರವತೀಪುರ ವರಾಧೀಶ್ವರಂ', 'ದ್ವಾರಾವತಿಯ (ಬೇಲೂರು/ಹಳೇಬೀಡು) ಒಡೆಯ'],
+      ['ಶೌರ್ಯ ಮೃಗರಾಜಂ', 'ಶೌರ್ಯದಲ್ಲಿ ಸಿಂಹ'],
+      ['ತಳಕಾಡುಗೊಂಡ ಗಂಡ', 'ತಳಕಾಡನ್ನು ಗೆದ್ದ ವೀರ'],
+      ['ವಾಸಂತಿಕಾದೇವೀ ಲಬ್ಧ ವರಪ್ರಸಾದಂ', 'ವಾಸಂತಿಕಾ ದೇವಿಯ ಅನುಗ್ರಹ ಪಡೆದವನು'],
+    ],
+    provinces:
+      'ಅವನು ಗಂಗವಾಡಿ ತೊಂಬತ್ತಾರು ಸಾವಿರ, ನೊಳಂಬವಾಡಿ ಮೂವತ್ತೆರಡು ಸಾವಿರ ಮತ್ತು ಹಾನುಂಗಲ್ ಐನೂರು ನಾಡುಗಳನ್ನು “ದುಷ್ಟನಿಗ್ರಹ ಶಿಷ್ಟಪ್ರತಿಪಾಲನೆ”ಯಿಂದ ಆಳುತ್ತಿದ್ದನೆಂದು ಶಾಸನ ಹೇಳುತ್ತದೆ.',
+    peopleTitle: 'ಶಾಸನದ ವ್ಯಕ್ತಿಗಳು',
+    peopleIntro: 'ರಾಜನ ಪ್ರಶಸ್ತಿಯ ನಂತರ ಶಾಸನವು ನಮ್ಮ ಊರಿನ ಜನರ ಕಥೆ ಹೇಳುತ್ತದೆ.',
+    lineWord: 'ಸಾಲು',
+    dateTitle: 'ದಿನಾಂಕ',
+    dateBody: [
+      'ಶಾಸನವು ಶಕ ೧೦೨೨, ವಿಕ್ರಮ ಸಂವತ್ಸರ, ಫಾಲ್ಗುಣ ಶುದ್ಧ ಪಂಚಮಿ, ಸೋಮವಾರ ಎಂದು ದಿನಾಂಕವನ್ನು ನಮೂದಿಸುತ್ತದೆ. ಇದು ಕ್ರಿ.ಶ. ೧೧೦೧ರ ಫೆಬ್ರವರಿ ೫, ಮಂಗಳವಾರಕ್ಕೆ ಸರಿಹೊಂದುತ್ತದೆ.',
+      'ದಾಖಲೆಯಲ್ಲಿ ನಮೂದಿಸಲಾದ ಮತ್ತೊಂದು ದಿನಾಂಕವು ಯುವ ಸಂವತ್ಸರವಾಗಿದ್ದು, ಇದನ್ನು ಕ್ರಿ.ಶ. ೧೦೯೫ಕ್ಕೆ ಹೋಲಿಸಬಹುದು.',
+    ],
+    dateParts: [
+      ['ಶಕ ೧೦೨೨', 'ಶಾಲಿವಾಹನ ಶಕೆ — ಕ್ರಿ.ಶ.ಕ್ಕೆ ಸುಮಾರು ೭೮ ಸೇರಿಸಿ'],
+      ['ವಿಕ್ರಮ', '೬೦ ವರ್ಷಗಳ ಸಂವತ್ಸರ ಚಕ್ರದಲ್ಲಿ ಆ ವರ್ಷದ ಹೆಸರು'],
+      ['ಫಾಲ್ಗುಣ ಶುದ್ಧ ಪಂಚಮಿ', 'ಫಾಲ್ಗುಣ ಮಾಸದ ಶುಕ್ಲಪಕ್ಷದ ಐದನೆಯ ದಿನ'],
+      ['ಸೋಮವಾರ', 'ಶಾಸನದಲ್ಲಿ ಹೇಳಿರುವ ವಾರ'],
+    ],
+    dateNoteTitle: 'ಇತಿಹಾಸದ ಒಂದು ಟಿಪ್ಪಣಿ',
+    dateNote:
+      'ಇತಿಹಾಸಕಾರರು ಸಾಮಾನ್ಯವಾಗಿ ವಿಷ್ಣುವರ್ಧನನ ಆಳ್ವಿಕೆಯನ್ನು ಸುಮಾರು ಕ್ರಿ.ಶ. ೧೧೦೮ರಿಂದ, ತಳಕಾಡಿನ ಗೆಲುವನ್ನು ಸುಮಾರು ಕ್ರಿ.ಶ. ೧೧೧೬ಕ್ಕೆ ಗುರುತಿಸುತ್ತಾರೆ. ಹೀಗಾಗಿ ೧೧೦೧ರ ದಿನಾಂಕದ ಶಾಸನದಲ್ಲಿ “ತಳಕಾಡುಗೊಂಡ” ಬಿರುದು ಕಾಣುವುದು ಗಮನಾರ್ಹ. ಇಂತಹ ಸಂದರ್ಭಗಳಲ್ಲಿ ಶಾಸನವನ್ನು ನಂತರ ಕೆತ್ತಿರಬಹುದು ಅಥವಾ ದಿನಾಂಕದ ಓದು ಬೇರೆಯಾಗಿರಬಹುದು ಎಂದು ವಿದ್ವಾಂಸರು ಚರ್ಚಿಸುತ್ತಾರೆ. ಈ ಪುಟದಲ್ಲಿ ಶಾಸನದಲ್ಲಿರುವ ದಿನಾಂಕವನ್ನೇ ನೀಡಲಾಗಿದೆ.',
+    grantsTitle: 'ದತ್ತಿಗಳು',
+    grantsIntro:
+      'ದೇವರ ಅಂಗಭೋಗ (ಪೂಜೆ), ಸ್ನಾನ (ಅಭಿಷೇಕ), ನೈವೇದ್ಯ ಮತ್ತು ನಂದಾದೀವಿಗೆಗಾಗಿ ಗದ್ದೆ ಮತ್ತು ಬೆದ್ದಲು ಭೂಮಿಯನ್ನು ದಾನ ಮಾಡಲಾಯಿತು. ಭೂಮಿಯ ಸ್ಥಳಗಳನ್ನು ಊರಿನ ಗುರುತುಗಳಿಂದಲೇ ಹೇಳಲಾಗಿದೆ — ಹಿರಿಯ ಕೆರೆಯ ಕೆಳಗೆ, ಅಡಲಗಟ್ಟದ ಕೆಳಗೆ, ದೇವಾಲಯದ ಮುಂದೆ, ತೊರೆಯ ಬಳಿ, ಊರ ತೆಂಕಣ (ದಕ್ಷಿಣ) ಮತ್ತು ಹಡುವಣ (ಪಶ್ಚಿಮ) ದಿಕ್ಕಿನಲ್ಲಿ.',
+    grants: [
+      ['ಚಾವೇಶ್ವರ ದೇವರಿಗೆ', 'ಹಿರಿಯ ಕೆರೆಯ ಕೆಳಗೆ ಮತ್ತು ಅಡಲಗಟ್ಟದ ಕೆಳಗೆ ಗದ್ದೆ; ನಂದಾದೀವಿಗೆಗೆ ಒಂದು ಎತ್ತಿನ ಗಾಣ (ಎಣ್ಣೆ ಗಾಣ).'],
+      ['ಮೂಲಸ್ಥಾನ ದೇವರಿಗೆ', 'ದೇವಾಲಯದ ಮುಂದಿನ ಗದ್ದೆ, ಎರೆಯ ಗದ್ದೆ ಮತ್ತು ಬೆದ್ದಲು ಭೂಮಿ.'],
+      ['ಚಿಕ್ಕೇಶ್ವರ ದೇವರಿಗೆ', 'ಹಿರಿಯ ಕೆರೆಯ ಕೆಳಗೆ ಗದ್ದೆ ಮತ್ತು ಬೆದ್ದಲು.'],
+      ['ಬ್ರಹ್ಮಪುರಿಯ ಬ್ರಾಹ್ಮಣರಿಗೆ', 'ಗದ್ದೆ ಮತ್ತು ಬೆದ್ದಲು.'],
+      ['ಸಂಕಿಮೋಜರಿಗೆ', 'ಹತ್ತು ಕೊಳಗ ಗದ್ದೆ ಮತ್ತು ನೂರು ಕಂಬ ಬೆದ್ದಲು.'],
+      ['ಗೌಡರಿಗೆ', 'ಹಿರಿಯ ಕೆರೆಯ ಕೆಳಗೆ ಕೊಡಂಗಿ ಗದ್ದೆ, ಗವುಡಗಟ್ಟ ಮತ್ತು ಬೆದ್ದಲು.'],
+    ],
+    grantsReceiver:
+      'ಈ ದತ್ತಿಗಳನ್ನು ಕರ್ತ್ತಾರ-ಜೀಯರ ಪಾದ ತೊಳೆದು, ನೀರೆರೆದು (ಧಾರಾಪೂರ್ವಕವಾಗಿ) ಕೊಡಲಾಯಿತು. ಕೊನೆಯಲ್ಲಿ ಸಾಂಪ್ರದಾಯಿಕ ಶಾಪಾಶಯವಿದೆ: ಈ ಧರ್ಮವನ್ನು ಕಾಪಾಡಿದವರಿಗೆ ಗಂಗೆ, ಕುರುಕ್ಷೇತ್ರ, ವಾರಣಾಸಿಯಲ್ಲಿ ಸಾವಿರ ಕಪಿಲೆ ಹಸುಗಳನ್ನು ದಾನ ಮಾಡಿದ ಪುಣ್ಯ; ಅಳಿಸಿದವರಿಗೆ ಆ ಹಸುಗಳನ್ನೂ ಬ್ರಾಹ್ಮಣರನ್ನೂ ಕೊಂದ ಪಾಪ. “ಸ್ವದತ್ತಾಂ ಪರದತ್ತಾಂ ವಾ…” ಶ್ಲೋಕವು ತಾನು ಕೊಟ್ಟ ಅಥವಾ ಬೇರೆಯವರು ಕೊಟ್ಟ ಭೂಮಿಯನ್ನು ಕಸಿಯುವವನು ಅರವತ್ತು ಸಾವಿರ ವರ್ಷ ಹುಳುವಾಗಿ ಹುಟ್ಟುತ್ತಾನೆ ಎನ್ನುತ್ತದೆ.',
+    glossaryTitle: 'ಕೆಲವು ಪದಗಳ ಅರ್ಥ',
+    fromDoc: 'ಮೂಲ ದಾಖಲೆಯಿಂದ',
+    textTitle: 'ಪೂರ್ಣ ಪಾಠ',
+    textIntro:
+      'ಮೂಲ ಹಳಗನ್ನಡ ಲಿಪಿಯ ಪಾಠ, ಹೊಸಗನ್ನಡ ಲಿಪಿಯಲ್ಲಿ. ಮೊದಲ ಸಾಲು ಕಲ್ಲಿನ ಮೇಲ್ಭಾಗದಲ್ಲಿ ಬಿಲ್ಲಿನಾಕಾರದಲ್ಲಿ (ಕಮಾನಿನಂತೆ) ಕೆತ್ತಲ್ಪಟ್ಟಿದೆ. [ ] ಆವರಣದಲ್ಲಿರುವ ಅಕ್ಷರಗಳು ಸಂಪಾದಕರು ಪೂರೈಸಿದವು.',
+    guide: 'ಶಾಸನದ ಭಾಗಗಳು',
+    arched: 'ಕಮಾನಿನ ಸಾಲು',
+    journeyTitle: 'ಕಲ್ಲಿನ ಪಯಣ',
+    journeyBody:
+      'ಈ ಕಲ್ಬರಹವು ಮೊದಲು ಮನಕತ್ತೂರಿನ ಕೆರೆಯ ಹಳೆಯ ಕೋಡಿಯ ಬಳಿ ಇತ್ತೆಂದು ತಿಳಿದುಬರುತ್ತದೆ. ನಂತರ ೧೯೬೦ರ ದಶಕದ ಅಂತ್ಯಭಾಗದಲ್ಲಿ ಅಥವಾ ೧೯೭೦ರ ದಶಕದಲ್ಲಿ ಊರಿನ ಜನರು ಇದನ್ನು ದೇವಸ್ಥಾನಕ್ಕೆ ತಂದು ಕಾಪಾಡಿದ್ದಾರೆ. ಈ ಕಲ್ಬರಹವು ಬಹುಶಃ ಹಿಂದೆ ಕೆರೆಯ ಸಮೀಪ ಇದ್ದಿರಬಹುದಾದ ಹಳೆಯ ದೇವಾಲಯವೊಂದಕ್ಕೆ ಸಂಬಂಧಿಸಿರಬಹುದು.',
+    sourcesTitle: 'ಆಧಾರ',
+    sources: [
+      'ಬೆಂಜಮಿನ್ ಲೂಯಿಸ್ ರೈಸ್ (B. L. Rice), ಸಂ. “ಎಪಿಗ್ರಾಫಿಯಾ ಕರ್ನಾಟಿಕಾ, ಸಂಪುಟ ೫ — ಹಾಸನ ಜಿಲ್ಲೆ”. ಈ ಕಲ್ಬರಹದ ಬಗ್ಗೆ ತಿರುಳಾದ ಅರಿವನ್ನು (ಮುಖ್ಯ ಮಾಹಿತಿಯನ್ನು) ಇದು ಒದಗಿಸುತ್ತದೆ.',
+      'ಊರಿನ ದಾಖಲೆ: “ಮನಕತ್ತೂರಿನ ಕಲ್ಬರಹ: ಹೊಯ್ಸಳ ಕಾಲದ ಒಂದು ನೋಟ” (೨೦೨೫).',
+    ],
+    caveat:
+      'ಪಾಠವನ್ನು ಊರಿನ ದಾಖಲೆಯಿಂದ ಅಕ್ಷರಶಃ ಪುನರುತ್ಪಾದಿಸಲಾಗಿದೆ; ಸಣ್ಣಪುಟ್ಟ ಮುದ್ರಣ ವ್ಯತ್ಯಾಸಗಳಿರಬಹುದು. ತಿದ್ದುಪಡಿಗಳಿದ್ದರೆ ದಯವಿಟ್ಟು ತಿಳಿಸಿ.',
+    back: 'ದೇವಾಲಯದ ಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ',
+  },
+  en: {
+    title: 'The Manakathuru Inscription',
+    description:
+      'The Hoysala-period stone inscription of Manakathuru, dated 1101 CE — its history, meaning, full text and the story of the headmen who founded the village.',
+    eyebrow: 'Village heritage',
+    h1: 'The Manakathuru Inscription',
+    sub: 'A glimpse of the Hoysala age',
+    notice:
+      'This inscribed stone is kept safe at the Sri Kalabhairaveshwara Temple today, but it is not related to this temple’s history — it is a record of Manakathuru village and of other temples of that time.',
+    facts: [
+      ['Date', 'Śaka 1022 · 1101 CE'],
+      ['Dynasty', 'Hoysala — Vishnuvardhana'],
+      ['Language & script', 'Old Kannada (Halegannada)'],
+      ['Lines', '44'],
+      ['Original location', 'Near the old outlet (kodi) of the village tank'],
+      ['Published in', 'Epigraphia Carnatica, Vol. 5 (Hassan)'],
+    ],
+    toc: 'On this page',
+    tocItems: [
+      ['overview', 'Overview'],
+      ['king', 'The king’s titles'],
+      ['people', 'People in the record'],
+      ['date', 'The date'],
+      ['grants', 'The grants'],
+      ['text', 'Full text'],
+      ['journey', 'The stone’s journey'],
+      ['sources', 'Sources'],
+    ],
+    overviewTitle: 'Overview',
+    overview: [
+      'Dated Śaka 1022 (1101 CE), in the time of the Hoysala king Vishnuvardhana, this inscription opens with a long eulogy of the king’s titles, and then offers priceless insights into the beliefs and the religious and social life of the community at the time.',
+      'It records major temple constructions by local leaders, the installation of deities and gifts of land. Above all, it names the people who founded Manakathuru — then called “Managatur”.',
+    ],
+    kingTitle: 'The king’s titles',
+    kingIntro:
+      'The first part of the record (lines 3–18) praises the Hoysala king Vishnuvardhana with a garland of titles. Some of them:',
+    titles: [
+      ['Yadukula-kuvalaya-sudhakara', 'The moon to the lotus of the Yadu race'],
+      ['Satya-ratnakara', 'An ocean of truth'],
+      ['Dvaravatipura-varadhishvara', 'Supreme lord of Dvaravati (Belur / Halebidu)'],
+      ['Shaurya-mrigaraja', 'A lion in valour'],
+      ['Talakadugonda-ganda', 'The hero who conquered Talakad'],
+      ['Vasantikadevi-labdha-varaprasada', 'Blessed with the grace of the goddess Vasantika'],
+    ],
+    provinces:
+      'He is said to rule Gangavadi 96,000, Nolambavadi 32,000 and Hanungal 500, “punishing the wicked and protecting the good”.',
+    peopleTitle: 'People in the record',
+    peopleIntro: 'After the royal eulogy, the inscription turns to the people of our village.',
+    lineWord: 'Line',
+    dateTitle: 'The date',
+    dateBody: [
+      'The inscription is dated Śaka 1022, in the year named Vikrama, on the fifth day of the bright half of Phalguna, a Monday. This corresponds to 5 February 1101 CE — which by calculation fell on a Tuesday.',
+      'The record also mentions the year Yuva, which likely corresponds to 1095 CE.',
+    ],
+    dateParts: [
+      ['Śaka 1022', 'Shalivahana Śaka era — add about 78 to get the CE year'],
+      ['Vikrama', 'The name of that year in the 60-year samvatsara cycle'],
+      ['Phalguna śuddha pañcamī', 'Fifth day of the bright fortnight of Phalguna'],
+      ['Somavara', 'Monday, as stated in the record'],
+    ],
+    dateNoteTitle: 'A note for history readers',
+    dateNote:
+      'Historians generally date Vishnuvardhana’s reign from about 1108 CE and his capture of Talakad to about 1116. The title Talakadugonda in a record dated 1101 is therefore noteworthy; in such cases scholars discuss whether the record was engraved later or the date read differently. This page gives the date exactly as the inscription states it.',
+    grantsTitle: 'The grants',
+    grantsIntro:
+      'Wet and dry land was given for the deities’ worship (anga-bhoga), bathing (abhisheka), food offerings and perpetual lamps. The plots are located by village landmarks — below the big tank, below the Adalagatta, in front of the temple, by the stream, to the south (tenkana) and west (haduvana) of the village.',
+    grants: [
+      ['For Chaveshvara', 'Wet land below the big tank and below the Adalagatta; an ox-driven oil press to keep the perpetual lamp burning.'],
+      ['For Moolasthana', 'Wet land in front of the temple, black-soil wet land and dry land.'],
+      ['For Chikkeshvara', 'Wet land below the big tank and dry land.'],
+      ['For the Brahmins of Brahmapuri', 'Wet land and dry land.'],
+      ['For Sankimoja', 'Ten kolaga of wet land and a hundred kamba of dry land.'],
+      ['For the gaudas', 'Kodangi wet land below the big tank, gavudagatta and dry land.'],
+    ],
+    grantsReceiver:
+      'The gifts were made by washing the feet of Karttara-jiya and pouring water (dhārāpūrvaka). The record closes with the customary blessing and curse: whoever protects this gift earns the merit of giving a thousand kapila cows at the Ganga, Kurukshetra and Varanasi; whoever destroys it incurs the sin of killing those cows and Brahmins. The Sanskrit verse “svadattām paradattām vā…” warns that one who takes away land given by himself or by others is born a worm for sixty thousand years.',
+    glossaryTitle: 'Some words explained',
+    fromDoc: 'from the source document',
+    textTitle: 'Full text',
+    textIntro:
+      'The original Old Kannada text, rendered in modern Kannada script. The first line is carved in an arch across the top of the stone. Letters in [ ] are supplied by the editor.',
+    guide: 'Parts of the inscription',
+    arched: 'arched line',
+    journeyTitle: 'The stone’s journey',
+    journeyBody:
+      'The stone is known to have stood near the old outlet (kodi) of the Manakathuru tank. In the late 1960s or the 1970s the villagers brought it to the temple to keep it safe. It may once have belonged to an old temple that stood near the tank.',
+    sourcesTitle: 'Sources',
+    sources: [
+      'B. L. Rice (ed.), Epigraphia Carnatica, Vol. 5 — Hassan District. The core information about this inscription comes from this volume.',
+      'Village document: “ಮನಕತ್ತೂರಿನ ಕಲ್ಬರಹ: ಹೊಯ್ಸಳ ಕಾಲದ ಒಂದು ನೋಟ” (The Manakathuru Inscription: A Glimpse of the Hoysala Age), 2025.',
+    ],
+    caveat:
+      'The text is reproduced as given in the village document; small typographic variations are possible. Corrections are welcome.',
+    back: 'Back to the temple page',
+  },
+}[lang];
+
+// Which section each line starts, for the guide markers in the text panel.
+const sectionStarts = new Map<number, (typeof sections)[number]>();
+for (const s of sections) if (!sectionStarts.has(s.from)) sectionStarts.set(s.from, s);
+---
+
+<Base lang={lang} page="inscription" title={c.title} description={c.description}>
+  <header class="ins-head">
+    <div class="wrap">
+      <p class="eyebrow">{c.eyebrow}</p>
+      <h1>{c.h1}</h1>
+      <p class="sub">{c.sub}</p>
+      <dl class="facts">
+        {
+          c.facts.map(([k, v]) => (
+            <div>
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <p class="notice" role="note">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"></circle><path d="M12 7v6M12 16.5v.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+      <span>{c.notice}</span>
+    </p>
+  </div>
+
+  <div class="wrap ins-layout">
+    <nav class="toc" aria-label={c.toc}>
+      <p class="toc-title">{c.toc}</p>
+      <ol>
+        {c.tocItems.map(([id, label]) => <li><a href={`#${id}`}>{label}</a></li>)}
+      </ol>
+    </nav>
+
+    <div class="ins-body">
+      <section id="overview" class="block">
+        <h2>{c.overviewTitle}</h2>
+        {c.overview.map((p) => <p>{p}</p>)}
+      </section>
+
+      <section id="king" class="block">
+        <h2>{c.kingTitle}</h2>
+        <p>{c.kingIntro}</p>
+        <ul class="titles">
+          {
+            c.titles.map(([t, m]) => (
+              <li>
+                <span class="title-term" lang={lang === 'en' ? 'kn-Latn' : 'kn'}>{t}</span>
+                <span class="title-mean">{m}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p>{c.provinces}</p>
+      </section>
+
+      <section id="people" class="block">
+        <h2>{c.peopleTitle}</h2>
+        <p>{c.peopleIntro}</p>
+        <div class="people">
+          {
+            people.map((p) => (
+              <article class="person">
+                <h3>{p.name[lang]}</h3>
+                <p>{p.role[lang]}</p>
+                <p class="person-lines">
+                  {lang === 'en' && /[–,]/.test(p.lines) ? 'Lines' : c.lineWord} {num(lang, p.lines)}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section id="date" class="block">
+        <h2>{c.dateTitle}</h2>
+        {c.dateBody.map((p) => <p>{p}</p>)}
+        <dl class="date-parts">
+          {
+            c.dateParts.map(([k, v]) => (
+              <div>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <aside class="note">
+          <strong>{c.dateNoteTitle}.</strong>
+          {c.dateNote}
+        </aside>
+      </section>
+
+      <section id="grants" class="block">
+        <h2>{c.grantsTitle}</h2>
+        <p>{c.grantsIntro}</p>
+        <dl class="grants">
+          {
+            c.grants.map(([k, v]) => (
+              <div>
+                <dt>{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p>{c.grantsReceiver}</p>
+
+        <h3 class="gloss-title">{c.glossaryTitle}</h3>
+        <dl class="glossary">
+          {
+            glossary.map((g) => (
+              <div>
+                <dt>
+                  {g.term[lang]}
+                  {lang === 'en' && <span class="gloss-kn" lang="kn"> · {g.term.kn}</span>}
+                </dt>
+                <dd>
+                  {g.meaning[lang]}
+                  {g.fromDoc && <span class="gloss-src"> ({c.fromDoc})</span>}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </section>
+
+      <section id="text" class="block">
+        <h2>{c.textTitle}</h2>
+        <p>{c.textIntro}</p>
+
+        <div class="stone" lang="kn">
+          <svg class="arch" viewBox="0 0 800 190" aria-hidden="true">
+            <defs>
+              <path id="arch-path" d="M 40 180 A 360 160 0 0 1 760 180"></path>
+            </defs>
+            <text class="arch-text">
+              <textPath href="#arch-path" startOffset="50%" text-anchor="middle" textLength="850" lengthAdjust="spacingAndGlyphs">
+                {lines[0]}
+              </textPath>
+            </text>
+          </svg>
+
+          <ol class="lines">
+            {
+              lines.map((line, i) => {
+                const n = i + 1;
+                const s = sectionStarts.get(n);
+                return (
+                  <>
+                    {s && <li class="line-section" aria-hidden="true"><span>{s.title[lang]}</span></li>}
+                    <li class="line" value={n}>
+                      <span class="ln">{num('kn', n)}</span>
+                      <span class="lt">
+                        {line}
+                        {n === 1 && <span class="arch-tag" lang={lang}> ({c.arched})</span>}
+                      </span>
+                    </li>
+                  </>
+                );
+              })
+            }
+          </ol>
+        </div>
+
+        <h3 class="guide-title">{c.guide}</h3>
+        <ol class="guide">
+          {
+            sections.map((s) => (
+              <li>
+                <span class="guide-range">
+                  {lang === 'en' && s.from !== s.to ? 'Lines' : c.lineWord} {num(lang, s.from === s.to ? s.from : `${s.from}–${s.to}`)}
+                </span>
+                <strong>{s.title[lang]}</strong>
+                <span>{s.summary[lang]}</span>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <section id="journey" class="block">
+        <h2>{c.journeyTitle}</h2>
+        <p>{c.journeyBody}</p>
+        <ol class="timeline">
+          {
+            timeline.map((t) => (
+              <li>
+                <span class="tl-year">{t.year[lang]}</span>
+                <span class="tl-text">{t.text[lang]}</span>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <section id="sources" class="block">
+        <h2>{c.sourcesTitle}</h2>
+        <ul class="sources">
+          {c.sources.map((s) => <li>{s}</li>)}
+        </ul>
+        <p class="caveat">{c.caveat}</p>
+        <p><a href={href(lang, 'temple')}>← {c.back}</a></p>
+      </section>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .ins-head {
+    background:
+      radial-gradient(40rem 24rem at 90% 0%, rgb(255 255 255 / 0.07), transparent 70%),
+      linear-gradient(165deg, var(--stone), var(--stone-2));
+    color: var(--stone-ink);
+    padding-block: clamp(2.5rem, 7vw, 4.5rem) clamp(4rem, 9vw, 5.5rem);
+  }
+  .ins-head .eyebrow {
+    color: var(--stone-accent);
+  }
+  .ins-head h1 {
+    margin-bottom: 0.1em;
+  }
+  .sub {
+    font-family: var(--display);
+    font-size: clamp(1.125rem, 2.6vw, 1.5rem);
+    opacity: 0.85;
+    margin-bottom: 2rem;
+  }
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    margin: 0;
+    background: rgb(255 255 255 / 0.12);
+    border: 1px solid rgb(255 255 255 / 0.12);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .facts div {
+    background: color-mix(in srgb, var(--stone-2) 88%, black);
+    padding: 0.9rem 1.1rem;
+  }
+  .facts dt {
+    font-size: 0.8125rem;
+    opacity: 0.7;
+  }
+  @media (min-width: 760px) {
+    .facts {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .facts dd {
+    color: var(--stone-ink);
+    margin: 0;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .notice {
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+    margin: -2rem 0 0;
+    position: relative;
+    padding: 1.1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 5px solid var(--kumkum);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    font-weight: 500;
+  }
+  .notice svg {
+    flex: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--kumkum);
+    margin-top: 0.2rem;
+  }
+
+  .ins-layout {
+    display: grid;
+    gap: 2rem;
+    padding-block: 2.5rem 4rem;
+  }
+  .toc {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+  }
+  .toc-title {
+    font-weight: 700;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--turmeric);
+    margin-bottom: 0.5rem;
+  }
+  .toc ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+  }
+  .toc a {
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.9375rem;
+  }
+  .toc a:hover {
+    color: var(--kumkum);
+    text-decoration: underline;
+  }
+  @media (min-width: 1000px) {
+    .ins-layout {
+      grid-template-columns: 13rem minmax(0, 1fr);
+      gap: 3.5rem;
+    }
+    .toc {
+      position: sticky;
+      top: 6rem;
+      align-self: start;
+    }
+    .toc ol {
+      display: grid;
+      gap: 0.35rem;
+    }
+  }
+  .ins-body {
+    min-width: 0;
+    max-width: 50rem;
+  }
+  .block {
+    padding-block: 1.5rem 2rem;
+    border-bottom: 1px solid var(--line);
+    scroll-margin-top: 6rem;
+  }
+  .block:last-child {
+    border-bottom: 0;
+  }
+
+  .titles {
+    list-style: none;
+    margin: 1rem 0 1.5rem;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  @media (min-width: 640px) {
+    .titles {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .titles li {
+    display: grid;
+    padding: 0.9rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+  .title-term {
+    font-family: var(--display);
+    font-size: 1.125rem;
+    color: var(--kumkum);
+    overflow-wrap: anywhere;
+  }
+  .title-mean {
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+  }
+
+  .people {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+  @media (min-width: 640px) {
+    .people {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .person {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--turmeric);
+    border-radius: 12px;
+    padding: 1.1rem 1.25rem;
+  }
+  .person h3 {
+    margin-bottom: 0.25em;
+    font-size: 1.1875rem;
+  }
+  .person p {
+    margin: 0;
+    font-size: 0.9688rem;
+  }
+  .person-lines {
+    margin-top: 0.5rem !important;
+    font-size: 0.8125rem !important;
+    color: var(--ink-soft);
+  }
+
+  .date-parts,
+  .grants,
+  .glossary {
+    margin: 1rem 0 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+  .date-parts div,
+  .grants div,
+  .glossary div {
+    display: grid;
+    gap: 0.1rem 1.5rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  @media (min-width: 640px) {
+    .date-parts div,
+    .grants div,
+    .glossary div {
+      grid-template-columns: 14rem 1fr;
+    }
+  }
+  dt {
+    font-weight: 500;
+  }
+  dd {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+  .gloss-title {
+    margin-top: 2rem;
+  }
+  .gloss-kn {
+    font-weight: 400;
+    color: var(--ink-soft);
+  }
+  .gloss-src {
+    font-size: 0.8125rem;
+    color: var(--turmeric);
+  }
+
+  /* The inscription panel: light letters on dark soapstone. */
+  .stone {
+    margin: 1.5rem 0 2rem;
+    padding: clamp(1rem, 4vw, 2.5rem) clamp(0.75rem, 4vw, 2.5rem) clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: 48% 48% 18px 18px / 110px 110px 18px 18px;
+    background:
+      radial-gradient(28rem 16rem at 30% 0%, rgb(255 255 255 / 0.08), transparent 70%),
+      repeating-linear-gradient(95deg, rgb(255 255 255 / 0.015) 0 2px, transparent 2px 7px),
+      linear-gradient(170deg, #4a554f, #2a312d);
+    color: #ece6d6;
+    box-shadow:
+      inset 0 2px 0 rgb(255 255 255 / 0.08),
+      inset 0 -10px 30px rgb(0 0 0 / 0.35),
+      var(--shadow);
+  }
+  .arch {
+    width: 100%;
+    max-width: 38rem;
+    display: block;
+    margin: 0 auto 0.5rem;
+  }
+  .arch-text {
+    font-family: var(--display);
+    font-size: 19px;
+    fill: #e9dfc6;
+  }
+  .lines {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: var(--display);
+    font-size: clamp(0.9375rem, 2.3vw, 1.0625rem);
+    line-height: 1.85;
+  }
+  .line {
+    display: grid;
+    grid-template-columns: 2.2rem 1fr;
+    gap: 0.5rem;
+    padding: 0.15rem 0;
+    text-shadow: 0 1px 0 rgb(0 0 0 / 0.5);
+  }
+  .ln {
+    color: #c9a85a;
+    text-align: right;
+    font-size: 0.85em;
+    padding-top: 0.1em;
+  }
+  .lt {
+    overflow-wrap: anywhere;
+  }
+  .arch-tag {
+    font-family: var(--body);
+    font-size: 0.75em;
+    color: #c9a85a;
+  }
+  .line-section {
+    margin: 1rem 0 0.35rem 2.7rem;
+    font-family: var(--body);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #c9a85a;
+    border-top: 1px dashed rgb(201 168 90 / 0.35);
+    padding-top: 0.5rem;
+  }
+  .line-section:first-child {
+    margin-top: 0;
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .guide {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .guide li {
+    display: grid;
+    padding: 0.9rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+  .guide-range {
+    font-size: 0.8125rem;
+    color: var(--turmeric);
+    font-weight: 700;
+  }
+  .guide span:last-child {
+    color: var(--ink-soft);
+    font-size: 0.9688rem;
+  }
+
+  .timeline {
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 0 0 0 1.5rem;
+    border-left: 2px solid var(--turmeric);
+  }
+  .timeline li {
+    position: relative;
+    padding: 0 0 1.5rem;
+    display: grid;
+  }
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: calc(-1.5rem - 7px);
+    top: 0.45rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 3px solid var(--kumkum);
+  }
+  .tl-year {
+    font-family: var(--display);
+    font-size: 1.1875rem;
+    color: var(--kumkum);
+  }
+  .tl-text {
+    color: var(--ink-soft);
+  }
+  .sources {
+    padding-left: 1.2rem;
+  }
+  .sources li {
+    margin-bottom: 0.5rem;
+  }
+  .caveat {
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+  }
+</style>

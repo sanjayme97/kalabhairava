@@ -1,0 +1,346 @@
+---
+import '../styles/global.css';
+import { nav, pages, href, asset, type Lang, type Page } from '../i18n';
+import { temple } from '../data/site';
+
+interface Props {
+  lang: Lang;
+  page: Page;
+  title?: string;
+  description: string;
+  image?: string;
+}
+
+const { lang, page, title, description, image = 'images/kalabhairaveshwara-belli-prabhavali.jpg' } = Astro.props;
+const other: Lang = lang === 'kn' ? 'en' : 'kn';
+const siteName = `${temple.shortName[lang]}, ${temple.place[lang]}`;
+const fullTitle = title ? `${title} · ${siteName}` : `${temple.name[lang]} · ${temple.place[lang]}`;
+const canonical = new URL(href(lang, page), Astro.site);
+const t = {
+  kn: { skip: 'ಮುಖ್ಯ ವಿಷಯಕ್ಕೆ ಹೋಗಿ', menu: 'ಮೆನು', switchTo: 'English', switchLabel: 'Read this page in English' },
+  en: { skip: 'Skip to content', menu: 'Menu', switchTo: 'ಕನ್ನಡ', switchLabel: 'ಈ ಪುಟವನ್ನು ಕನ್ನಡದಲ್ಲಿ ಓದಿ' },
+}[lang];
+const footer = {
+  kn: {
+    note: 'ಈ ಜಾಲತಾಣದ ಚಿತ್ರಗಳು ದೇವಸ್ಥಾನದವು. ಅನುಮತಿಯಿಲ್ಲದೆ ಬೇರೆಡೆ ಬಳಸಬೇಡಿ.',
+    follow: 'ಫೇಸ್‌ಬುಕ್‌ನಲ್ಲಿ ಹಿಂಬಾಲಿಸಿ',
+  },
+  en: {
+    note: 'Photographs on this site belong to the temple. Please do not reuse them without permission.',
+    follow: 'Follow on Facebook',
+  },
+}[lang];
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="kn" href={new URL(href('kn', page), Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL(href('en', page), Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(href('kn', page), Astro.site)} />
+    <link rel="icon" href={asset('favicon.svg')} type="image/svg+xml" />
+    <meta name="theme-color" content="#9e2a1e" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={temple.name[lang]} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(asset(image), Astro.site)} />
+    <meta property="og:locale" content={lang === 'kn' ? 'kn_IN' : 'en_IN'} />
+  </head>
+  <body>
+    <a class="skip" href="#main">{t.skip}</a>
+
+    <div class="topbar">
+      <div class="wrap">{temple.invocation[lang]}</div>
+    </div>
+
+    <header class="site-header">
+      <div class="wrap header-row">
+        <a class="brand" href={href(lang)}>
+          <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="14" fill="var(--kumkum)"></rect>
+            <g fill="none" stroke="#F3D48A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M32 10v44"></path><path d="M18 16c0 12 6 18 14 18s14-6 14-18"></path>
+              <path d="M32 10l-4 6h8z" fill="#F3D48A"></path><path d="M24 54h16"></path>
+            </g>
+          </svg>
+          <span class="brand-text">
+            <span class="brand-name">{temple.shortName[lang]}</span>
+            <span class="brand-place">{temple.place[lang]}</span>
+          </span>
+        </a>
+
+        <nav class="desk-nav" aria-label={t.menu}>
+          <ul>
+            {
+              pages.map((p) => (
+                <li>
+                  <a href={href(lang, p)} aria-current={p === page ? 'page' : undefined}>
+                    {nav[lang][p]}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        <a class="lang-switch" href={href(other, page)} hreflang={other} lang={other} aria-label={t.switchLabel}>
+          {t.switchTo}
+        </a>
+
+        <details class="menu">
+          <summary>
+            <span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>{t.menu}</span>
+          </summary>
+          <nav aria-label={t.menu}>
+            <ul>
+              {
+                pages.map((p) => (
+                  <li>
+                    <a href={href(lang, p)} aria-current={p === page ? 'page' : undefined}>
+                      {nav[lang][p]}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="frieze" aria-hidden="true"></div>
+      <div class="wrap footer-grid">
+        <div>
+          <p class="footer-name">{temple.name[lang]}</p>
+          <p>{temple.place[lang]}, {temple.region[lang]}</p>
+          <p><a href={temple.contact.facebook} rel="noopener">{footer.follow}</a></p>
+        </div>
+        <nav aria-label="Footer">
+          <ul>
+            {pages.map((p) => <li><a href={href(lang, p)}>{nav[lang][p]}</a></li>)}
+          </ul>
+        </nav>
+        <p class="footer-note">{footer.note}</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .topbar {
+    background: var(--kumkum);
+    color: var(--kumkum-ink);
+    font-family: var(--display);
+    text-align: center;
+    font-size: 0.9375rem;
+    padding-block: 0.3rem;
+    letter-spacing: 0.02em;
+  }
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 4.25rem;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    color: var(--ink);
+    margin-right: auto;
+    min-width: 0;
+  }
+  .brand-mark {
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: none;
+  }
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    min-width: 0;
+  }
+  .brand-name {
+    font-family: var(--display);
+    font-size: 1.125rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .brand-place {
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
+  }
+  .lang-switch {
+    font-size: 0.9375rem;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    text-decoration: none;
+    color: var(--ink);
+    background: var(--surface);
+    white-space: nowrap;
+  }
+  .lang-switch:hover {
+    border-color: var(--kumkum);
+    color: var(--kumkum);
+  }
+
+  /* Mobile: disclosure menu. Desktop: inline links. */
+  .menu summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    cursor: pointer;
+    padding: 0.4rem 0.6rem;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+  }
+  .menu summary::-webkit-details-marker {
+    display: none;
+  }
+  .menu-icon {
+    display: grid;
+    gap: 4px;
+  }
+  .menu-icon i {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: currentColor;
+    border-radius: 2px;
+  }
+  .menu nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  .menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 1rem 1rem;
+  }
+  .menu a {
+    display: block;
+    padding: 0.7rem 0.25rem;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .menu a[aria-current='page'] {
+    color: var(--kumkum);
+    font-weight: 500;
+  }
+
+  .desk-nav {
+    display: none;
+  }
+  .desk-nav ul {
+    display: flex;
+    gap: 0.15rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .desk-nav a {
+    display: block;
+    padding: 0.4rem 0.65rem;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .desk-nav a:hover {
+    background: var(--paper-2);
+  }
+  .desk-nav a[aria-current='page'] {
+    color: var(--kumkum);
+    background: color-mix(in srgb, var(--kumkum) 10%, transparent);
+  }
+  @media (min-width: 1080px) {
+    .desk-nav {
+      display: block;
+    }
+    .menu {
+      display: none;
+    }
+  }
+
+  .site-footer {
+    background: var(--stone-2);
+    color: var(--stone-ink);
+    margin-top: 0;
+  }
+  .site-footer a {
+    color: var(--stone-accent);
+  }
+  .footer-grid {
+    display: grid;
+    gap: 1.5rem;
+    padding-block: 2.5rem 2rem;
+    font-size: 0.9375rem;
+  }
+  .footer-grid p {
+    margin: 0 0 0.4rem;
+  }
+  .footer-name {
+    font-family: var(--display);
+    font-size: 1.25rem;
+  }
+  .footer-grid ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.35rem 1rem;
+  }
+  .footer-grid ul a {
+    color: var(--stone-ink);
+    text-decoration: none;
+  }
+  .footer-grid ul a:hover {
+    text-decoration: underline;
+  }
+  .footer-note {
+    grid-column: 1 / -1;
+    opacity: 0.7;
+    font-size: 0.8125rem;
+    border-top: 1px solid rgb(255 255 255 / 0.12);
+    padding-top: 1rem;
+  }
+  @media (min-width: 720px) {
+    .footer-grid {
+      grid-template-columns: 1.3fr 1fr;
+    }
+  }
+</style>
