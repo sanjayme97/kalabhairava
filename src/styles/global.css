@@ -109,7 +109,9 @@ h2,
 h3 {
   font-family: var(--display);
   font-weight: 700;
-  line-height: 1.2;
+  /* Kannada vowel signs rise well above the letters; give them room */
+  line-height: 1.35;
+  padding-top: 0.05em;
   margin: 0 0 0.4em;
   text-wrap: balance;
   letter-spacing: -0.005em;

@@ -27,7 +27,6 @@ export const temple = {
     whatsapp: null as string | null,
     email: null as string | null,
     committee: null as T | null, // e.g. { kn: 'ದೇವಸ್ಥಾನ ಸಮಿತಿ', en: 'Temple Committee' }
-    facebook: 'https://www.facebook.com/kalabhairaveshwara.manakathur/',
   },
 
   /** Google Maps search link. Replace with an exact pin link once available. */

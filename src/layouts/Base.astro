@@ -27,13 +27,11 @@ const f = {
     blessing: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಪ್ರಸನ್ನ',
     photos: 'ಇಲ್ಲಿನ ಎಲ್ಲ ಚಿತ್ರಗಳು ಮನಕತ್ತೂರಿನವರೇ ತೆಗೆದವು. ಅನುಮತಿಯಿಲ್ಲದೆ ಬೇರೆಡೆ ಬಳಸಬೇಡಿ.',
     classic: 'ಹಳೆಯ ವಿನ್ಯಾಸ',
-    follow: 'ಫೇಸ್‌ಬುಕ್',
   },
   en: {
     blessing: 'Sri Kalabhairaveshwara Prasanna',
     photos: 'Every photograph here was taken in Manakathuru. Please do not reuse them without permission.',
     classic: 'Classic version',
-    follow: 'Facebook',
   },
 }[lang];
 ---
@@ -120,7 +118,6 @@ const f = {
         <p class="footer-place">{temple.place[lang]} · {temple.region[lang]}</p>
         <nav class="footer-nav" aria-label="Footer">
           {pages.map((p) => <a href={href(lang, p)}>{nav[lang][p]}</a>)}
-          <a href={temple.contact.facebook} rel="noopener">{f.follow} ↗</a>
         </nav>
         <p class="footer-note">
           {f.photos} · <a href={asset('classic/') + (lang === 'en' ? 'en/' : '')}>{f.classic}</a>
@@ -196,7 +193,7 @@ const f = {
   }
   .brand-text {
     display: grid;
-    line-height: 1.15;
+    line-height: 1.5;
     min-width: 0;
   }
   .brand-name {
@@ -206,6 +203,8 @@ const f = {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    /* room for tall Kannada vowel signs (ೀ, ೇ) so they are not clipped */
+    padding-top: 0.12em;
   }
   .brand-place {
     font-size: 0.8125rem;

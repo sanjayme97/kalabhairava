@@ -23,7 +23,6 @@ const c = {
     etiquette: [
       'ಪಾದರಕ್ಷೆಗಳನ್ನು ಹೊರಗೆ ಬಿಡಿ.',
       'ಸಭ್ಯ ಉಡುಪು ಧರಿಸಿ.',
-      'ಗರ್ಭಗುಡಿಯ ಫೋಟೋ ತೆಗೆಯುವ ಮೊದಲು ಅರ್ಚಕರನ್ನು ಕೇಳಿ.',
       'ಆವರಣ ಸ್ವಚ್ಛವಾಗಿಡಿ. ಪ್ಲಾಸ್ಟಿಕ್ ಬೇಡ.',
       'ಹಳೆಯ ಶಾಸನ ಕಲ್ಲನ್ನು ಮುಟ್ಟಬೇಡಿ, ಅದಕ್ಕೆ ಏನನ್ನೂ ಹಚ್ಚಬೇಡಿ.',
     ],
@@ -31,8 +30,6 @@ const c = {
     phone: 'ದೂರವಾಣಿ',
     whatsapp: 'ವಾಟ್ಸ್‌ಆ್ಯಪ್',
     email: 'ಇ-ಮೇಲ್',
-    facebook: 'ಫೇಸ್‌ಬುಕ್',
-    fbLink: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಮನಕತ್ತೂರು',
   },
   en: {
     title: 'Visit & Contact',
@@ -49,7 +46,6 @@ const c = {
     etiquette: [
       'Please leave footwear outside.',
       'Wear modest clothing.',
-      'Ask the priest before photographing the sanctum.',
       'Keep the courtyard clean. No plastic, please.',
       'Please do not touch the old inscription stone or put anything on it.',
     ],
@@ -57,8 +53,6 @@ const c = {
     phone: 'Phone',
     whatsapp: 'WhatsApp',
     email: 'Email',
-    facebook: 'Facebook',
-    fbLink: 'Shri Kalabhairaveshwara Manakathur',
   },
 }[lang];
 
@@ -67,7 +61,6 @@ const contacts = [
   k.phone && { label: c.phone, value: k.phone, href: `tel:${k.phone.replace(/\s/g, '')}` },
   k.whatsapp && { label: c.whatsapp, value: k.whatsapp, href: `https://wa.me/${k.whatsapp.replace(/\D/g, '')}` },
   k.email && { label: c.email, value: k.email, href: `mailto:${k.email}` },
-  { label: c.facebook, value: c.fbLink + ' ↗', href: k.facebook },
 ].filter(Boolean) as { label: string; value: string; href?: string }[];
 ---
 
@@ -94,19 +87,21 @@ const contacts = [
           {c.reachItems.map(([t, d]) => <div><dt>{t}</dt><dd>{d}</dd></div>)}
         </dl>
       </div>
-      <div>
-        <h2>{c.contact}</h2>
-        <dl class="list-rule pairs">
-          {
-            contacts.map((x) => (
-              <div>
-                <dt>{x.label}</dt>
-                <dd>{x.href ? <a href={x.href} rel="noopener">{x.value}</a> : x.value}</dd>
-              </div>
-            ))
-          }
-        </dl>
-      </div>
+      {
+        contacts.length > 0 && (
+          <div>
+            <h2>{c.contact}</h2>
+            <dl class="list-rule pairs">
+              {contacts.map((x) => (
+                <div>
+                  <dt>{x.label}</dt>
+                  <dd>{x.href ? <a href={x.href} rel="noopener">{x.value}</a> : x.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        )
+      }
     </div>
   </section>
 

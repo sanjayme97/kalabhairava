@@ -31,8 +31,6 @@ const c = {
     dateSoon: 'ದಿನಾಂಕವನ್ನು ದೇವಸ್ಥಾನ ಸಮಿತಿ ಪ್ರಕಟಿಸುತ್ತದೆ.',
     yearTitle: 'ವರ್ಷದ ವಿಶೇಷ ದಿನಗಳು',
     timingsTitle: 'ದೈನಂದಿನ ಪೂಜೆ',
-    timingsAsk: 'ದಿನನಿತ್ಯದ ಪೂಜೆಯ ಸಮಯಗಳನ್ನು ದೇವಸ್ಥಾನದ ಅರ್ಚಕರಿಂದ ತಿಳಿಯಿರಿ. ಹಬ್ಬದ ದಿನಗಳಲ್ಲಿ ಸಮಯ ಬದಲಾಗುತ್ತದೆ.',
-    seva: 'ಅಭಿಷೇಕ, ಅರ್ಚನೆ, ವಿಶೇಷ ಅಲಂಕಾರ ಸೇವೆಗಳಿಗೆ ಅರ್ಚಕರನ್ನು ಅಥವಾ ದೇವಸ್ಥಾನ ಸಮಿತಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ.',
     contact: 'ದಾರಿ ಮತ್ತು ಸಂಪರ್ಕ',
   },
   en: {
@@ -54,8 +52,6 @@ const c = {
     dateSoon: 'The temple committee announces the dates.',
     yearTitle: 'Special days of the year',
     timingsTitle: 'Daily worship',
-    timingsAsk: 'Please ask the temple priest for the daily pooja times. They change on festival days.',
-    seva: 'For abhisheka, archana or a special alankara, please speak to the priest or the temple committee.',
     contact: 'Directions & contact',
   },
 }[lang];
@@ -127,11 +123,11 @@ const c = {
     </div>
   </section>
 
-  <section class="section daily">
-    <div class="wrap prose">
-      <h2>{c.timingsTitle}</h2>
-      {
-        knownTimings.length > 0 ? (
+  {
+    knownTimings.length > 0 && (
+      <section class="section daily">
+        <div class="wrap prose">
+          <h2>{c.timingsTitle}</h2>
           <dl class="list-rule times">
             {knownTimings.map((t) => (
               <div>
@@ -140,14 +136,11 @@ const c = {
               </div>
             ))}
           </dl>
-        ) : (
-          <p>{c.timingsAsk}</p>
-        )
-      }
-      <p>{c.seva}</p>
-      <a class="go" href={href(lang, 'visit')}>{c.contact}</a>
-    </div>
-  </section>
+          <a class="go" href={href(lang, 'visit')}>{c.contact}</a>
+        </div>
+      </section>
+    )
+  }
 </Base>
 
 <style>

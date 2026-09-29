@@ -1,6 +1,10 @@
 ---
-/** A photograph shown as a printed photo: white border, slight tilt, caption underneath. */
-import { asset, type Lang } from '../i18n';
+/**
+ * A photograph shown as a printed photo: white border, slight tilt, caption underneath.
+ * Everywhere except the gallery, tapping a photo opens it in the gallery (ಚಿತ್ರಸಂಪುಟ).
+ * In the gallery itself (`zoom`), tapping opens the full-size image.
+ */
+import { asset, href, type Lang } from '../i18n';
 import { photos, type PhotoId } from '../data/site';
 
 interface Props {
@@ -21,21 +25,30 @@ const full = asset(p.src);
 const small = 'small' in p && p.small ? asset(p.src.replace(/\.jpg$/, '-sm.jpg')) : null;
 const srcset = small ? `${small} 800w, ${full} ${p.w}w` : undefined;
 const style = [ratio && `aspect-ratio:${ratio}`, ratio && 'object-fit:cover', focus && `object-position:${focus}`].filter(Boolean).join(';') || undefined;
-const Tag = zoom ? 'a' : 'div';
+const link = zoom ? full : `${href(lang, 'gallery')}#p-${id}`;
+const label = lang === 'kn' ? 'ಚಿತ್ರಸಂಪುಟದಲ್ಲಿ ನೋಡಿ' : 'See in the gallery';
 ---
 
-<figure class:list={['print', cls]} style={`--tilt:${tilt}deg`}>
-  <Tag href={zoom ? full : undefined} class="print-img">
+<figure class:list={['print', cls]} style={`--tilt:${tilt}deg`} id={zoom ? `p-${id}` : undefined}>
+  <a href={link} class="print-img" title={zoom ? undefined : label}>
     <img src={small ?? full} srcset={srcset} sizes={srcset ? sizes : undefined} width={p.w} height={p.h} alt={p.alt[lang]} loading={eager ? 'eager' : 'lazy'} decoding="async" style={style} />
-  </Tag>
+  </a>
   {caption && <figcaption>{p.caption[lang]}</figcaption>}
 </figure>
 
 <style>
+  .print {
+    scroll-margin-top: 6rem;
+  }
   .print-img {
     display: block;
   }
-  a.print-img:hover img {
+  .print-img:hover img {
     filter: brightness(1.06);
+  }
+  /* the photo you arrived at from another page */
+  .print:target {
+    outline: 3px solid var(--arishina);
+    outline-offset: 6px;
   }
 </style>
