@@ -73,8 +73,8 @@ export const sections: { from: number; to: number; title: T; summary: T }[] = [
     to: 2,
     title: { kn: 'ಮಂಗಳ ಶ್ಲೋಕ', en: 'Invocation' },
     summary: {
-      kn: '“ನಮಸ್ತುಂಗ ಶಿರಸ್ತುಂಬಿ…” — ಶಿವನಿಗೆ ನಮಸ್ಕಾರ; ಕನ್ನಡ ಶಾಸನಗಳ ಆರಂಭದಲ್ಲಿ ಸಾಮಾನ್ಯವಾಗಿ ಕಾಣುವ ಶ್ಲೋಕ.',
-      en: '“Namas tunga-śiras-cumbi…” — a salutation to Shiva (Shambhu), the verse that opens a great many Kannada inscriptions.',
+      kn: '“ನಮಸ್ತುಂಗ ಶಿರಸ್ತುಂಬಿ…” ಶಿವನಿಗೆ ನಮಸ್ಕಾರ. ಕನ್ನಡ ಶಾಸನಗಳ ಆರಂಭದಲ್ಲಿ ಸಾಮಾನ್ಯವಾಗಿ ಕಾಣುವ ಶ್ಲೋಕ.',
+      en: '“Namas tunga-śiras-cumbi…”: a salutation to Shiva (Shambhu), the verse that opens a great many Kannada inscriptions.',
     },
   },
   {
@@ -82,8 +82,8 @@ export const sections: { from: number; to: number; title: T; summary: T }[] = [
     to: 18,
     title: { kn: 'ರಾಜನ ಬಿರುದಾವಳಿ', en: "The king's titles (praśasti)" },
     summary: {
-      kn: 'ಹೊಯ್ಸಳ ವಿಷ್ಣುವರ್ಧನನ ಬಿರುದುಗಳು ಮತ್ತು ಅವನು ಆಳುತ್ತಿದ್ದ ನಾಡುಗಳು — ಗಂಗವಾಡಿ ೯೬,೦೦೦, ನೊಳಂಬವಾಡಿ ೩೨,೦೦೦, ಹಾನುಂಗಲ್ ೫೦೦.',
-      en: 'The titles of the Hoysala Vishnuvardhana and the provinces he ruled — Gangavadi 96,000, Nolambavadi 32,000 and Hanungal 500.',
+      kn: 'ಹೊಯ್ಸಳ ವಿಷ್ಣುವರ್ಧನನ ಬಿರುದುಗಳು ಮತ್ತು ಅವನು ಆಳುತ್ತಿದ್ದ ನಾಡುಗಳು: ಗಂಗವಾಡಿ ೯೬,೦೦೦, ನೊಳಂಬವಾಡಿ ೩೨,೦೦೦, ಹಾನುಂಗಲ್ ೫೦೦.',
+      en: 'The titles of the Hoysala Vishnuvardhana and the provinces he ruled: Gangavadi 96,000, Nolambavadi 32,000 and Hanungal 500.',
     },
   },
   {
@@ -118,8 +118,8 @@ export const sections: { from: number; to: number; title: T; summary: T }[] = [
     to: 40,
     title: { kn: 'ಪುಣ್ಯ ಮತ್ತು ಶಾಪ', en: 'Blessing and curse' },
     summary: {
-      kn: 'ದತ್ತಿಯನ್ನು ಕಾಪಾಡಿದವರಿಗೆ ಪುಣ್ಯ, ಅಳಿಸಿದವರಿಗೆ ಪಾಪ — ಶಾಸನಗಳ ಸಾಂಪ್ರದಾಯಿಕ ಮುಕ್ತಾಯ.',
-      en: 'Merit for those who protect the grant, sin for those who destroy it — the customary close of a grant.',
+      kn: 'ದತ್ತಿಯನ್ನು ಕಾಪಾಡಿದವರಿಗೆ ಪುಣ್ಯ, ಅಳಿಸಿದವರಿಗೆ ಪಾಪ. ಇದು ಶಾಸನಗಳ ಸಾಂಪ್ರದಾಯಿಕ ಮುಕ್ತಾಯ.',
+      en: 'Merit for those who protect the grant, sin for those who destroy it. This is the customary close of a grant.',
     },
   },
   {
@@ -140,7 +140,7 @@ export const people: { name: T; role: T; lines: string }[] = [
       kn: 'ಮಹಾಪ್ರಭು. ಮನಗತ್ತೂರನ್ನು ಕಟ್ಟಿ (ಸ್ಥಾಪಿಸಿ), ಅಡಲಗಟ್ಟವನ್ನು ನಿರ್ಮಿಸಿ, ಚಾವೇಶ್ವರ ದೇವರನ್ನು ಪ್ರತಿಷ್ಠಾಪಿಸಿದವನು.',
       en: 'A mahaprabhu (chief). Founded Managatur, built the Adalagatta and installed the god Chaveshvara.',
     },
-    lines: '20–21',
+    lines: '20-21',
   },
   {
     name: { kn: 'ಸಂಕ-ಗಾವುಂಡ ಮತ್ತು ಚಟ್ಟ-ಗಾವುಂಡ', en: 'Sanka-gavunda & Chatta-gavunda' },
@@ -148,7 +148,7 @@ export const people: { name: T; role: T; lines: string }[] = [
       kn: 'ಇವರೂ ಮನಗತ್ತೂರನ್ನು ಕಟ್ಟಿದರೆಂದು ಶಾಸನ ಹೇಳುತ್ತದೆ. ಚಟ್ಟ-ಗಾವುಂಡನು ಚಾವೇಶ್ವರ ದೇವಾಲಯ ಕಟ್ಟಿಸಿ, ಕಳಸವಿಟ್ಟು, ಹಿಂದಿನ ದತ್ತಿಗಳನ್ನು ನವೀಕರಿಸಿದನು.',
       en: 'Also said to have built Managatur. Chatta-gavunda built the Chaveshvara temple, placed its kalasa and renewed the earlier grants.',
     },
-    lines: '21–24',
+    lines: '21-24',
   },
   {
     name: { kn: 'ಈಸಾನ್ಯ-ಪಂಡಿತದೇವ', en: 'Isanya-panditadeva' },
@@ -172,7 +172,7 @@ export const people: { name: T; role: T; lines: string }[] = [
       kn: 'ಬಡಗಿ ಚಿಕ್ಕೋಜನ ಮಗ. ಚಿಕ್ಕೇಶ್ವರ ದೇವರನ್ನು ಪ್ರತಿಷ್ಠಾಪಿಸಿ ದಾನ ಮಾಡಿದವನು.',
       en: 'A carpenter, son of Chikkoja. Installed the god Chikkeshvara and made gifts.',
     },
-    lines: '25–26',
+    lines: '25-26',
   },
   {
     name: { kn: 'ಕಾಳಿಮಯ್ಯ ಮತ್ತು ಮಾರೋಜ', en: 'Kalimayya & Maroja' },
@@ -188,7 +188,7 @@ export const people: { name: T; role: T; lines: string }[] = [
 export const glossary: { term: T; meaning: T; fromDoc?: boolean }[] = [
   {
     term: { kn: 'ಸಲಗೆ', en: 'salage' },
-    meaning: { kn: '೧/೪ ಮಾನ — ಕಾಳುಗಳನ್ನು ಅಳೆಯುವ ಒಂದು ಅಳತೆ; ಗದ್ದೆಯನ್ನು ಬಿತ್ತುವ ಬೀಜದ ಅಳತೆಯಲ್ಲಿ ಹೇಳಲಾಗಿದೆ.', en: '¼ mana — a grain measure; wet land is measured by the seed it takes.' },
+    meaning: { kn: '೧/೪ ಮಾನ. ಕಾಳುಗಳನ್ನು ಅಳೆಯುವ ಒಂದು ಅಳತೆ; ಗದ್ದೆಯನ್ನು ಬಿತ್ತುವ ಬೀಜದ ಅಳತೆಯಲ್ಲಿ ಹೇಳಲಾಗಿದೆ.', en: '¼ mana. A grain measure; wet land is measured by the seed it takes.' },
     fromDoc: true,
   },
   {
@@ -198,7 +198,7 @@ export const glossary: { term: T; meaning: T; fromDoc?: boolean }[] = [
   },
   {
     term: { kn: 'ದ್ವಾರವತೀಪುರ', en: 'Dvaravatipura' },
-    meaning: { kn: 'ಬೇಲೂರು ಅಥವಾ ಹಳೇಬೀಡು — ಹೊಯ್ಸಳರ ರಾಜಧಾನಿ.', en: 'Belur or Halebidu — the Hoysala capital.' },
+    meaning: { kn: 'ಬೇಲೂರು ಅಥವಾ ಹಳೇಬೀಡು, ಹೊಯ್ಸಳರ ರಾಜಧಾನಿ.', en: 'Belur or Halebidu, the Hoysala capital.' },
     fromDoc: true,
   },
   {
@@ -235,8 +235,8 @@ export const timeline: { year: T; text: T }[] = [
   {
     year: { kn: 'ಕ್ರಿ.ಶ. ೧೧೦೧', en: '1101 CE' },
     text: {
-      kn: 'ಶಕ ೧೦೨೨ ಫಾಲ್ಗುಣ ಶುದ್ಧ ಪಂಚಮಿ — ಶಾಸನದ ದಿನಾಂಕ.',
-      en: 'Śaka 1022, Phalguna śuddha pañcamī — the date of the inscription.',
+      kn: 'ಶಕ ೧೦೨೨ ಫಾಲ್ಗುಣ ಶುದ್ಧ ಪಂಚಮಿ. ಶಾಸನದ ದಿನಾಂಕ.',
+      en: 'Śaka 1022, Phalguna śuddha pañcamī: the date of the inscription.',
     },
   },
   {
@@ -247,7 +247,7 @@ export const timeline: { year: T; text: T }[] = [
     },
   },
   {
-    year: { kn: '೧೯೬೦–೭೦ರ ದಶಕ', en: '1960s–70s' },
+    year: { kn: '೧೯೬೦-೭೦ರ ದಶಕ', en: '1960s-70s' },
     text: {
       kn: 'ಮನಕತ್ತೂರು ಕೆರೆಯ ಹಳೆಯ ಕೋಡಿಯ ಬಳಿ ಇದ್ದ ಕಲ್ಲನ್ನು ಊರಿನ ಜನರು ದೇವಸ್ಥಾನಕ್ಕೆ ತಂದು ಕಾಪಾಡಿದರು.',
       en: 'Villagers move the stone from near the old outlet (kodi) of the Manakathuru tank to the temple for safekeeping.',

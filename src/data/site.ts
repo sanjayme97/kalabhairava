@@ -21,7 +21,7 @@ export const temple = {
   } as T,
   invocation: { kn: 'ಓಂ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರಾಯ ನಮಃ', en: 'Om Sri Kalabhairaveshwaraya Namah' } as T,
 
-  /** Contact details — fill these in when available. */
+  /** Contact details: fill these in when available. */
   contact: {
     phone: null as string | null, // e.g. '+91 98xxxxxxx'
     whatsapp: null as string | null,
@@ -62,8 +62,8 @@ export const festivals: { id: FestivalId; name: T; when: T; about: T | null; dat
     id: 'kalabhairavashtami',
     name: { kn: 'ಕಾಲಭೈರವಾಷ್ಟಮಿ', en: 'Kalabhairavashtami' },
     when: {
-      kn: 'ವರ್ಷಕ್ಕೊಮ್ಮೆ · ಮಾರ್ಗಶಿರ ಮಾಸ ಕೃಷ್ಣಪಕ್ಷ ಅಷ್ಟಮಿ (ನವೆಂಬರ್–ಡಿಸೆಂಬರ್)',
-      en: 'Once a year · Margashira Krishna Ashtami (November–December)',
+      kn: 'ವರ್ಷಕ್ಕೊಮ್ಮೆ · ಮಾರ್ಗಶಿರ ಮಾಸ ಕೃಷ್ಣಪಕ್ಷ ಅಷ್ಟಮಿ (ನವೆಂಬರ್-ಡಿಸೆಂಬರ್)',
+      en: 'Once a year · Margashira Krishna Ashtami (November-December)',
     },
     about: null,
     date: null,
@@ -71,7 +71,7 @@ export const festivals: { id: FestivalId; name: T; when: T; about: T | null; dat
   {
     id: 'deepotsava',
     name: { kn: 'ಕಾರ್ತೀಕ ದೀಪೋತ್ಸವ', en: 'Karthika Deepotsava' },
-    when: { kn: 'ಕಾರ್ತೀಕ ಮಾಸ (ಅಕ್ಟೋಬರ್–ನವೆಂಬರ್)', en: 'Karthika month (October–November)' },
+    when: { kn: 'ಕಾರ್ತೀಕ ಮಾಸ (ಅಕ್ಟೋಬರ್-ನವೆಂಬರ್)', en: 'Karthika month (October-November)' },
     about: {
       kn: 'ದೀಪಾಲಂಕೃತ ದೇವಸ್ಥಾನ. ಉರಿಯುವ ಆರತಿಯನ್ನು ತಲೆಯ ಮೇಲೆ ಹೊತ್ತ ಭಕ್ತರ ದೀಪಗಳ ಮೆರವಣಿಗೆ.',
       en: 'The temple lit from top to bottom, and a procession of devotees carrying blazing aarati lamps on their heads.',
@@ -81,7 +81,7 @@ export const festivals: { id: FestivalId; name: T; when: T; about: T | null; dat
   {
     id: 'shivaratri',
     name: { kn: 'ಮಹಾಶಿವರಾತ್ರಿ', en: 'Maha Shivaratri' },
-    when: { kn: 'ಮಾಘ ಮಾಸ ಕೃಷ್ಣಪಕ್ಷ ಚತುರ್ದಶಿ (ಫೆಬ್ರವರಿ–ಮಾರ್ಚ್)', en: 'Magha Krishna Chaturdashi (February–March)' },
+    when: { kn: 'ಮಾಘ ಮಾಸ ಕೃಷ್ಣಪಕ್ಷ ಚತುರ್ದಶಿ (ಫೆಬ್ರವರಿ-ಮಾರ್ಚ್)', en: 'Magha Krishna Chaturdashi (February-March)' },
     about: null,
     date: null,
   },
@@ -217,7 +217,7 @@ export const photos = {
       kn: 'ದೀಪಗಳಿಂದ ಅಲಂಕೃತ ದೇವಸ್ಥಾನದ ಮೆಟ್ಟಿಲುಗಳಿಂದ ಕಾಣುವ, ಬೀದಿಯುದ್ದಕ್ಕೂ ಸಾಗುವ ಆರತಿಗಳ ಸಾಲು',
       en: 'A long line of lit aarati moving down the street, seen from the steps of the illuminated temple',
     },
-    caption: { kn: 'ಬೀದಿಯುದ್ದಕ್ಕೂ ಆರತಿಗಳ ಸಾಲು', en: 'A river of lamps down the village street' },
+    caption: { kn: 'ಬೀದಿಯುದ್ದಕ್ಕೂ ಆರತಿಗಳ ಸಾಲು', en: 'Lamps along the village street' },
   },
   nightLights: {
     src: 'images/deepotsava-lights.jpg',
@@ -274,8 +274,8 @@ export const photos = {
     h: 1600,
     category: 'inscription',
     alt: {
-      kn: 'ಶಾಸನ ಕಲ್ಲಿನ ಸಮೀಪ ನೋಟ — ಕಲ್ಲಿನ ಮೈಮೇಲೆ ಸಾಲು ಸಾಲಾಗಿ ಕೆತ್ತಿದ ಹಳಗನ್ನಡ ಅಕ್ಷರಗಳು',
-      en: 'A closer view of the stone — rows of Old Kannada letters carved across its face',
+      kn: 'ಶಾಸನ ಕಲ್ಲಿನ ಸಮೀಪ ನೋಟ. ಕಲ್ಲಿನ ಮೈಮೇಲೆ ಸಾಲು ಸಾಲಾಗಿ ಕೆತ್ತಿದ ಹಳಗನ್ನಡ ಅಕ್ಷರಗಳು',
+      en: 'A closer view of the stone, with rows of Old Kannada letters carved across its face',
     },
     caption: { kn: 'ಕಲ್ಲಿನ ಮೇಲಿನ ಅಕ್ಷರಗಳು', en: 'The carved letters' },
   },
