@@ -115,6 +115,8 @@ const c = {
     caveat:
       'ಪಾಠವನ್ನು ಊರಿನ ದಾಖಲೆಯಿಂದ ಅಕ್ಷರಶಃ ಪುನರುತ್ಪಾದಿಸಲಾಗಿದೆ; ಸಣ್ಣಪುಟ್ಟ ಮುದ್ರಣ ವ್ಯತ್ಯಾಸಗಳಿರಬಹುದು. ತಿದ್ದುಪಡಿಗಳಿದ್ದರೆ ದಯವಿಟ್ಟು ತಿಳಿಸಿ.',
     back: 'ದೇವಾಲಯದ ಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ',
+    viewerOpen: 'ದೀಪ ಹಿಡಿದು ಕಲ್ಲನ್ನು ಓದಿ',
+    viewerClose: 'ಮುಚ್ಚಿ',
     viewerLamp: 'ದೀಪ ಸರಿಸಿ',
     viewerTurn: 'ಕಲ್ಲು ತಿರುಗಿಸಿ',
     viewerHint: 'ಕಲ್ಲಿನ ಮೇಲೆ ಬೆರಳು ಎಳೆಯಿರಿ. ಓರೆಯಾದ ದೀಪದ ಬೆಳಕಿನಲ್ಲಿ ಕೆತ್ತಿದ ಅಕ್ಷರಗಳು ಮೂಡುತ್ತವೆ.',
@@ -240,6 +242,8 @@ const c = {
     caveat:
       'The text is reproduced as given in the village document; small typographic variations are possible. Corrections are welcome.',
     back: 'Back to the temple page',
+    viewerOpen: 'Read the stone by lamplight',
+    viewerClose: 'Close',
     viewerLamp: 'Move the lamp',
     viewerTurn: 'Turn the stone',
     viewerHint: 'Drag across the stone. In the low, slanting lamplight the carved letters come up out of the rock.',
@@ -324,24 +328,44 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
       </nav>
     </div>
 
-    <div class="stage">
-      <img class="stage-fallback" src={asset('images/shasana-stone-sm.jpg')} width="720" height="1600" alt={c.stoneIntro} />
-      <canvas class="stage-canvas" data-stone data-color={asset('3d/stone-color.jpg')} data-normal={asset('3d/stone-normal.jpg')} aria-label={c.viewerHint}></canvas>
-      <p class="stage-loading" data-loading hidden>{c.viewerLoading}</p>
-    </div>
-
-    <div class="wrap viewer-ui" data-ui hidden>
-      <div class="modes" role="group">
-        <button type="button" class="mode is-on" data-mode="lamp" aria-pressed="true">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2 3 2.5 5 0 8-2.5-3-2-5 0-8zM5 15h14l-2 3H7zM9 18v2h6v-2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>
-          {c.viewerLamp}
-        </button>
-        <button type="button" class="mode" data-mode="turn" aria-pressed="false">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.4-5.7M20 4v4h-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
-          {c.viewerTurn}
+    <div class="explorer" data-explorer aria-label={c.spotsTitle}>
+      <div class="explorer-top">
+        <p class="explorer-title">{c.h1}</p>
+        <button type="button" class="explorer-close" data-close aria-label={c.viewerClose}>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
         </button>
       </div>
-      <p class="hint" data-hint data-lamp={c.viewerHint} data-turn={c.viewerTurnHint}>{c.viewerHint}</p>
+
+      <div class="stage">
+        <img class="stage-fallback" src={asset('images/shasana-stone-sm.jpg')} width="720" height="1600" alt={c.stoneIntro} />
+        <canvas class="stage-canvas" data-stone data-color={asset('3d/stone-color.jpg')} data-normal={asset('3d/stone-normal.jpg')} aria-label={c.viewerHint}></canvas>
+        <p class="stage-loading" data-loading hidden>{c.viewerLoading}</p>
+        <!-- On phones the stone is a picture until you tap it: swipes keep scrolling the page. -->
+        <button type="button" class="stage-open" data-open hidden>
+          <span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2 3 2.5 5 0 8-2.5-3-2-5 0-8zM5 15h14l-2 3H7zM9 18v2h6v-2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+            {c.viewerOpen}
+          </span>
+        </button>
+      </div>
+
+      <div class="wrap viewer-ui" data-ui hidden>
+        <div class="modes" role="group">
+          <button type="button" class="mode is-on" data-mode="lamp" aria-pressed="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2 3 2.5 5 0 8-2.5-3-2-5 0-8zM5 15h14l-2 3H7zM9 18v2h6v-2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>
+            {c.viewerLamp}
+          </button>
+          <button type="button" class="mode" data-mode="turn" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.4-5.7M20 4v4h-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"></path></svg>
+            {c.viewerTurn}
+          </button>
+        </div>
+        <p class="hint" data-hint data-lamp={c.viewerHint} data-turn={c.viewerTurnHint}>{c.viewerHint}</p>
+        <div class="chips" role="group" aria-label={c.spotsTitle}>
+          {spotList.map(([id, label, text]) => <button type="button" data-spot={id} data-text={text}>{label}</button>)}
+        </div>
+        <p class="chip-caption" data-caption aria-live="polite"></p>
+      </div>
     </div>
 
     <div class="wrap spots-wrap">
@@ -350,7 +374,7 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
         {
           spotList.map(([id, label, text], i) => (
             <li>
-              <button type="button" data-spot={id}>
+              <button type="button" data-spot={id} data-text={text}>
                 <span class="spot-n">{num('kn', i + 1)}</span>
                 <span class="spot-label">{label}</span>
                 <span class="spot-text">{text}</span>
@@ -579,13 +603,62 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ── 3D stone ──
+  // On touch screens the stone stays a still picture inside the page, so a swipe
+  // always scrolls. Tapping it opens a full-screen explorer where every touch
+  // moves the lamp or turns the stone. Close with ✕, Esc or the phone's Back.
   const canvas = document.querySelector<HTMLCanvasElement>('[data-stone]');
   const viewer = document.querySelector<HTMLElement>('[data-viewer]');
+  const explorer = document.querySelector<HTMLElement>('[data-explorer]');
   const ui = document.querySelector<HTMLElement>('[data-ui]');
   const loading = document.querySelector<HTMLElement>('[data-loading]');
   const hint = document.querySelector<HTMLElement>('[data-hint]');
+  const openBtn = document.querySelector<HTMLButtonElement>('[data-open]');
+  const closeBtn = document.querySelector<HTMLButtonElement>('[data-close]');
+  const caption = document.querySelector<HTMLElement>('[data-caption]');
+  const touch = matchMedia('(hover: none) and (pointer: coarse)').matches;
   let stone: StoneHandle | null = null;
+  let isOpen = false;
   const saveData = (navigator as { connection?: { saveData?: boolean } }).connection?.saveData;
+
+  if (touch) explorer?.classList.add('is-touch');
+
+  const setMode = (m: 'lamp' | 'turn') => {
+    stone?.setMode(m);
+    document.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach((o) => {
+      const on = o.dataset.mode === m;
+      o.classList.toggle('is-on', on);
+      o.setAttribute('aria-pressed', String(on));
+    });
+    if (hint) hint.textContent = (m === 'lamp' ? hint.dataset.lamp : hint.dataset.turn) ?? '';
+  };
+
+  const open = () => {
+    if (!explorer || isOpen) return;
+    isOpen = true;
+    explorer.classList.add('is-open');
+    explorer.setAttribute('role', 'dialog');
+    explorer.setAttribute('aria-modal', 'true');
+    document.documentElement.classList.add('is-locked');
+    history.pushState({ stone: true }, '');
+    closeBtn?.focus();
+  };
+  const close = (fromHistory = false) => {
+    if (!explorer || !isOpen) return;
+    isOpen = false;
+    explorer.classList.remove('is-open');
+    explorer.removeAttribute('role');
+    explorer.removeAttribute('aria-modal');
+    document.documentElement.classList.remove('is-locked');
+    setMode('lamp');
+    if (!fromHistory && history.state?.stone) history.back();
+    openBtn?.focus({ preventScroll: true });
+  };
+  openBtn?.addEventListener('click', open);
+  closeBtn?.addEventListener('click', () => close());
+  addEventListener('popstate', () => close(true));
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
 
   const boot = async () => {
     if (!canvas || !viewer || saveData) return;
@@ -595,6 +668,7 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
       viewer.classList.add('is-live');
       if (loading) loading.hidden = true;
       if (ui) ui.hidden = false;
+      if (openBtn && touch) openBtn.hidden = false;
     });
     if (!stone && loading) loading.hidden = true;
   };
@@ -612,21 +686,20 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
   }
 
   document.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach((b) =>
-    b.addEventListener('click', () => {
-      const m = b.dataset.mode as 'lamp' | 'turn';
-      stone?.setMode(m);
-      document.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach((o) => {
-        o.classList.toggle('is-on', o === b);
-        o.setAttribute('aria-pressed', String(o === b));
-      });
-      if (hint) hint.textContent = (m === 'lamp' ? hint.dataset.lamp : hint.dataset.turn) ?? '';
-    }),
+    b.addEventListener('click', () => setMode(b.dataset.mode as 'lamp' | 'turn')),
   );
   document.querySelectorAll<HTMLButtonElement>('[data-spot]').forEach((b) =>
     b.addEventListener('click', () => {
-      document.querySelectorAll('[data-spot]').forEach((o) => o.classList.toggle('is-on', o === b));
-      if (stone) {
-        stone.focus(b.dataset.spot as SpotId);
+      const id = b.dataset.spot!;
+      document.querySelectorAll<HTMLElement>('[data-spot]').forEach((o) => o.classList.toggle('is-on', o.dataset.spot === id));
+      if (caption) caption.textContent = b.dataset.text ?? '';
+      if (!stone) return;
+      if (touch) {
+        open();
+        // let the full-screen canvas take its new size before aiming the lamp
+        requestAnimationFrame(() => stone?.focus(id as SpotId));
+      } else {
+        stone.focus(id as SpotId);
         canvas?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
       }
     }),
@@ -792,6 +865,146 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
   .hint {
     max-width: 34rem;
     font-size: 0.9375rem;
+  }
+
+  /* ── explorer: inline on the page, full screen on phones when tapped ── */
+  .explorer-top {
+    display: none;
+  }
+  .stage-open {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    border: 0;
+    padding: 0 0 1.25rem;
+    background: transparent;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    cursor: pointer;
+    font: inherit;
+    /* a swipe on the picture scrolls the page; only a tap opens it */
+    touch-action: pan-y;
+  }
+  .stage-open[hidden] {
+    display: none;
+  }
+  .stage-open span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.2rem;
+    background: var(--flame);
+    color: #1a0f08;
+    font-weight: 700;
+    box-shadow: 0 6px 24px rgb(0 0 0 / 0.5);
+  }
+  .stage-open svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  /* on phones the canvas ignores touches until the explorer is open */
+  .is-touch .stage-canvas {
+    pointer-events: none;
+  }
+  .is-touch .viewer-ui {
+    display: none;
+  }
+  .chips {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 44rem;
+  }
+  .chips button {
+    font: inherit;
+    font-size: 0.875rem;
+    color: #e9d7b8;
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 154 60 / 0.35);
+    padding: 0.3rem 0.8rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .chips button.is-on {
+    border-color: var(--flame);
+    color: var(--flame);
+  }
+  .chip-caption {
+    min-height: 1.6em;
+    max-width: 36rem;
+    font-size: 0.9375rem;
+    color: #f1e6d2 !important;
+    margin: 0;
+  }
+  .explorer.is-open {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    background: var(--night);
+    color: var(--night-ink);
+  }
+  .is-open .explorer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: max(0.75rem, env(safe-area-inset-top)) 1rem 0.5rem;
+  }
+  .explorer-title {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 700;
+    color: #fbefd9 !important;
+  }
+  .explorer-close {
+    flex: none;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: grid;
+    place-items: center;
+    background: rgb(255 255 255 / 0.08);
+    border: 1px solid rgb(255 255 255 / 0.2);
+    color: #fbefd9;
+    cursor: pointer;
+  }
+  .explorer-close svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  .is-open .stage {
+    flex: 1;
+    height: auto;
+    min-height: 0;
+    margin: 0;
+  }
+  .is-open .stage-canvas {
+    pointer-events: auto;
+    touch-action: none;
+  }
+  .is-open .stage-open {
+    display: none;
+  }
+  .is-open .viewer-ui {
+    display: grid;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0.75rem 1rem max(1rem, env(safe-area-inset-bottom));
+  }
+  .is-open .hint {
+    margin: 0;
+    font-size: 0.875rem;
+  }
+  .is-open .chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    max-width: 100%;
+    padding-bottom: 0.25rem;
+    scrollbar-width: none;
   }
   .spots-wrap {
     padding-block: 2.5rem 4rem;

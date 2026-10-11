@@ -337,3 +337,10 @@ p {
     animation: none !important;
   }
 }
+
+/* page behind a full-screen explorer does not scroll */
+html.is-locked,
+html.is-locked body {
+  overflow: hidden;
+}
+

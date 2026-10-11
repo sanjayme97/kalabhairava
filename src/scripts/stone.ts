@@ -324,7 +324,7 @@ export function startStone(
       touched = true;
       const p = toWorld(s.u, s.v);
       // light from the side so the carving reads
-      lampGoal.set(p.x + (s.u < 0.5 ? 0.35 : -0.35), p.y + 0.15, p.z);
+      lampGoal.set(p.x + (s.u < 0.5 ? 0.2 : -0.2), p.y + 0.15, p.z);
       targetGoal.set(p.x * 0.6, p.y, 0);
       camDistGoal = id === 'text' || id === 'end' ? 4.2 : 2.6;
       wake();
@@ -333,8 +333,6 @@ export function startStone(
       mode = m;
       controls.enabled = m === 'turn';
       canvas.style.cursor = m === 'turn' ? 'grab' : 'crosshair';
-      // in lamp mode a vertical swipe still scrolls the page on phones
-      canvas.style.touchAction = m === 'turn' ? 'none' : 'pan-y';
     },
     destroy() {
       cancelAnimationFrame(raf);
