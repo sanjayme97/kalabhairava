@@ -27,7 +27,6 @@ const c = {
     ],
     deepaDate: 'ಈ ವರ್ಷ',
     thisYear: 'ಈ ವರ್ಷದ ಜಾತ್ರೆ',
-    dateSoon: 'ದಿನಾಂಕವನ್ನು ದೇವಸ್ಥಾನ ಸಮಿತಿ ಪ್ರಕಟಿಸುತ್ತದೆ.',
     yearTitle: 'ವರ್ಷದ ವಿಶೇಷ ದಿನಗಳು',
     timingsTitle: 'ದೈನಂದಿನ ಪೂಜೆ',
     contact: 'ದಾರಿ ಮತ್ತು ಸಂಪರ್ಕ',
@@ -48,7 +47,6 @@ const c = {
     ],
     deepaDate: 'This year',
     thisYear: 'This year’s jatra',
-    dateSoon: 'The temple committee announces the dates.',
     yearTitle: 'Special days of the year',
     timingsTitle: 'Daily worship',
     contact: 'Directions & contact',
@@ -67,7 +65,7 @@ const c = {
         <p class="invite-top">{c.inviteTop}</p>
         <h1>{jatre.name[lang]}</h1>
         <p class="this-year">
-          {c.thisYear}: {jatre.date ? <strong>{jatre.date[lang]}</strong> : <span>{c.dateSoon}</span>}
+          {jatre.date ? <>{c.thisYear}: <strong>{jatre.date[lang]}</strong></> : <strong>{jatre.when[lang]}</strong>}
         </p>
 
         <div class="daynight">

@@ -79,20 +79,20 @@ export const festivals: { id: FestivalId; name: T; when: T; about: T | null; dat
     date: null,
   },
   {
-    id: 'jatre',
-    name: { kn: 'ವಾರ್ಷಿಕ ಜಾತ್ರಾ ಮಹೋತ್ಸವ', en: 'Annual Jatra Mahotsava' },
-    when: { kn: 'ದಿನಾಂಕವನ್ನು ದೇವಸ್ಥಾನ ಸಮಿತಿ ಪ್ರಕಟಿಸುತ್ತದೆ', en: 'Dates announced by the temple committee' },
-    about: {
-      kn: 'ಊರಿನ ಅತಿ ದೊಡ್ಡ ಹಬ್ಬ. ಶೃಂಗರಿಸಿದ ರಥವನ್ನು ಭಕ್ತರು ಎಳೆಯುವ ರಥೋತ್ಸವ.',
-      en: 'The biggest celebration of the village: the rathotsava, when devotees pull the decorated chariot.',
-    },
-    date: null,
-  },
-  {
     id: 'shivaratri',
     name: { kn: 'ಮಹಾಶಿವರಾತ್ರಿ', en: 'Maha Shivaratri' },
     when: { kn: 'ಮಾಘ ಮಾಸ ಕೃಷ್ಣಪಕ್ಷ ಚತುರ್ದಶಿ (ಫೆಬ್ರವರಿ–ಮಾರ್ಚ್)', en: 'Magha Krishna Chaturdashi (February–March)' },
     about: null,
+    date: null,
+  },
+  {
+    id: 'jatre',
+    name: { kn: 'ವಾರ್ಷಿಕ ಜಾತ್ರಾ ಮಹೋತ್ಸವ', en: 'Annual Jatra Mahotsava' },
+    when: { kn: 'ಮಹಾಶಿವರಾತ್ರಿ ಆಗಿ ಒಂಬತ್ತನೇ ದಿನ', en: 'The ninth day after Maha Shivaratri' },
+    about: {
+      kn: 'ಊರಿನ ಅತಿ ದೊಡ್ಡ ಹಬ್ಬ. ಶೃಂಗರಿಸಿದ ರಥವನ್ನು ಭಕ್ತರು ಎಳೆಯುವ ರಥೋತ್ಸವ.',
+      en: 'The biggest celebration of the village: the rathotsava, when devotees pull the decorated chariot.',
+    },
     date: null,
   },
 ];

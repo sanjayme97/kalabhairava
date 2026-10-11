@@ -161,7 +161,7 @@ const c = {
           <p class="invite-top">{c.inviteTop}</p>
           <h2>{c.h2}</h2>
           <p>{c.p2}</p>
-          {jatre.date && <p class="invite-date">{c.dateLabel}: <strong>{jatre.date[lang]}</strong></p>}
+          <p class="invite-date">{jatre.date ? <>{c.dateLabel}: <strong>{jatre.date[lang]}</strong></> : <strong>{jatre.when[lang]}</strong>}</p>
           <a class="go" href={href(lang, 'poojas')}>{c.more2}</a>
         </div>
         <div class="jatre-prints">
