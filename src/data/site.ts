@@ -54,36 +54,22 @@ export const timings: { label: T; time: T | null }[] = [
  * Festivals and special days. `when` describes the traditional timing; `date` can hold
  * this year's exact date once the committee confirms it.
  */
-export const festivals: { name: T; when: T; about: T; date: T | null; highlight?: boolean }[] = [
+export type FestivalId = 'kalabhairavashtami' | 'deepotsava' | 'jatre' | 'shivaratri';
+
+/** The year's special days, in the order they are listed on the Poojas page. */
+export const festivals: { id: FestivalId; name: T; when: T; about: T | null; date: T | null }[] = [
   {
-    name: { kn: 'ವಾರ್ಷಿಕ ಜಾತ್ರಾ ಮಹೋತ್ಸವ', en: 'Annual Jatra Mahotsava' },
-    when: { kn: 'ದಿನಾಂಕವನ್ನು ದೇವಸ್ಥಾನ ಸಮಿತಿ ಪ್ರಕಟಿಸುತ್ತದೆ', en: 'Dates announced by the temple committee' },
-    about: {
-      kn: 'ಊರಿನ ಅತಿ ದೊಡ್ಡ ಹಬ್ಬ. ಶೃಂಗರಿಸಿದ ರಥವನ್ನು ಭಕ್ತರು ಎಳೆಯುವ ರಥೋತ್ಸವ.',
-      en: 'The biggest celebration of the village: the rathotsava, when devotees pull the decorated chariot.',
+    id: 'kalabhairavashtami',
+    name: { kn: 'ಕಾಲಭೈರವಾಷ್ಟಮಿ', en: 'Kalabhairavashtami' },
+    when: {
+      kn: 'ವರ್ಷಕ್ಕೊಮ್ಮೆ · ಮಾರ್ಗಶಿರ ಮಾಸ ಕೃಷ್ಣಪಕ್ಷ ಅಷ್ಟಮಿ (ನವೆಂಬರ್–ಡಿಸೆಂಬರ್)',
+      en: 'Once a year · Margashira Krishna Ashtami (November–December)',
     },
-    date: null,
-    highlight: true,
-  },
-  {
-    name: { kn: 'ಕಾಲಾಷ್ಟಮಿ', en: 'Kalashtami' },
-    when: { kn: 'ಪ್ರತಿ ತಿಂಗಳ ಕೃಷ್ಣಪಕ್ಷ ಅಷ್ಟಮಿ', en: 'Every month, eighth day of the waning moon (Krishna Paksha Ashtami)' },
-    about: {
-      kn: 'ಕಾಲಭೈರವನಿಗೆ ಮೀಸಲಾದ ತಿಂಗಳ ವಿಶೇಷ ದಿನ.',
-      en: 'The monthly day sacred to Kalabhairava.',
-    },
+    about: null,
     date: null,
   },
   {
-    name: { kn: 'ಕಾಲಭೈರವ ಜಯಂತಿ', en: 'Kalabhairava Jayanti' },
-    when: { kn: 'ಮಾರ್ಗಶಿರ ಮಾಸ ಕೃಷ್ಣಪಕ್ಷ ಅಷ್ಟಮಿ (ನವೆಂಬರ್–ಡಿಸೆಂಬರ್)', en: 'Margashira Krishna Ashtami (November–December)' },
-    about: {
-      kn: 'ಶ್ರೀ ಕಾಲಭೈರವನ ಅವತಾರ ದಿನವೆಂದು ಆಚರಿಸಲಾಗುತ್ತದೆ.',
-      en: 'Celebrated as the day Sri Kalabhairava manifested.',
-    },
-    date: null,
-  },
-  {
+    id: 'deepotsava',
     name: { kn: 'ಕಾರ್ತೀಕ ದೀಪೋತ್ಸವ', en: 'Karthika Deepotsava' },
     when: { kn: 'ಕಾರ್ತೀಕ ಮಾಸ (ಅಕ್ಟೋಬರ್–ನವೆಂಬರ್)', en: 'Karthika month (October–November)' },
     about: {
@@ -91,21 +77,27 @@ export const festivals: { name: T; when: T; about: T; date: T | null; highlight?
       en: 'The temple lit from top to bottom, and a procession of devotees carrying blazing aarati lamps on their heads.',
     },
     date: null,
-    highlight: true,
   },
   {
-    name: { kn: 'ಮಹಾಶಿವರಾತ್ರಿ', en: 'Maha Shivaratri' },
-    when: { kn: 'ಮಾಘ ಮಾಸ ಕೃಷ್ಣಪಕ್ಷ ಚತುರ್ದಶಿ (ಫೆಬ್ರವರಿ–ಮಾರ್ಚ್)', en: 'Magha Krishna Chaturdashi (February–March)' },
-    about: { kn: 'ರಾತ್ರಿಯಿಡೀ ಜಾಗರಣೆ ಮತ್ತು ಅಭಿಷೇಕ.', en: 'Night-long vigil and abhisheka.' },
+    id: 'jatre',
+    name: { kn: 'ವಾರ್ಷಿಕ ಜಾತ್ರಾ ಮಹೋತ್ಸವ', en: 'Annual Jatra Mahotsava' },
+    when: { kn: 'ದಿನಾಂಕವನ್ನು ದೇವಸ್ಥಾನ ಸಮಿತಿ ಪ್ರಕಟಿಸುತ್ತದೆ', en: 'Dates announced by the temple committee' },
+    about: {
+      kn: 'ಊರಿನ ಅತಿ ದೊಡ್ಡ ಹಬ್ಬ. ಶೃಂಗರಿಸಿದ ರಥವನ್ನು ಭಕ್ತರು ಎಳೆಯುವ ರಥೋತ್ಸವ.',
+      en: 'The biggest celebration of the village: the rathotsava, when devotees pull the decorated chariot.',
+    },
     date: null,
   },
   {
-    name: { kn: 'ಯುಗಾದಿ', en: 'Ugadi' },
-    when: { kn: 'ಚೈತ್ರ ಶುದ್ಧ ಪಾಡ್ಯ (ಮಾರ್ಚ್–ಏಪ್ರಿಲ್)', en: 'Chaitra Shuddha Padya (March–April)' },
-    about: { kn: 'ಹೊಸ ವರ್ಷದ ವಿಶೇಷ ಪೂಜೆ.', en: 'New Year special pooja.' },
+    id: 'shivaratri',
+    name: { kn: 'ಮಹಾಶಿವರಾತ್ರಿ', en: 'Maha Shivaratri' },
+    when: { kn: 'ಮಾಘ ಮಾಸ ಕೃಷ್ಣಪಕ್ಷ ಚತುರ್ದಶಿ (ಫೆಬ್ರವರಿ–ಮಾರ್ಚ್)', en: 'Magha Krishna Chaturdashi (February–March)' },
+    about: null,
     date: null,
   },
 ];
+
+export const festival = (id: FestivalId) => festivals.find((f) => f.id === id)!;
 
 /**
  * Photos. Put the image in /public/images and add an entry here.

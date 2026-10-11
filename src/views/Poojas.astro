@@ -3,12 +3,11 @@ import Base from '../layouts/Base.astro';
 import Print from '../components/Print.astro';
 import Kolam from '../components/Kolam.astro';
 import { href, type Lang } from '../i18n';
-import { timings, festivals } from '../data/site';
+import { timings, festivals, festival } from '../data/site';
 
 const { lang } = Astro.props as { lang: Lang };
-const jatre = festivals[0];
-const deepa = festivals.find((f) => f.name.en === 'Karthika Deepotsava')!;
-const rest = festivals.slice(1).filter((f) => f !== deepa);
+const jatre = festival('jatre');
+const deepa = festival('deepotsava');
 const knownTimings = timings.filter((t) => t.time);
 
 const c = {
@@ -109,12 +108,12 @@ const c = {
       <h2>{c.yearTitle}</h2>
       <ol class="almanac">
         {
-          rest.map((f) => (
+          festivals.map((f) => (
             <li>
               <p class="when">{f.date ? f.date[lang] : f.when[lang]}</p>
               <div>
                 <h3>{f.name[lang]}</h3>
-                <p>{f.about[lang]}</p>
+                {f.about && <p>{f.about[lang]}</p>}
               </div>
             </li>
           ))

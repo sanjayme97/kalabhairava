@@ -3,10 +3,10 @@ import Base from '../layouts/Base.astro';
 import Print from '../components/Print.astro';
 import Kolam from '../components/Kolam.astro';
 import { href, asset, type Lang } from '../i18n';
-import { temple, timings, festivals, photoCategories } from '../data/site';
+import { temple, timings, festival, photoCategories } from '../data/site';
 
 const { lang } = Astro.props as { lang: Lang };
-const jatre = festivals[0];
+const jatre = festival('jatre');
 const knownTimings = timings.filter((t) => t.time);
 const photoCategoriesLabel = lang === 'kn' ? 'ದೀಪೋತ್ಸವದ ಚಿತ್ರಗಳು' : 'Deepotsava photographs';
 
