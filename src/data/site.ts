@@ -31,8 +31,11 @@ export const temple = {
 
   /** Google Maps search link. Replace with an exact pin link once available. */
   mapUrl: 'https://www.google.com/maps/search/?api=1&query=Kalabhairaveshwara+Temple+Manakathur+Arsikere',
-  /** Optional Google Maps embed URL (Share → Embed a map → copy the src="..." value). */
-  mapEmbed: null as string | null,
+  /**
+   * Google Maps embed. Replace with the exact pin once available
+   * (Google Maps → Share → Embed a map → copy the src="..." value).
+   */
+  mapEmbed: 'https://maps.google.com/maps?q=Kalabhairaveshwara%20Temple%2C%20Manakathur%2C%20Arsikere%2C%20Karnataka&z=13&output=embed' as string | null,
 };
 
 /** Daily pooja timings. Replace `null` with the real times, e.g. { kn: 'ಬೆಳಿಗ್ಗೆ ೭:೦೦', en: '7:00 am' }. */

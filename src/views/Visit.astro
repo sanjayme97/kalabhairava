@@ -14,16 +14,19 @@ const c = {
     lede: 'ಮನಕತ್ತೂರಿಗೆ ಬನ್ನಿ.',
     map: 'ಗೂಗಲ್ ನಕ್ಷೆಯಲ್ಲಿ ತೆರೆಯಿರಿ',
     reach: 'ಬರುವ ದಾರಿ',
-    reachItems: [
-      ['ಹತ್ತಿರದ ಪಟ್ಟಣ', 'ಅರಸೀಕೆರೆ'],
-      ['ರೈಲು ನಿಲ್ದಾಣ', 'ಅರಸೀಕೆರೆ ಜಂಕ್ಷನ್'],
-      ['ಜಿಲ್ಲಾ ಕೇಂದ್ರ', 'ಹಾಸನ'],
+    routes: [
+      ['ಬೆಂಗಳೂರು ಕಡೆಯಿಂದ', 'ರೈಲು ಅಥವಾ ಬಸ್ಸಿನಲ್ಲಿ ಅರಸೀಕೆರೆಗೆ ಬನ್ನಿ. ಅರಸೀಕೆರೆಯಿಂದ ಬಾಣಾವರಕ್ಕೆ ಕೆಲವು ರೈಲುಗಳು ಮತ್ತು ಬಸ್ಸುಗಳು ಇವೆ.'],
+      ['ಶಿವಮೊಗ್ಗ ಕಡೆಯಿಂದ', 'ರೈಲು ಅಥವಾ ಬಸ್ಸಿನಲ್ಲಿ ಕಡೂರಿಗೆ ಬನ್ನಿ. ಕಡೂರಿನಿಂದ ಬಾಣಾವರಕ್ಕೆ ಕೆಲವು ರೈಲುಗಳು ಮತ್ತು ಬಸ್ಸುಗಳು ಇವೆ.'],
+      ['ಬಾಣಾವರದಿಂದ', 'ಮನಕತ್ತೂರು ಬಾಣಾವರದಿಂದ ಸುಮಾರು ೪ ಕಿ.ಮೀ.'],
     ],
+    stations: 'ಅರಸೀಕೆರೆ ಜಂಕ್ಷನ್ ಮತ್ತು ಕಡೂರು ಜಂಕ್ಷನ್ ದೊಡ್ಡ ರೈಲು ನಿಲ್ದಾಣಗಳು. ಹತ್ತಿರದ ನಿಲ್ದಾಣ ಬಾಣಾವರ; ಅಲ್ಲಿ ಕೆಲವು ರೈಲುಗಳು ಮಾತ್ರ ನಿಲ್ಲುತ್ತವೆ.',
+    places: { blr: 'ಬೆಂಗಳೂರು', ask: 'ಅರಸೀಕೆರೆ', bnv: 'ಬಾಣಾವರ', kdu: 'ಕಡೂರು', smg: 'ಶಿವಮೊಗ್ಗ', here: 'ಮನಕತ್ತೂರು', km: 'ಸುಮಾರು ೪ ಕಿ.ಮೀ.' },
+    diagram: 'ಬೆಂಗಳೂರು, ಅರಸೀಕೆರೆ, ಬಾಣಾವರ, ಕಡೂರು, ಶಿವಮೊಗ್ಗ ಮತ್ತು ಮನಕತ್ತೂರಿನ ದಾರಿಯ ನಕ್ಷೆ',
     notice: 'ಭಕ್ತಾದಿಗಳಿಗೆ ಸೂಚನೆ',
     etiquette: [
-      'ಪಾದರಕ್ಷೆಗಳನ್ನು ಹೊರಗೆ ಬಿಡಿ.',
-      'ಸಭ್ಯ ಉಡುಪು ಧರಿಸಿ.',
-      'ಆವರಣ ಸ್ವಚ್ಛವಾಗಿಡಿ. ಪ್ಲಾಸ್ಟಿಕ್ ಬೇಡ.',
+      'ಚಪ್ಪಲಿಗಳನ್ನು ಹೊರಗೆ ಬಿಡಿ.',
+      'ಒಪ್ಪವಾದ ಬಟ್ಟೆ ಹಾಕಿಕೊಂಡು ಬನ್ನಿ.',
+      'ಗುಡಿಯ ಸುತ್ತ ಚೊಕ್ಕವಾಗಿಡಿ. ಪ್ಲಾಸ್ಟಿಕ್ ಬೇಡ.',
       'ಹಳೆಯ ಶಾಸನ ಕಲ್ಲನ್ನು ಮುಟ್ಟಬೇಡಿ, ಅದಕ್ಕೆ ಏನನ್ನೂ ಹಚ್ಚಬೇಡಿ.',
     ],
     contact: 'ಸಂಪರ್ಕ',
@@ -37,11 +40,14 @@ const c = {
     lede: 'Come to Manakathuru.',
     map: 'Open in Google Maps',
     reach: 'Getting here',
-    reachItems: [
-      ['Nearest town', 'Arsikere'],
-      ['Railway station', 'Arsikere Junction'],
-      ['District headquarters', 'Hassan'],
+    routes: [
+      ['From the Bengaluru side', 'Come to Arsikere by train or bus. From Arsikere there are some trains and buses to Banavara.'],
+      ['From the Shivamogga side', 'Come to Kadur by train or bus. From Kadur there are some trains and buses to Banavara.'],
+      ['From Banavara', 'Manakathuru is about 4 km from Banavara.'],
     ],
+    stations: 'Arsikere Junction and Kadur Junction are the main railway stations. The nearest station is Banavara, where only some trains stop.',
+    places: { blr: 'Bengaluru', ask: 'Arsikere', bnv: 'Banavara', kdu: 'Kadur', smg: 'Shivamogga', here: 'Manakathuru', km: 'about 4 km' },
+    diagram: 'Route map: Bengaluru, Arsikere, Banavara, Kadur, Shivamogga and Manakathuru',
     notice: 'For devotees',
     etiquette: [
       'Please leave footwear outside.',
@@ -83,9 +89,26 @@ const contacts = [
     <div class="wrap cols">
       <div>
         <h2>{c.reach}</h2>
-        <dl class="list-rule pairs">
-          {c.reachItems.map(([t, d]) => <div><dt>{t}</dt><dd>{d}</dd></div>)}
-        </dl>
+        <!-- a hand-drawn line map: Bengaluru side on the right, Shivamogga side on the left -->
+        <svg class="route" viewBox="0 0 360 236" role="img" aria-label={c.diagram}>
+          <path class="r-line" d="M24 46 C 60 60, 70 80, 98 96 S 150 136, 180 138 S 240 120, 262 96 S 310 56, 336 46"></path>
+          <path class="r-ties" d="M24 46 C 60 60, 70 80, 98 96 S 150 136, 180 138 S 240 120, 262 96 S 310 56, 336 46"></path>
+          <path class="r-road" d="M180 140 C 176 160, 186 176, 180 196"></path>
+          <g class="r-stop"><circle cx="24" cy="46" r="4.5"></circle><text x="16" y="30" text-anchor="start">{c.places.smg}</text></g>
+          <g class="r-stop r-big"><circle cx="98" cy="96" r="6"></circle><text x="92" y="122" text-anchor="middle">{c.places.kdu}</text></g>
+          <g class="r-stop r-near"><circle cx="180" cy="138" r="6"></circle><text x="196" y="160" text-anchor="start">{c.places.bnv}</text></g>
+          <g class="r-stop r-big"><circle cx="262" cy="96" r="6"></circle><text x="268" y="122" text-anchor="middle">{c.places.ask}</text></g>
+          <g class="r-stop"><circle cx="336" cy="46" r="4.5"></circle><text x="344" y="30" text-anchor="end">{c.places.blr}</text></g>
+          <g class="r-here">
+            <path d="M180 196 c 6 -8 7 -14 0 -22 c -7 8 -6 14 0 22 z"></path>
+            <text x="180" y="222" text-anchor="middle">{c.places.here}</text>
+          </g>
+          <text class="r-km" x="150" y="182" text-anchor="end">{c.places.km}</text>
+        </svg>
+        <ol class="routes">
+          {c.routes.map(([t, d]) => <li><strong>{t}</strong><span>{d}</span></li>)}
+        </ol>
+        <p class="stations">{c.stations}</p>
       </div>
       {
         contacts.length > 0 && (
@@ -126,10 +149,18 @@ const contacts = [
     color: var(--ink-soft);
   }
   .map {
+    display: block;
     width: 100%;
-    aspect-ratio: 16 / 9;
-    border: 0;
+    aspect-ratio: 4 / 3;
+    border: 0.55rem solid #fbf8f2;
     margin-top: 1.5rem;
+    box-shadow: 0 1px 1px rgb(40 25 10 / 0.12), 0 12px 28px -12px rgb(40 25 10 / 0.45);
+    background: var(--paper-2);
+  }
+  @media (min-width: 760px) {
+    .map {
+      aspect-ratio: 16 / 9;
+    }
   }
   .cols {
     display: grid;
@@ -140,6 +171,86 @@ const contacts = [
       grid-template-columns: 1fr 1fr;
       gap: 5rem;
     }
+  }
+  .route {
+    display: block;
+    width: 100%;
+    max-width: 30rem;
+    margin: 0.5rem 0 1.25rem;
+    overflow: visible;
+  }
+  .r-line {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 2.4;
+    stroke-linecap: round;
+  }
+  .r-ties {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 7;
+    stroke-dasharray: 1.4 9;
+    opacity: 0.55;
+  }
+  .r-road {
+    fill: none;
+    stroke: var(--kumkum);
+    stroke-width: 2;
+    stroke-dasharray: 4 4;
+  }
+  .r-stop circle {
+    fill: var(--paper);
+    stroke: var(--ink);
+    stroke-width: 2;
+  }
+  .r-near circle {
+    fill: var(--arishina);
+  }
+  .r-stop text,
+  .r-here text,
+  .r-km {
+    font-family: var(--display);
+    font-size: 14px;
+    fill: var(--ink);
+  }
+  .r-big text {
+    font-weight: 700;
+  }
+  .r-near text {
+    font-weight: 700;
+    fill: var(--arishina);
+  }
+  .r-here path {
+    fill: var(--kumkum);
+  }
+  .r-here text {
+    font-weight: 700;
+    font-size: 15px;
+    fill: var(--kumkum);
+  }
+  .r-km {
+    font-size: 12px;
+    fill: var(--ink-soft);
+  }
+  .routes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .routes li {
+    display: grid;
+    gap: 0.15rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .routes span {
+    color: var(--ink-soft);
+  }
+  .stations {
+    margin-top: 1rem;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
   }
   .pairs div {
     display: flex;
