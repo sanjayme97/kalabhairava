@@ -30,14 +30,13 @@ export const temple = {
   },
 
   /** Google Maps search link. Replace with an exact pin link once available. */
-  mapUrl: 'https://maps.app.goo.gl/cL6n6Fwnput3S5JVA',
+  mapUrl: 'https://maps.app.goo.gl/pik3iYHiFV5GvQBX7',
   /**
    * Google Maps embed. Replace with the exact pin once available
    * (Google Maps → Share → Embed a map → copy the src="..." value).
    */
-  // Set to the exact pin once the temple's coordinates are known, e.g.
-  // 'https://maps.google.com/maps?q=13.0000,76.0000&z=15&output=embed'
-  mapEmbed: null as string | null,
+  // Shree Kaala Byraveshwara Temple, Manakathuru: 13.436204, 76.170647
+  mapEmbed: 'https://maps.google.com/maps?q=13.436204,76.170647&z=16&output=embed' as string | null,
 };
 
 /** Daily pooja timings. Replace `null` with the real times, e.g. { kn: 'ಬೆಳಿಗ್ಗೆ ೭:೦೦', en: '7:00 am' }. */
