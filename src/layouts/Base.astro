@@ -3,7 +3,7 @@ import '../styles/global.css';
 import Kolam from '../components/Kolam.astro';
 import { nav, pages, href, asset, type Lang, type Page } from '../i18n';
 import { temple } from '../data/site';
-import { keywords, geo, spellings, templeJsonLd } from '../data/seo';
+import { keywords, geo, templeJsonLd } from '../data/seo';
 
 interface Props {
   lang: Lang;
@@ -38,13 +38,11 @@ const f = {
     blessing: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಪ್ರಸನ್ನ',
     photos: 'ಇಲ್ಲಿನ ಎಲ್ಲ ಚಿತ್ರಗಳು ಮನಕತ್ತೂರಿನವರೇ ತೆಗೆದವು. ಅನುಮತಿಯಿಲ್ಲದೆ ಬೇರೆಡೆ ಬಳಸಬೇಡಿ.',
     classic: 'ಹಳೆಯ ವಿನ್ಯಾಸ',
-    aka: 'ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ:',
   },
   en: {
     blessing: 'Sri Kalabhairaveshwara Prasanna',
     photos: 'Every photograph here was taken in Manakathuru. Please do not reuse them without permission.',
     classic: 'Classic version',
-    aka: 'Also written as:',
   },
 }[lang];
 ---
@@ -154,9 +152,6 @@ const f = {
         <p class="footer-bless">{f.blessing}</p>
         <p class="footer-name">{temple.name[lang]}</p>
         <p class="footer-place">{temple.place[lang]} · {temple.region[lang]}</p>
-        <p class="footer-aka">
-          {f.aka} {spellings.village.filter((v) => !/[ಀ-೿]/.test(v)).join(', ')} · Kalabhairaveshwara, Kalabhairava, Kala Byraveshwara
-        </p>
         <nav class="footer-nav" aria-label="Footer">
           {pages.map((p) => <a href={href(lang, p)}>{nav[lang][p]}</a>)}
         </nav>
@@ -393,12 +388,6 @@ const f = {
   }
   .footer-nav a:hover {
     color: var(--flame);
-  }
-  .footer-aka {
-    font-size: 0.8125rem;
-    opacity: 0.6;
-    max-width: 40rem;
-    margin: 0.75rem auto 0 !important;
   }
   .footer-note {
     font-size: 0.8125rem;

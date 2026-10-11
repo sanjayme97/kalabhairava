@@ -1,7 +1,6 @@
 /**
  * Search: the spellings people actually type, and structured data for Google.
- * Add a spelling here and it appears in the meta tags, the structured data and
- * the small "also written as" line in the footer.
+ * Add a spelling here and it appears in the meta tags and the structured data.
  */
 import { temple } from './site';
 
