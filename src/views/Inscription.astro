@@ -5,14 +5,14 @@ import Print from '../components/Print.astro';
 import Kolam from '../components/Kolam.astro';
 import { href, num, asset, type Lang } from '../i18n';
 import { lines, sections, people, glossary, timeline } from '../data/inscription';
+import { inscriptionJsonLd } from '../data/seo';
 
 const { lang } = Astro.props as { lang: Lang };
 
 const c = {
   kn: {
     title: 'ಮನಕತ್ತೂರಿನ ಶಾಸನ',
-    description:
-      'ಮನಕತ್ತೂರಿನ ಕ್ರಿ.ಶ. ೧೧೦೧ರ ಹೊಯ್ಸಳ ಕಾಲದ ಕಲ್ಬರಹ: ಅದರ ಇತಿಹಾಸ, ಅರ್ಥ, ಪೂರ್ಣ ಪಾಠ ಮತ್ತು ಊರನ್ನು ಕಟ್ಟಿದ ಗಾವುಂಡರ ಕಥೆ.',
+    description: 'ಮನಕತ್ತೂರಿನ ಕ್ರಿ.ಶ. ೧೧೦೧ರ ಹೊಯ್ಸಳ ಕಾಲದ ಕಲ್ಬರಹ (ಶಾಸನ): ಅದರ ಇತಿಹಾಸ, ಅರ್ಥ, ಪೂರ್ಣ ಪಾಠ ಮತ್ತು ಊರನ್ನು ಕಟ್ಟಿದ ಗಾವುಂಡರ ಕಥೆ.',
     eyebrow: 'ಊರಿನ ಪರಂಪರೆ',
     h1: 'ಮನಕತ್ತೂರಿನ ಕಲ್ಬರಹ',
     sub: 'ಹೊಯ್ಸಳ ಕಾಲದ ಒಂದು ನೋಟ',
@@ -141,8 +141,7 @@ const c = {
   },
   en: {
     title: 'The Manakathuru Inscription',
-    description:
-      'The Hoysala-period stone inscription of Manakathuru, dated 1101 CE: its history, meaning, full text and the story of the headmen who founded the village.',
+    description: 'The Manakathuru (Manakathur) inscription: a Hoysala-period Old Kannada stone record of 1101 CE, near Banavara, Arsikere. Its history, meaning, full text and the gavundas who founded the village.',
     eyebrow: 'Village heritage',
     h1: 'The Manakathuru Inscription',
     sub: 'A glimpse of the Hoysala age',
@@ -272,6 +271,9 @@ const c = {
 }[lang];
 
 
+const pageUrl = new URL(href(lang, 'inscription'), Astro.site).toString();
+const ld = inscriptionJsonLd(pageUrl, new URL(href('kn'), Astro.site).toString(), new URL(asset('images/shasana-relief.jpg'), Astro.site).toString(), lang);
+
 // Which section each line starts, for the guide markers in the text panel.
 const sectionStarts = new Map<number, (typeof sections)[number]>();
 for (const s of sections) if (!sectionStarts.has(s.from)) sectionStarts.set(s.from, s);
@@ -307,7 +309,7 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
 });
 ---
 
-<Base lang={lang} page="inscription" title={c.title} description={c.description} image="images/shasana-relief.jpg" overlay>
+<Base lang={lang} page="inscription" title={c.title} description={c.description} image="images/shasana-relief.jpg" overlay jsonLd={[ld]}>
   <section class="viewer night" data-viewer>
     <div class="wrap viewer-head">
       <p class="kicker">{c.eyebrow}</p>
