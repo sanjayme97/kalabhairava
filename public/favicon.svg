@@ -1,30 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <!-- a slightly rough, hand-printed edge, like a wooden block stamp -->
-    <filter id="ink" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" seed="7"/>
-      <feDisplacementMap in="SourceGraphic" scale="0.45"/>
-    </filter>
-  </defs>
-  <path d="M15.5 2.6C25 1.8 39.6 2.2 48.8 2.9c7.6.6 12 4.6 12.4 12.3.5 10.2.6 23.5-.1 33.6-.5 7.9-4.6 12.1-12.6 12.5-10.4.5-23.2.5-33.4-.1C7.6 60.7 3.4 56.6 3 48.9 2.4 38.6 2.5 25.4 3 15.3 3.4 7.6 7.7 3.2 15.5 2.6z" fill="#992617"/>
-  <g fill="#f3d184" filter="url(#ink)">
-    <!-- middle blade with a raised spine -->
-    <path d="M32.1 4.6c2.3 3.8 4.9 8 5 12.4.1 3.9-2.2 6.4-2.9 9.8h-4.4c-.8-3.3-3.2-5.9-3.1-9.9.1-4.3 2.7-8.5 5.4-12.3z"/>
-    <!-- left prong: swells out, then the tip turns up and a little in -->
-    <path d="M30.6 33.8c-8.6.4-17.5-2.5-19.5-12.4-.9-4.4.2-9.8 3.1-14.6.2 4.6 1 9.5 3.5 13.3 2.8 4.3 7.7 6.6 12.9 6.6z"/>
-    <path d="M33.4 27.2c5.3-.1 10.1-2.4 12.8-6.9 2.3-3.8 2.9-8.6 3-13.4 2.9 4.7 4.1 10 3.3 14.4-1.7 10-10.6 12.9-19.1 12.6z"/>
-    <!-- neck where the three prongs meet -->
-    <path d="M29.9 26.2h4.6l.3 8h-5.2z"/>
-    <!-- collar ring with a bead each side -->
-    <path d="M26.6 33.9c3.6-1.2 7.4-1.2 11 0 .7 1 .6 2.2-.1 3.2-3.6 1-7.2 1-10.8 0-.8-1-.8-2.2-.1-3.2z"/>
-    <circle cx="25" cy="35.5" r="1.3"/><circle cx="39.2" cy="35.5" r="1.3"/>
-    <!-- shaft, a little thicker at the top -->
-    <path d="M30.3 37.8h3.6l-.5 21.6c-.9.5-1.8.5-2.7 0z"/>
-    <!-- damaru: two drum heads, tied at the waist -->
-    <path d="M25.6 40.6c4.3-1.1 8.7-1.1 13 0-.2 1-.6 1.6-1.3 2.2L33.3 46l4 3.2c.7.6 1.1 1.2 1.3 2.2-4.3 1.1-8.7 1.1-13 0 .2-1 .6-1.6 1.3-2.2l4-3.2-4-3.2c-.7-.6-1.1-1.2-1.3-2.2z"/>
-    <!-- its cord and the two beads that strike the drum -->
-    <path d="M33.5 46c3.3.5 5.9 2.2 7.1 5.6l-.9.4c-1.1-2.9-3.2-4.4-6.2-5z"/>
-    <path d="M33.5 46c3-.6 6-.1 8.4 1.8l-.6.8c-2.2-1.6-4.7-1.9-7.6-1.6z"/>
-    <circle cx="40.4" cy="53.1" r="1.7"/><circle cx="42.2" cy="48.9" r="1.5"/>
-  </g>
+  <style>
+    path, circle { fill: #3a1c12; }
+    @media (prefers-color-scheme: dark) { path, circle { fill: #f0c870; } }
+    .kumkum { fill: #c8321f !important; }
+  </style>
+  <!-- long middle spear -->
+  <path d="M32 1.5c2.6 4.4 5 9.6 5 15 0 4.3-1.8 7.4-3 10.6h-4c-1.2-3.2-3-6.3-3-10.6 0-5.4 2.4-10.6 5-15z"/>
+  <!-- left prong: a crescent that ends in a sharp point -->
+  <path d="M30.6 33.4c-8.4.2-15.4-2.8-17.6-10.6-1.6-5.6-.8-12.4 1.8-19.4.6 6.2 1.6 12.4 4.6 16.4 2.6 3.4 6.6 4.8 11.2 5z"/>
+  <path d="M33.4 25.8c4.6-.2 8.6-1.6 11.2-5 3-4 4-10.2 4.6-16.4 2.6 7 3.4 13.8 1.8 19.4-2.2 7.8-9.2 10.8-17.6 10.6z"/>
+  <!-- where the prongs meet, then a round knob -->
+  <path d="M29.6 25.6h4.8l.6 8.4h-6z"/>
+  <circle cx="32" cy="37.4" r="4.2"/>
+  <circle class="kumkum" cx="32" cy="37.4" r="1.7"/>
+  <path d="M27 42.4c3.3-.9 6.7-.9 10 0-.2 1-.6 1.6-1.4 2.1-2.4.6-4.8.6-7.2 0-.8-.5-1.2-1.1-1.4-2.1z"/>
+  <!-- shaft -->
+  <path d="M29.8 44.6h4.4l-.5 17.4c-1.1.5-2.3.5-3.4 0z"/>
 </svg>
