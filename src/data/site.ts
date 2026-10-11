@@ -30,7 +30,9 @@ export const temple = {
   },
 
   /** Google Maps search link. Replace with an exact pin link once available. */
-  mapUrl: 'https://maps.app.goo.gl/pik3iYHiFV5GvQBX7',
+  mapUrl: 'https://maps.app.goo.gl/GCp2Kk9czJg652X98?g_st=ac',
+  /** Always opens Google Maps with directions to the temple's pin. */
+  directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=13.436204%2C76.170647',
   /**
    * Google Maps embed. Replace with the exact pin once available
    * (Google Maps → Share → Embed a map → copy the src="..." value).

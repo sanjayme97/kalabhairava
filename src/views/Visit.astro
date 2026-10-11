@@ -13,6 +13,7 @@ const c = {
     description: 'ಮನಕತ್ತೂರು ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನಕ್ಕೆ ದಾರಿ, ನಕ್ಷೆ, ಭಕ್ತಾದಿಗಳಿಗೆ ಸೂಚನೆಗಳು ಮತ್ತು ಸಂಪರ್ಕ.',
     lede: 'ಮನಕತ್ತೂರಿಗೆ ಬನ್ನಿ.',
     map: 'ಗೂಗಲ್ ನಕ್ಷೆಯಲ್ಲಿ ತೆರೆಯಿರಿ',
+    directions: 'ದಾರಿ ತೋರಿಸಿ',
     reach: 'ಬರುವ ದಾರಿ',
     routes: [
       ['ಬೆಂಗಳೂರು ಕಡೆಯಿಂದ', 'ರೈಲು ಅಥವಾ ಬಸ್ಸಿನಲ್ಲಿ ಅರಸೀಕೆರೆಗೆ ಬನ್ನಿ. ಅರಸೀಕೆರೆಯಿಂದ ಬಾಣಾವರಕ್ಕೆ ಕೆಲವು ರೈಲುಗಳು ಮತ್ತು ಬಸ್ಸುಗಳು ಇವೆ.'],
@@ -39,6 +40,7 @@ const c = {
     description: 'How to reach Sri Kalabhairaveshwara Swamy Temple, Manakathuru: map, directions, guidance for devotees and contact.',
     lede: 'Come to Manakathuru.',
     map: 'Open in Google Maps',
+    directions: 'Get directions',
     reach: 'Getting here',
     routes: [
       ['From the Bengaluru side', 'Come to Arsikere by train or bus. From Arsikere there are some trains and buses to Banavara.'],
@@ -78,7 +80,10 @@ const contacts = [
         {temple.name[lang]}<br />
         {temple.place[lang]}, {temple.region[lang]}
       </address>
-      <p><a class="go" href={temple.mapUrl} rel="noopener">{c.map}</a></p>
+      <p class="map-links">
+        <a class="go" href={temple.directionsUrl} target="_blank" rel="noopener">{c.directions}</a>
+        <a class="go" href={temple.mapUrl} target="_blank" rel="noopener">{c.map}</a>
+      </p>
       {temple.mapEmbed && <iframe class="map" src={temple.mapEmbed} title={c.map} loading="lazy" referrerpolicy="no-referrer-when-downgrade" />}
     </div>
   </header>
@@ -147,6 +152,11 @@ const contacts = [
     line-height: 1.7;
     margin: 1rem 0 1.5rem;
     color: var(--ink-soft);
+  }
+  .map-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
   }
   .map {
     display: block;
