@@ -61,6 +61,14 @@ const f = {
     <link rel="apple-touch-icon" href={asset('apple-touch-icon.png')} />
     <link rel="manifest" href={asset('site.webmanifest')} />
     <meta name="google-site-verification" content="4Ucg1zAJ8RPYi7hu4XKRBizkX49NGUf3cxZ4zsPucmA" />
+    <!-- Google Analytics: visitor counts, regions and pages -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-JX9LDJMLXX"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-JX9LDJMLXX');
+    </script>
     <meta name="theme-color" content="#0f0b09" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={temple.name[lang]} />
