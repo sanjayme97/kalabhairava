@@ -32,6 +32,7 @@ const c = {
       'ಹಳೆಯ ಶಾಸನ ಕಲ್ಲನ್ನು ಮುಟ್ಟಬೇಡಿ, ಅದಕ್ಕೆ ಏನನ್ನೂ ಹಚ್ಚಬೇಡಿ.',
     ],
     contact: 'ಸಂಪರ್ಕ',
+    contactNote: 'ದೇವಸ್ಥಾನದ ಬಗ್ಗೆ ಏನಾದರೂ ಕೇಳಬೇಕಿದ್ದರೆ, ಇಲ್ಲಿ ಏನಾದರೂ ತಪ್ಪಿದ್ದರೆ ಅಥವಾ ಸೇರಿಸಬೇಕಾದ ವಿಷಯ ಇದ್ದರೆ ಇಮೇಲ್ ಮಾಡಿ.',
     phone: 'ದೂರವಾಣಿ',
     whatsapp: 'ವಾಟ್ಸ್‌ಆ್ಯಪ್',
     email: 'ಇ-ಮೇಲ್',
@@ -60,6 +61,7 @@ const c = {
       'Please do not touch the old inscription stone or put anything on it.',
     ],
     contact: 'Contact',
+    contactNote: 'For any question about the temple, or if something here is wrong or missing, please send an email.',
     phone: 'Phone',
     whatsapp: 'WhatsApp',
     email: 'Email',
@@ -122,6 +124,7 @@ const contacts = [
         contacts.length > 0 && (
           <div>
             <h2>{c.contact}</h2>
+            <p class="contact-note">{c.contactNote}</p>
             <dl class="list-rule pairs">
               {contacts.map((x) => (
                 <div>
