@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /classic/
 
-Sitemap: https://bhairava.manakathuru.com/sitemap-index.xml
+Sitemap: https://kalabhairava.manakathuru.com/sitemap-index.xml
