@@ -25,7 +25,7 @@ export const temple = {
   contact: {
     phone: null as string | null, // e.g. '+91 98xxxxxxx'
     whatsapp: null as string | null,
-    email: null as string | null,
+    email: 'kalabhairava.manakathuru@gmail.com' as string | null,
     committee: null as T | null, // e.g. { kn: 'ದೇವಸ್ಥಾನ ಸಮಿತಿ', en: 'Temple Committee' }
   },
 

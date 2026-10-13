@@ -59,6 +59,7 @@ export function templeJsonLd(siteUrl: string, image: string) {
     },
     geo: { '@type': 'GeoCoordinates', latitude: geo.lat, longitude: geo.lng },
     hasMap: temple.mapUrl,
+    ...(temple.contact.email ? { email: temple.contact.email } : {}),
     containedInPlace: {
       '@type': 'Place',
       name: 'Manakathuru',

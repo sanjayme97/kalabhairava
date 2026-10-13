@@ -31,7 +31,7 @@ const c = {
       'ಹಬ್ಬದ ದಿನಗಳಲ್ಲಿ ಸ್ವಾಮಿಗೆ ಬೆಳ್ಳಿಯ ಪ್ರಭಾವಳಿ ಮತ್ತು ಹೂವಿನ ಅಲಂಕಾರ.',
     ],
     history:
-      'ದೇವಸ್ಥಾನದ ಹಳೆಯ ಕಥೆಗಳನ್ನು ಊರಿನ ಹಿರಿಯರಿಂದ ಕೇಳಿ ಇಲ್ಲಿ ಬರೆಯಬೇಕಿದೆ. ನಿಮಗೆ ಗೊತ್ತಿರುವ ಕಥೆ ಅಥವಾ ಹಳೆಯ ಫೋಟೋ ಇದ್ದರೆ ದೇವಸ್ಥಾನ ಸಮಿತಿಗೆ ತಿಳಿಸಿ.',
+      'ದೇವಸ್ಥಾನದ ಹಳೆಯ ಕಥೆಗಳನ್ನು ಊರಿನ ಹಿರಿಯರಿಂದ ಕೇಳಿ ಇಲ್ಲಿ ಬರೆಯಬೇಕಿದೆ. ನಿಮಗೆ ಗೊತ್ತಿರುವ ಕಥೆ ಅಥವಾ ಹಳೆಯ ಫೋಟೋ ಇದ್ದರೆ ನಮಗೆ ಇಮೇಲ್ ಮಾಡಿ:',
     ch3: 'ಮನಕತ್ತೂರು',
     village:
       'ಮನಕತ್ತೂರು ಹಾಸನ ಜಿಲ್ಲೆಯ ಅರಸೀಕೆರೆ ತಾಲ್ಲೂಕಿನ ಹಳ್ಳಿ. ಕನಿಷ್ಠ ಒಂಬೈನೂರು ವರ್ಷ ಹಳೆಯ ಊರು. ಕ್ರಿ.ಶ. ೧೧೦೧ರ ಒಂದು ಹೊಯ್ಸಳ ಶಾಸನ “ಮನಗತ್ತೂರು” ಊರನ್ನು ಕಟ್ಟಿದ ಗಾವುಂಡರ ಹೆಸರು ಹೇಳುತ್ತದೆ.',
@@ -61,7 +61,7 @@ const c = {
       'On festival days the deity wears the silver prabhavali and a covering of flowers.',
     ],
     history:
-      'The old stories of the temple still need to be gathered from the village elders and written down here. If you know one, or have an old photograph, please tell the temple committee.',
+      'The old stories of the temple still need to be gathered from the village elders and written down here. If you know one, or have an old photograph, please email us:',
     ch3: 'Manakathuru',
     village:
       'Manakathuru is a village in Arsikere Taluk, Hassan District, at least nine hundred years old. A Hoysala inscription of 1101 CE names the gavundas who founded “Managatur”.',
@@ -108,7 +108,9 @@ const c = {
       <div class="prose">
         <p class="chapter"><b>೨</b><span>{c.ch2}</span></p>
         {c.templeBody.map((p) => <p>{p}</p>)}
-        <p class="ask">{c.history}</p>
+        <p class="ask">
+          {c.history} <a href={`mailto:${temple.contact.email}`}>{temple.contact.email}</a>
+        </p>
       </div>
     </div>
   </section>

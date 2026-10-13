@@ -36,11 +36,11 @@ const t = {
 const f = {
   kn: {
     blessing: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಪ್ರಸನ್ನ',
-    photos: 'ಇಲ್ಲಿನ ಎಲ್ಲ ಚಿತ್ರಗಳು ಮನಕತ್ತೂರಿನವರೇ ತೆಗೆದವು. ಅನುಮತಿಯಿಲ್ಲದೆ ಬೇರೆಡೆ ಬಳಸಬೇಡಿ.',
+    write: 'ಇಮೇಲ್:',
   },
   en: {
     blessing: 'Sri Kalabhairaveshwara Prasanna',
-    photos: 'Every photograph here was taken in Manakathuru. Please do not reuse them without permission.',
+    write: 'Email:',
   },
 }[lang];
 ---
@@ -162,9 +162,13 @@ const f = {
         <nav class="footer-nav" aria-label="Footer">
           {pages.map((p) => <a href={href(lang, p)}>{nav[lang][p]}</a>)}
         </nav>
-        <p class="footer-note">
-          {f.photos}
-        </p>
+        {
+          temple.contact.email && (
+            <p class="footer-note">
+              {f.write} <a href={`mailto:${temple.contact.email}`}>{temple.contact.email}</a>
+            </p>
+          )
+        }
       </div>
     </footer>
 

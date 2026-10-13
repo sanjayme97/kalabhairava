@@ -344,3 +344,8 @@ html.is-locked body {
   overflow: hidden;
 }
 
+
+/* long email addresses wrap on small phones instead of pushing the page wide */
+a[href^='mailto:'] {
+  overflow-wrap: anywhere;
+}
