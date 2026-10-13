@@ -37,12 +37,10 @@ const f = {
   kn: {
     blessing: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಪ್ರಸನ್ನ',
     photos: 'ಇಲ್ಲಿನ ಎಲ್ಲ ಚಿತ್ರಗಳು ಮನಕತ್ತೂರಿನವರೇ ತೆಗೆದವು. ಅನುಮತಿಯಿಲ್ಲದೆ ಬೇರೆಡೆ ಬಳಸಬೇಡಿ.',
-    classic: 'ಹಳೆಯ ವಿನ್ಯಾಸ',
   },
   en: {
     blessing: 'Sri Kalabhairaveshwara Prasanna',
     photos: 'Every photograph here was taken in Manakathuru. Please do not reuse them without permission.',
-    classic: 'Classic version',
   },
 }[lang];
 ---
@@ -156,7 +154,7 @@ const f = {
           {pages.map((p) => <a href={href(lang, p)}>{nav[lang][p]}</a>)}
         </nav>
         <p class="footer-note">
-          {f.photos} · <a href={asset('classic/') + (lang === 'en' ? 'en/' : '')}>{f.classic}</a>
+          {f.photos}
         </p>
       </div>
     </footer>

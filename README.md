@@ -45,4 +45,4 @@ The site is at `https://kalabhairava.manakathuru.com/`. The domain is set in **S
 
 ## Classic version
 
-The earlier, simpler design is kept as a static copy in `public/classic/` and is live at `/classic/`.
+The earlier, simpler design is kept as a static copy in `public/classic/` and is still at `/classic/`, but nothing on the site links to it and search engines are told to skip it.
