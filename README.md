@@ -27,7 +27,7 @@ npm run build    # outputs to dist/
 
 `.github/workflows/deploy.yml` builds and publishes the site on every push to `main` (and, for now, to the `claude/kalabhairava-temple-website-tfr0za` branch, which is the repository's only branch). It can also be run by hand from the **Actions** tab.
 One-time setup: in the repository, go to **Settings → Pages → Build and deployment** and set **Source** to **GitHub Actions**.
-The site is at `https://kalabhairava.manakathuru.com/`. The domain is set in **Settings → Pages → Custom domain**, with a DNS record at the domain registrar: `CNAME`, name `kalabhairava`, value `sanjayme97.github.io`. The old address, `https://sanjayme97.github.io/kalabhairava/`, redirects to it. `bhairava.manakathuru.com` and `manakathuru.com` are forwarded to it from the registrar.
+The site is at `https://kalabhairava.manakathuru.com/`. The domain is set in **Settings → Pages → Custom domain**, with a DNS record at the domain registrar: `CNAME`, name `kalabhairava`, value `sanjayme97.github.io`. The old address, `https://sanjayme97.github.io/kalabhairava/`, redirects to it. `bhairava.manakathuru.com` and `manakathuru.com` are forwarded to it from the registrar (GoDaddy → Forwarding, permanent 301). **Enforce HTTPS** is ticked once GitHub has issued the certificate.
 
 ## Content notes
 
