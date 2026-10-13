@@ -25,7 +25,7 @@ export const nav: Record<Lang, Record<Page, string>> = {
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-/** Link to a page in the given language, e.g. href('en', 'temple') → /kalabhairava/en/temple/ */
+/** Link to a page in the given language, e.g. href('en', 'temple') → /en/temple/ */
 export function href(lang: Lang, page: Page | string = ''): string {
   const parts = [lang === 'en' ? 'en' : '', page].filter(Boolean).join('/');
   return `${base}/${parts}${parts ? '/' : ''}`;

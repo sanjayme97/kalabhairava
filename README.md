@@ -19,7 +19,7 @@ Any value set to `null` in `src/data/site.ts` appears on the site as “ಮಾ�
 
 ```sh
 npm install
-npm run dev      # http://localhost:4321/kalabhairava/
+npm run dev      # http://localhost:4321/
 npm run build    # outputs to dist/
 ```
 
@@ -27,9 +27,7 @@ npm run build    # outputs to dist/
 
 `.github/workflows/deploy.yml` builds and publishes the site on every push to `main` (and, for now, to the `claude/kalabhairava-temple-website-tfr0za` branch, which is the repository's only branch). It can also be run by hand from the **Actions** tab.
 One-time setup: in the repository, go to **Settings → Pages → Build and deployment** and set **Source** to **GitHub Actions**.
-The site will be at `https://sanjayme97.github.io/kalabhairava/`.
-
-For a custom domain, set `site` to that domain in `astro.config.mjs` and remove `base`.
+The site is at `https://bhairava.manakathuru.com/`. The domain is set in **Settings → Pages → Custom domain**, with a DNS record at the domain registrar: `CNAME`, name `bhairava`, value `sanjayme97.github.io`. The old address, `https://sanjayme97.github.io/kalabhairava/`, redirects to it.
 
 ## Content notes
 
@@ -47,4 +45,4 @@ For a custom domain, set `site` to that domain in `astro.config.mjs` and remove 
 
 ## Classic version
 
-The earlier, simpler design is kept as a static copy in `public/classic/` and is live at `/kalabhairava/classic/`.
+The earlier, simpler design is kept as a static copy in `public/classic/` and is live at `/classic/`.

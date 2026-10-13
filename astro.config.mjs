@@ -1,11 +1,10 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Published on GitHub Pages at https://sanjayme97.github.io/kalabhairava/
-// If you move to a custom domain, set `site` to that domain and remove `base`.
+// Published on GitHub Pages at https://bhairava.manakathuru.com/
+// (the old address, sanjayme97.github.io/kalabhairava/, redirects here).
 export default defineConfig({
-  site: 'https://sanjayme97.github.io',
-  base: '/kalabhairava',
+  site: 'https://bhairava.manakathuru.com',
   trailingSlash: 'always',
   integrations: [
     sitemap({
