@@ -240,6 +240,20 @@ export const timeline: { year: T; text: T }[] = [
     },
   },
   {
+    year: { kn: 'ಸು. ಕ್ರಿ.ಶ. ೧೧೦೮', en: 'c. 1108 CE' },
+    text: {
+      kn: 'ವಿಷ್ಣುವರ್ಧನ ಹೊಯ್ಸಳ ರಾಜನಾದ ವರ್ಷ, ಸಾಮಾನ್ಯವಾಗಿ ಹೇಳುವಂತೆ.',
+      en: 'Vishnuvardhana becomes Hoysala king, as usually dated.',
+    },
+  },
+  {
+    year: { kn: 'ಸು. ಕ್ರಿ.ಶ. ೧೧೧೬', en: 'c. 1116 CE' },
+    text: {
+      kn: 'ವಿಷ್ಣುವರ್ಧನ ತಳಕಾಡು ಗೆದ್ದದ್ದು. ಈ ಶಾಸನ ಅವನನ್ನು “ತಳಕಾಡುಗೊಂಡ” ಎನ್ನುತ್ತದೆ.',
+      en: 'Vishnuvardhana takes Talakad. This inscription calls him “Talakadugonda”.',
+    },
+  },
+  {
     year: { kn: 'ಕ್ರಿ.ಶ. ೧೯೦೨', en: '1902' },
     text: {
       kn: 'ಬಿ. ಎಲ್. ರೈಸ್ ಅವರ “ಎಪಿಗ್ರಾಫಿಯಾ ಕರ್ನಾಟಿಕಾ, ಸಂಪುಟ ೫ (ಹಾಸನ ಜಿಲ್ಲೆ)” ಪ್ರಕಟಣೆ, ಇದರಲ್ಲಿ ಈ ಶಾಸನ ದಾಖಲಾಗಿದೆ.',

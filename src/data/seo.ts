@@ -84,7 +84,7 @@ export function inscriptionJsonLd(pageUrl: string, siteUrl: string, image: strin
       alternateName: ['ಮನಕತ್ತೂರಿನ ಶಾಸನ', 'ಮನಕತ್ತೂರಿನ ಕಲ್ಬರಹ', 'Manakatur inscription'],
       dateCreated: '1101',
       description:
-        'Old Kannada stone inscription of Saka 1022 (1101 CE), from the time of the Hoysala king Vishnuvardhana, naming the gavundas who founded Managatur (Manakathuru). Recorded in Epigraphia Carnatica, Vol. 5 (Hassan District).',
+        'Old Kannada stone inscription of Saka 1022 (1101 CE), praising the Hoysala king Vishnuvardhana and naming the gavundas who founded Managatur (Manakathuru). Recorded in Epigraphia Carnatica, Vol. 5 (Hassan District).',
       locationCreated: { '@id': `${siteUrl}#temple` },
     },
     isPartOf: { '@type': 'WebSite', name: temple.name.en, url: siteUrl },
