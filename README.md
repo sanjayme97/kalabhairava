@@ -33,6 +33,7 @@ The site is at `https://kalabhairava.manakathuru.com/`. The domain is set in **S
 
 - Photographs are the temple’s own. No stock or unrelated temple images are used.
 - The inscription content comes from the village document “ಮನಕತ್ತೂರಿನ ಕಲ್ಬರಹ: ಹೊಯ್ಸಳ ಕಾಲದ ಒಂದು ನೋಟ”, based on B. L. Rice, *Epigraphia Carnatica*, Vol. 5 (Hassan District).
+- The inscription's date (Śaka 1022, Vikrama, Phālguna śuddha pañcamī, Monday) was recomputed: it falls on Monday 4 February 1101 (Julian). The stone praises Vishnuvardhana, whose reign is usually dated from about 1108; the page notes that reign years may differ between sources and keeps the date as the stone gives it.
 
 ## Design notes
 
