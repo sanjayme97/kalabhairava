@@ -47,3 +47,12 @@ The site is at `https://kalabhairava.manakathuru.com/`. The domain is set in **S
 ## Classic version
 
 The earlier, simpler design is kept as a static copy in `public/classic/` and is still at `/classic/`, but nothing on the site links to it and search engines are told to skip it.
+
+## Posters
+
+`posters/` holds two A4 posters, as PDF for printing and PNG for sharing:
+
+- `temple-website-poster-A4` goes outside the temple. Its QR code opens the home page.
+- `inscription-stone-poster-A4` goes beside the inscription stone. Its QR code opens the inscription page.
+
+The QR links carry `utm_source=poster`, so scans show up under that source in Google Analytics.
