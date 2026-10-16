@@ -62,12 +62,18 @@ const f = {
     <link rel="manifest" href={asset('site.webmanifest')} />
     <meta name="google-site-verification" content="4Ucg1zAJ8RPYi7hu4XKRBizkX49NGUf3cxZ4zsPucmA" />
     <!-- Google Analytics: visitor counts, regions and pages -->
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-JX9LDJMLXX"></script>
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', 'G-JX9LDJMLXX');
+      // only on the live site, so local and test copies are never counted
+      if (location.hostname === 'kalabhairava.manakathuru.com') {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { dataLayer.push(arguments); };
+        gtag('js', new Date());
+        gtag('config', 'G-JX9LDJMLXX');
+        var ga = document.createElement('script');
+        ga.async = true;
+        ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-JX9LDJMLXX';
+        document.head.appendChild(ga);
+      }
     </script>
     <meta name="theme-color" content="#0f0b09" />
     <meta property="og:type" content="website" />
@@ -173,6 +179,9 @@ const f = {
     </footer>
 
     <script>
+      import { trackClicks } from '../scripts/track';
+      trackClicks();
+
       // Draw each kolam when it scrolls into view.
       const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
       const kolams = document.querySelectorAll<SVGSVGElement>('[data-kolam]');

@@ -601,6 +601,7 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
 
 <script>
   import type { StoneHandle, SpotId } from '../scripts/stone';
+  import { track } from '../scripts/track';
   const kn = document.documentElement.lang === 'kn';
   const digits = (n: number) => (kn ? String(n).replace(/\d/g, (d) => '೦೧೨೩೪೫೬೭೮೯'[+d]) : String(n));
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -620,6 +621,8 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
   const caption = document.querySelector<HTMLElement>('[data-caption]');
   const touch = matchMedia('(hover: none) and (pointer: coarse)').matches;
   let stone: StoneHandle | null = null;
+  // first touch on the stone itself (moving the lamp or turning it), once per visit
+  canvas?.addEventListener('pointerdown', () => track('stone_touch'), { once: true });
   let isOpen = false;
   const saveData = (navigator as { connection?: { saveData?: boolean } }).connection?.saveData;
 

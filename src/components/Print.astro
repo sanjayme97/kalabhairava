@@ -30,7 +30,7 @@ const label = lang === 'kn' ? 'ಚಿತ್ರಸಂಪುಟದಲ್ಲಿ ನ
 ---
 
 <figure class:list={['print', cls]} style={`--tilt:${tilt}deg`} id={zoom ? `p-${id}` : undefined}>
-  <a href={link} class="print-img" title={zoom ? undefined : label}>
+  <a href={link} class="print-img" data-photo={id} title={zoom ? undefined : label}>
     <img src={small ?? full} srcset={srcset} sizes={srcset ? sizes : undefined} width={p.w} height={p.h} alt={p.alt[lang]} loading={eager ? 'eager' : 'lazy'} decoding="async" style={style} />
   </a>
   {caption && <figcaption>{p.caption[lang]}</figcaption>}

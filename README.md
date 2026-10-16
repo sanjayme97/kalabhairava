@@ -62,3 +62,21 @@ The QR links carry `utm_source=poster`, so scans show up under that source in Go
 - Menus, the skip link and the lamp hint carry `data-nosnippet`, so Google builds its result text from the page content, not the menu.
 - The home page has `WebSite` structured data, so results show the site's name instead of the bare domain.
 - `public/llms.txt` is a plain-text summary of the temple and the site for AI assistants.
+
+## Analytics events
+
+Google Analytics loads only on `kalabhairava.manakathuru.com`, so local and test copies are never counted. Besides page views, `src/scripts/track.ts` sends these events:
+
+| Event | When |
+|---|---|
+| `lamp_lit` | a lamp is lit on the home page (`lamps` = how many so far, up to 20) |
+| `photo_open` | a photo is opened (`photo` = its id, `page`) |
+| `stone_open` | the 3D stone explorer is opened on a phone |
+| `stone_touch` | the stone is first touched or dragged (once per visit) |
+| `stone_mode` | lamp or turn mode is chosen (`mode`) |
+| `stone_spot` | a spot on the stone is picked (`spot`) |
+| `wheel_replay` | the year wheel is replayed |
+| `directions_click` | a Google Maps link is used (`kind` = directions or map) |
+| `email_click` | the temple email is tapped |
+| `language_switch` | the language is switched (`to`) |
+| `section_jump` | an in-page jump link is used (`target`) |

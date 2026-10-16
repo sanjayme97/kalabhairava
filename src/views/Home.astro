@@ -233,6 +233,7 @@ const c = {
 
 <script>
   import type { LampsHandle } from '../scripts/lamps';
+  import { track } from '../scripts/track';
   const hero = document.querySelector<HTMLElement>('[data-hero]');
   const canvas = document.querySelector<HTMLCanvasElement>('[data-lamps]');
   const hint = document.querySelector<HTMLElement>('[data-hint]');
@@ -245,6 +246,7 @@ const c = {
     const kn = document.documentElement.lang === 'kn';
     handle = startLamps(canvas, {
       onLight: (n) => {
+        if (n <= 20) track('lamp_lit', { lamps: n });
         if (!hint) return;
         const num = kn ? String(n).replace(/\d/g, (d) => '೦೧೨೩೪೫೬೭೮೯'[+d]) : String(n);
         hint.textContent = n === 1 ? hint.dataset.one! : hint.dataset.many!.replace('{n}', num);
