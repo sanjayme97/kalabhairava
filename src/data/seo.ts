@@ -5,7 +5,7 @@
 import { temple } from './site';
 
 export const spellings = {
-  village: ['Manakathuru', 'Manakathur', 'Manakatur', 'Manakaturu', 'Manakatthuru', 'Managatur', 'Managathur', 'ಮನಕತ್ತೂರು'],
+  village: ['Manakathuru', 'Manakathur', 'Manakatur', 'Manakaturu', 'Manakatthuru', 'Managatur', 'Managathur', 'Manakattur', 'Manakatturu', 'ಮನಕತ್ತೂರು'],
   temple: [
     'Sri Kalabhairaveshwara Swamy Temple',
     'Kalabhairaveshwara Temple',
@@ -65,6 +65,20 @@ export function templeJsonLd(siteUrl: string, image: string) {
       name: 'Manakathuru',
       alternateName: spellings.village.filter((v) => v !== 'Manakathuru'),
     },
+  };
+}
+
+/** schema.org WebSite: gives search results a proper site name instead of the bare domain. */
+export function websiteJsonLd(siteUrl: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${siteUrl}#website`,
+    name: 'Sri Kalabhairaveshwara Temple, Manakathuru',
+    alternateName: [temple.name.kn, 'Kalabhairaveshwara Temple Manakathuru', 'Manakathuru Kalabhairava Temple'],
+    url: siteUrl,
+    inLanguage: ['kn-IN', 'en-IN'],
+    about: { '@id': `${siteUrl}#temple` },
   };
 }
 

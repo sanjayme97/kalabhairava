@@ -56,3 +56,9 @@ The earlier, simpler design is kept as a static copy in `public/classic/` and is
 - `inscription-stone-poster-A4` goes beside the inscription stone. Its QR code opens the inscription page.
 
 The QR links carry `utm_source=poster`, so scans show up under that source in Google Analytics.
+
+## Search and AI notes
+
+- Menus, the skip link and the lamp hint carry `data-nosnippet`, so Google builds its result text from the page content, not the menu.
+- The home page has `WebSite` structured data, so results show the site's name instead of the bare domain.
+- `public/llms.txt` is a plain-text summary of the temple and the site for AI assistants.
