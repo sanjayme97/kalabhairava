@@ -102,3 +102,4 @@ The site can be added to a phone's home screen and opens full-screen like an app
 ## Changes to compare in Analytics
 
 - **15 Nov 2026:** phone bottom bar, the lamp nudge and the clearer 3D stone button went live. Compare page views of the inner pages, `nav_click` (from `tabbar`), `nudge_click` and `stone_open` before and after this date.
+- **15 Nov 2026 (later the same day):** the site became installable as an app with offline pages. Compare `install_offer`, `install_click`, `app_installed` and visits with `display_mode` = `app`.
