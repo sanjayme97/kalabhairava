@@ -82,3 +82,7 @@ Google Analytics loads only on `kalabhairava.manakathuru.com`, so local and test
 | `section_jump` | an in-page jump link is used (`target`) |
 | `nudge_click` | the "see the deity below" button after lighting a lamp is tapped |
 | `nav_click` | a link to another page is used (`from` = tabbar, menu, top_menu, footer, logo or page_link; `to`) |
+
+## Changes to compare in Analytics
+
+- **15 Nov 2026:** phone bottom bar, the lamp nudge and the clearer 3D stone button went live. Compare page views of the inner pages, `nav_click` (from `tabbar`), `nudge_click` and `stone_open` before and after this date.
