@@ -26,6 +26,24 @@ export function trackClicks() {
       }
       if (href.startsWith('mailto:')) return track('email_click', { page });
       if (el.hasAttribute('hreflang')) return track('language_switch', { to: el.getAttribute('hreflang') ?? '', page });
+      if (el.hasAttribute('data-nudge')) return track('nudge_click');
+      // which way people move between pages: bottom bar, menus, logo or links in the page
+      const from = el.closest('.tabbar')
+        ? 'tabbar'
+        : el.closest('.menu')
+          ? 'menu'
+          : el.closest('.desk-nav')
+            ? 'top_menu'
+            : el.closest('.footer-nav')
+              ? 'footer'
+              : el.closest('.brand')
+                ? 'logo'
+                : el.closest('main')
+                  ? 'page_link'
+                  : '';
+      if (from && href.startsWith('/') && !href.startsWith('//')) {
+        return track('nav_click', { from, to: href.replace(/^\/en/, '') || '/', page });
+      }
       if (href.startsWith('#') && href.length > 1 && !el.classList.contains('skip')) {
         return track('section_jump', { target: href.slice(1), page });
       }

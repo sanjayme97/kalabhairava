@@ -116,6 +116,8 @@ const c = {
       'ಪಾಠವನ್ನು ಊರಿನ ದಾಖಲೆಯಿಂದ ಅಕ್ಷರಶಃ ಪುನರುತ್ಪಾದಿಸಲಾಗಿದೆ; ಸಣ್ಣಪುಟ್ಟ ಮುದ್ರಣ ವ್ಯತ್ಯಾಸಗಳಿರಬಹುದು. ತಿದ್ದುಪಡಿಗಳಿದ್ದರೆ ದಯವಿಟ್ಟು ತಿಳಿಸಿ.',
     back: 'ದೇವಾಲಯದ ಪುಟಕ್ಕೆ ಹಿಂತಿರುಗಿ',
     viewerOpen: 'ದೀಪ ಹಿಡಿದು ಕಲ್ಲನ್ನು ಓದಿ',
+    viewerOpenMain: '3D ಕಲ್ಲನ್ನು ತೆರೆಯಿರಿ',
+    jumpStone: '3D ಕಲ್ಲು',
     viewerClose: 'ಮುಚ್ಚಿ',
     viewerLamp: 'ದೀಪ ಸರಿಸಿ',
     viewerTurn: 'ಕಲ್ಲು ತಿರುಗಿಸಿ',
@@ -245,6 +247,8 @@ const c = {
       'The text is reproduced as given in the village document; small typographic variations are possible. Corrections are welcome.',
     back: 'Back to the temple page',
     viewerOpen: 'Read the stone by lamplight',
+    viewerOpenMain: 'Open the 3D stone',
+    jumpStone: 'The 3D stone',
     viewerClose: 'Close',
     viewerLamp: 'Move the lamp',
     viewerTurn: 'Turn the stone',
@@ -331,11 +335,12 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
       <p class="notice" role="note">{c.notice}</p>
       <p class="intro-summary">{c.overview[1]}</p>
       <nav class="intro-jump" aria-label={c.toc}>
+        <a class="jump-stone" href="#stone3d">{c.jumpStone}</a>
         {c.tocItems.filter(([id]) => id !== 'stone').map(([id, label]) => <a href={`#${id}`}>{label}</a>)}
       </nav>
     </div>
 
-    <div class="explorer" data-explorer aria-label={c.spotsTitle}>
+    <div class="explorer" id="stone3d" data-explorer aria-label={c.spotsTitle}>
       <div class="explorer-top">
         <p class="explorer-title">{c.h1}</p>
         <button type="button" class="explorer-close" data-close aria-label={c.viewerClose}>
@@ -351,7 +356,8 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
         <button type="button" class="stage-open" data-open hidden>
           <span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2 3 2.5 5 0 8-2.5-3-2-5 0-8zM5 15h14l-2 3H7zM9 18v2h6v-2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path></svg>
-            {c.viewerOpen}
+            <b>{c.viewerOpenMain}</b>
+            <small>{c.viewerOpen}</small>
           </span>
         </button>
       </div>
@@ -885,10 +891,11 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
     padding: 0 0 1.25rem;
     background: transparent;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     cursor: pointer;
     font: inherit;
+    background: radial-gradient(closest-side, rgb(15 11 9 / 0.45), transparent);
     /* a swipe on the picture scrolls the page; only a tap opens it */
     touch-action: pan-y;
   }
@@ -896,18 +903,51 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
     display: none;
   }
   .stage-open span {
-    display: inline-flex;
+    display: grid;
+    grid-template-columns: auto auto;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.7rem 1.2rem;
+    column-gap: 0.75rem;
+    padding: 0.9rem 1.4rem;
     background: var(--flame);
     color: #1a0f08;
-    font-weight: 700;
-    box-shadow: 0 6px 24px rgb(0 0 0 / 0.5);
+    text-align: left;
+    box-shadow:
+      0 0 0 0 rgb(255 154 60 / 0.55),
+      0 8px 28px rgb(0 0 0 / 0.55);
+    animation: ring 2.4s ease-out infinite;
   }
   .stage-open svg {
-    width: 1.3rem;
-    height: 1.3rem;
+    grid-row: span 2;
+    width: 2rem;
+    height: 2rem;
+  }
+  .stage-open b {
+    font-family: var(--display);
+    font-size: 1.15rem;
+    font-weight: 750;
+    line-height: 1.35;
+  }
+  .stage-open small {
+    font-size: 0.85rem;
+    font-weight: 500;
+    line-height: 1.35;
+  }
+  @keyframes ring {
+    70% {
+      box-shadow:
+        0 0 0 14px rgb(255 154 60 / 0),
+        0 8px 28px rgb(0 0 0 / 0.55);
+    }
+    100% {
+      box-shadow:
+        0 0 0 0 rgb(255 154 60 / 0),
+        0 8px 28px rgb(0 0 0 / 0.55);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .stage-open span {
+      animation: none;
+    }
   }
   /* on phones the canvas ignores touches until the explorer is open */
   .is-touch .stage-canvas {
@@ -1109,6 +1149,11 @@ const ticks = Array.from({ length: 60 }, (_, k) => {
   .intro-jump a {
     text-decoration: none;
     border-bottom: 1px dashed currentColor;
+  }
+  .intro-jump .jump-stone {
+    color: var(--flame);
+    font-weight: 650;
+    border-bottom-style: solid;
   }
   .facts {
     display: grid;

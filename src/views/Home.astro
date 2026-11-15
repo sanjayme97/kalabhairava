@@ -20,6 +20,7 @@ const c = {
     litOne: 'ನಿಮ್ಮ ದೀಪ ಮೆರವಣಿಗೆ ಸೇರಿತು',
     litMany: 'ನೀವು ಹಚ್ಚಿದ {n} ದೀಪಗಳು ಮೆರವಣಿಗೆಯಲ್ಲಿವೆ',
     scroll: 'ಕೆಳಗೆ',
+    nudge: 'ದೇವರ ದರ್ಶನಕ್ಕೆ ಕೆಳಗೆ ನೋಡಿ',
     ch1: 'ದರ್ಶನ',
     h1: 'ಊರು ಕಾಯುವ ದೇವರು',
     p1: [
@@ -68,6 +69,7 @@ const c = {
     litOne: 'Your lamp has joined the procession',
     litMany: '{n} of your lamps are in the procession',
     scroll: 'Scroll',
+    nudge: 'See the deity below',
     ch1: 'Darshan',
     h1: 'The god who guards the village',
     p1: [
@@ -130,10 +132,14 @@ const c = {
     </div>
     <p class="hero-tag">{c.heroTag}</p>
     <p class="hero-hint" data-nosnippet data-hint data-one={c.litOne} data-many={c.litMany} hidden aria-live="polite">{c.hint}</p>
+    <a class="hero-next" href="#darshan" data-nudge data-nosnippet hidden>
+      {c.nudge}
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v13M6 12l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </a>
     <span class="scroll-cue" aria-hidden="true" data-nosnippet>{c.scroll}</span>
   </section>
 
-  <section class="section darshan">
+  <section class="section darshan" id="darshan">
     <div class="wrap darshan-grid">
       <div class="darshan-prints">
         <Print lang={lang} id="pushpaAlankara" tilt={-2.5} class="dp-a" sizes="(min-width: 900px) 24rem, 70vw" />
@@ -237,6 +243,7 @@ const c = {
   const hero = document.querySelector<HTMLElement>('[data-hero]');
   const canvas = document.querySelector<HTMLCanvasElement>('[data-lamps]');
   const hint = document.querySelector<HTMLElement>('[data-hint]');
+  const nudge = document.querySelector<HTMLElement>('[data-nudge]');
   const saveData = (navigator as { connection?: { saveData?: boolean } }).connection?.saveData;
   let handle: LampsHandle | null = null;
 
@@ -247,6 +254,11 @@ const c = {
     handle = startLamps(canvas, {
       onLight: (n) => {
         if (n <= 20) track('lamp_lit', { lamps: n });
+        // after the first lamp, point the way down to the deity
+        if (n === 1 && nudge) {
+          nudge.hidden = false;
+          hero.classList.add('nudged');
+        }
         if (!hint) return;
         const num = kn ? String(n).replace(/\d/g, (d) => '೦೧೨೩೪೫೬೭೮೯'[+d]) : String(n);
         hint.textContent = n === 1 ? hint.dataset.one! : hint.dataset.many!.replace('{n}', num);
@@ -266,7 +278,7 @@ const c = {
   /* ── hero ── */
   .hero {
     position: relative;
-    min-height: 100svh;
+    min-height: calc(100svh - var(--tabbar-h, 0px));
     display: grid;
     align-items: end;
     overflow: hidden;
@@ -535,6 +547,59 @@ const c = {
   @media (max-width: 640px) {
     .hero-tag {
       bottom: 3.9rem;
+    }
+  }
+  .hero-next {
+    position: absolute;
+    left: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.55rem 0.95rem;
+    font-family: var(--display);
+    font-size: 0.95rem;
+    font-weight: 650;
+    line-height: 1.4;
+    color: #1a0f08 !important;
+    background: var(--flame);
+    text-decoration: none;
+    box-shadow: 0 6px 22px rgb(0 0 0 / 0.45);
+    animation: rise 0.6s ease both;
+  }
+  .hero-next[hidden] {
+    display: none;
+  }
+  .hero-next svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    animation: bob 1.6s ease-in-out infinite;
+  }
+  @keyframes rise {
+    from {
+      opacity: 0;
+      translate: 0 0.6rem;
+    }
+  }
+  @keyframes bob {
+    50% {
+      translate: 0 3px;
+    }
+  }
+  /* the nudge takes the photo caption's place */
+  .nudged .hero-tag {
+    opacity: 0;
+  }
+  @media (max-width: 640px) {
+    .hero-next {
+      bottom: 3.9rem;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-next,
+    .hero-next svg {
+      animation: none;
     }
   }
   .stone-grid {

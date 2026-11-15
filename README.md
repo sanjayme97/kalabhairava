@@ -80,3 +80,5 @@ Google Analytics loads only on `kalabhairava.manakathuru.com`, so local and test
 | `email_click` | the temple email is tapped |
 | `language_switch` | the language is switched (`to`) |
 | `section_jump` | an in-page jump link is used (`target`) |
+| `nudge_click` | the "see the deity below" button after lighting a lamp is tapped |
+| `nav_click` | a link to another page is used (`from` = tabbar, menu, top_menu, footer, logo or page_link; `to`) |
