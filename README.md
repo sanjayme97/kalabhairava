@@ -82,6 +82,22 @@ Google Analytics loads only on `kalabhairava.manakathuru.com`, so local and test
 | `section_jump` | an in-page jump link is used (`target`) |
 | `nudge_click` | the "see the deity below" button after lighting a lamp is tapped |
 | `nav_click` | a link to another page is used (`from` = tabbar, menu, top_menu, footer, logo or page_link; `to`) |
+| `install_offer` | the "add to your phone as an app" card is shown |
+| `install_click` | an add-as-app button is tapped (`from` = banner, menu or footer) |
+| `install_result` | the visitor answers Android's install question (`outcome` = accepted or dismissed) |
+| `install_ios_help` | the iPhone steps are shown |
+| `install_dismiss` | "not now" is tapped (the card then stays away for 30 days) |
+| `app_installed` | the site is added to the phone |
+
+Every event also carries `display_mode` (`app` when opened from the home screen, `browser` otherwise).
+
+## As an app
+
+The site can be added to a phone's home screen and opens full-screen like an app:
+
+- `public/site.webmanifest`: app name, icon, colours, long-press shortcuts and the install-screen pictures in `public/app/`.
+- `public/sw.js`: the service worker. Pages come from the network first and fall back to the saved copy offline; built files, fonts, photos and the 3D stone are saved after first use. `public/offline.html` shows for pages not yet saved. Raise `VERSION` in `sw.js` to clear old saved files.
+- `src/scripts/app.ts`: the "add to your phone" card (after a second page or 20 seconds, at most once a month if dismissed), the iPhone steps, and full-screen photos when opened from the home screen.
 
 ## Changes to compare in Analytics
 

@@ -1,12 +1,31 @@
 {
-  "name": "Sri Kalabhairaveshwara Temple, Manakathuru",
-  "short_name": "Kalabhairava",
+  "id": "/",
+  "name": "ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನ, ಮನಕತ್ತೂರು",
+  "short_name": "ಕಾಲಭೈರವ",
+  "description": "ಮನಕತ್ತೂರಿನ ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಸ್ವಾಮಿ ದೇವಸ್ಥಾನ: ದರ್ಶನ, ಉತ್ಸವಗಳು, ಹೊಯ್ಸಳ ಶಾಸನ ಮತ್ತು ದಾರಿ. Sri Kalabhairaveshwara Swamy Temple, Manakathuru.",
+  "lang": "kn",
+  "dir": "ltr",
   "start_url": "/",
-  "display": "browser",
-  "background_color": "#f3ece0",
-  "theme_color": "#f3ece0",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f0b09",
+  "theme_color": "#0f0b09",
+  "categories": ["lifestyle", "travel", "education"],
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "ಶಾಸನ", "short_name": "ಶಾಸನ", "url": "/inscription/" },
+    { "name": "ಪೂಜೆ ಮತ್ತು ಉತ್ಸವ", "short_name": "ಉತ್ಸವ", "url": "/poojas/" },
+    { "name": "ಚಿತ್ರಸಂಪುಟ", "short_name": "ಚಿತ್ರಗಳು", "url": "/gallery/" },
+    { "name": "ದಾರಿ", "short_name": "ದಾರಿ", "url": "/visit/" }
+  ],
+  "screenshots": [
+    { "src": "/app/screen-home.jpg", "sizes": "540x1099", "type": "image/jpeg", "form_factor": "narrow", "label": "ಮುಖಪುಟ: ಕಾರ್ತೀಕ ದೀಪೋತ್ಸವದ ದೀಪಗಳು" },
+    { "src": "/app/screen-temple.jpg", "sizes": "540x1099", "type": "image/jpeg", "form_factor": "narrow", "label": "ದೇವಾಲಯ" },
+    { "src": "/app/screen-stone.jpg", "sizes": "540x1099", "type": "image/jpeg", "form_factor": "narrow", "label": "ಶಾಸನ ಕಲ್ಲು 3Dಯಲ್ಲಿ" }
   ]
 }

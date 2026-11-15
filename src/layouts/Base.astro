@@ -41,6 +41,31 @@ const tabs: { page: Page; label: { kn: string; en: string }; icon: string }[] = 
   { page: 'gallery', label: { kn: 'ಚಿತ್ರಗಳು', en: 'Photos' }, icon: 'M4 5.5h16v13H4zM4 15.5l4.5-4.5 4 4 2-2 5.5 5.5M15.5 9.5a1.2 1.2 0 1 0 0-.01' },
   { page: 'visit', label: { kn: 'ದಾರಿ', en: 'Visit' }, icon: 'M12 21s-6-6.1-6-10.8a6 6 0 0 1 12 0C18 14.9 12 21 12 21zM12 12.2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z' },
 ];
+// "Add to your phone as an app"
+const app = {
+  kn: {
+    title: 'ಫೋನ್‌ಗೆ ಆ್ಯಪ್ ಆಗಿ ಸೇರಿಸಿ',
+    sub: 'ಹೋಮ್ ಸ್ಕ್ರೀನ್‌ನಿಂದ ನೇರ ತೆರೆಯಿರಿ, ಇಂಟರ್ನೆಟ್ ಇಲ್ಲದೆಯೂ',
+    add: 'ಸೇರಿಸಿ',
+    notNow: 'ಬೇಡ',
+    menu: 'ಆ್ಯಪ್ ಆಗಿ ಸೇರಿಸಿ',
+    iosTitle: 'ಐಫೋನ್‌ನಲ್ಲಿ ಹೀಗೆ ಸೇರಿಸಿ',
+    iosSteps: ['Safari ಯ ಹಂಚು ಗುರುತು (ಬಾಣದ ಗುರುತಿರುವ ಚೌಕ) ಒತ್ತಿ.', '“Add to Home Screen” ಆಯ್ಕೆ ಮಾಡಿ.', 'ಮೇಲೆ “Add” ಒತ್ತಿ.'],
+    ok: 'ಸರಿ',
+    close: 'ಮುಚ್ಚಿ',
+  },
+  en: {
+    title: 'Add to your phone as an app',
+    sub: 'Open it straight from your home screen, even offline',
+    add: 'Add',
+    notNow: 'Not now',
+    menu: 'Add as an app',
+    iosTitle: 'To add it on an iPhone',
+    iosSteps: ['Tap Safari’s Share button (the square with an arrow).', 'Choose “Add to Home Screen”.', 'Tap “Add” at the top.'],
+    ok: 'OK',
+    close: 'Close',
+  },
+}[lang];
 const f = {
   kn: {
     blessing: 'ಶ್ರೀ ಕಾಲಭೈರವೇಶ್ವರ ಪ್ರಸನ್ನ',
@@ -76,7 +101,8 @@ const f = {
         window.dataLayer = window.dataLayer || [];
         window.gtag = function () { dataLayer.push(arguments); };
         gtag('js', new Date());
-        gtag('config', 'G-JX9LDJMLXX');
+        var asApp = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+        gtag('config', 'G-JX9LDJMLXX', { display_mode: asApp ? 'app' : 'browser' });
         var ga = document.createElement('script');
         ga.async = true;
         ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-JX9LDJMLXX';
@@ -158,6 +184,7 @@ const f = {
               ))
             }
             <a class="menu-lang" href={href(other, page)} hreflang={other} lang={other}>{t.switchTo}</a>
+            <button type="button" class="menu-app" data-install-open="menu" hidden>{app.menu}</button>
           </nav>
         </details>
       </div>
@@ -183,8 +210,27 @@ const f = {
             </p>
           )
         }
+        <p class="footer-app"><button type="button" data-install-open="footer" hidden>{app.menu}</button></p>
       </div>
     </footer>
+
+    <div class="install" data-install data-nosnippet hidden role="region" aria-label={app.title}>
+      <img src={asset('icon-192.png')} alt="" width="44" height="44" />
+      <p><b>{app.title}</b><span>{app.sub}</span></p>
+      <button type="button" class="install-yes" data-install-yes>{app.add}</button>
+      <button type="button" class="install-no" data-install-no aria-label={app.notNow}>{app.notNow}</button>
+    </div>
+    <div class="ios-sheet" data-ios data-nosnippet hidden role="dialog" aria-label={app.iosTitle}>
+      <div>
+        <p class="ios-title">{app.iosTitle}</p>
+        <ol>{app.iosSteps.map((s) => <li>{s}</li>)}</ol>
+        <button type="button" data-ios-close>{app.ok}</button>
+      </div>
+    </div>
+    <dialog class="photo-box" data-photo-box>
+      <img alt="" />
+      <button type="button" data-photo-close aria-label={app.close}>✕</button>
+    </dialog>
 
     <nav class="tabbar" aria-label={t.menu} data-nosnippet>
       {
@@ -199,7 +245,9 @@ const f = {
 
     <script>
       import { trackClicks } from '../scripts/track';
+      import { startApp } from '../scripts/app';
       trackClicks();
+      startApp();
 
       // Draw each kolam when it scrolls into view.
       const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -461,6 +509,181 @@ const f = {
     :global(html.is-locked) .tabbar {
       display: none;
     }
+  }
+
+  /* ── add to phone as an app ── */
+  .install {
+    position: fixed;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: calc(var(--tabbar-h, 0px) + 0.75rem);
+    z-index: 45;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: 'icon text yes' 'icon text no';
+    align-items: center;
+    gap: 0.15rem 0.75rem;
+    padding: 0.75rem 0.85rem;
+    background: var(--night);
+    color: var(--night-ink);
+    border: 1px solid rgb(255 154 60 / 0.45);
+    box-shadow: 0 10px 34px rgb(0 0 0 / 0.45);
+    animation: install-in 0.5s ease both;
+  }
+  .install[hidden],
+  .ios-sheet[hidden] {
+    display: none;
+  }
+  @keyframes install-in {
+    from {
+      opacity: 0;
+      translate: 0 1rem;
+    }
+  }
+  @media (min-width: 820px) {
+    .install {
+      left: auto;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      width: 26rem;
+    }
+  }
+  .install img {
+    grid-area: icon;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.6rem;
+  }
+  .install p {
+    grid-area: text;
+    display: grid;
+    margin: 0;
+    line-height: 1.45;
+    min-width: 0;
+  }
+  .install b {
+    font-family: var(--display);
+    font-size: 0.98rem;
+    color: #fbefd9;
+  }
+  .install span {
+    font-size: 0.8rem;
+    color: var(--night-soft);
+  }
+  .install button {
+    font: inherit;
+    cursor: pointer;
+    border: 0;
+  }
+  .install-yes {
+    grid-area: yes;
+    padding: 0.45rem 1rem;
+    font-weight: 700 !important;
+    color: #1a0f08;
+    background: var(--flame);
+  }
+  .install-no {
+    grid-area: no;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.8rem !important;
+    color: var(--night-soft);
+    background: transparent;
+  }
+  :global(html.is-locked) .install {
+    display: none;
+  }
+  .ios-sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 95;
+    display: grid;
+    align-items: end;
+    background: rgb(0 0 0 / 0.55);
+  }
+  .ios-sheet > div {
+    padding: 1.5rem 1.25rem max(1.5rem, env(safe-area-inset-bottom));
+    background: var(--paper);
+    color: var(--ink);
+    border-top: 3px solid var(--kumkum);
+  }
+  .ios-title {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    margin: 0 0 0.75rem;
+  }
+  .ios-sheet ol {
+    margin: 0 0 1.25rem;
+    padding-left: 1.4rem;
+    line-height: 1.7;
+  }
+  .ios-sheet button {
+    font: inherit;
+    font-weight: 700;
+    padding: 0.55rem 1.4rem;
+    border: 0;
+    color: #fff;
+    background: var(--kumkum);
+    cursor: pointer;
+  }
+  .menu-app {
+    margin-top: 1rem;
+    font: inherit;
+    font-weight: 650;
+    padding: 0.6rem 1rem;
+    color: #1a0f08;
+    background: var(--flame);
+    border: 0;
+    cursor: pointer;
+    justify-self: start;
+  }
+  .menu-app[hidden],
+  .footer-app button[hidden] {
+    display: none;
+  }
+  .footer-app {
+    margin-top: 1.25rem;
+  }
+  .footer-app button {
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.5rem 1.1rem;
+    color: var(--flame);
+    background: transparent;
+    border: 1px solid rgb(255 154 60 / 0.5);
+    cursor: pointer;
+  }
+  /* full-size photo when opened from the home-screen app */
+  .photo-box {
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: #000;
+  }
+  .photo-box::backdrop {
+    background: #000;
+  }
+  .photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .photo-box button {
+    position: absolute;
+    top: max(0.75rem, env(safe-area-inset-top));
+    right: 0.75rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.2rem;
+    color: #fff;
+    background: rgb(255 255 255 / 0.15);
+    border: 1px solid rgb(255 255 255 / 0.3);
+    cursor: pointer;
   }
 
   .site-footer {
